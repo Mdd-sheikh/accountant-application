@@ -27,7 +27,7 @@
 
 .heading h1{
     font-family: "Inter",sans-serif;
-    font-size: max(1.5vw,13px);
+    font-size: max(1.1vw,13px);
 }
 
 .heading span{
@@ -47,7 +47,7 @@
     width: 100%;
     border: 1px solid rgb(255, 255, 255);
     padding: 15px;
-    background-color: rgb(199, 195, 195);
+    background-color: rgb(235, 228, 228);
     border-radius: 5px;
 }
 
@@ -67,13 +67,18 @@
     justify-content: space-between;
 }
 
+.button{
+    text-align: center;
+}
+
 .button button {
-    width: 100%;
+    width: 30%;
     padding: 7px;
     background-color: blue;
     border: none;
     color: white;
     border-radius: 5px;
+   
 }
 
 .bottom span i{

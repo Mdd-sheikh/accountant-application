@@ -18,17 +18,16 @@ const Landing_navbar = ({ setShowLoginPopUp }) => {
                 </div>
                 <div className="middle-nav-landing">
                     <ul>
-                       <NavLink to="/home"><li>Home</li></NavLink> 
-                        <NavLink to="/gst_billing"><li>GST Billing</li></NavLink>
-                        <NavLink to="/accounting"><li>Accounting</li></NavLink>
-                       <NavLink to="/billing"> <li>Billing</li></NavLink>
+                        <NavLink to="/gst_billing"><li>GST Invoice</li></NavLink>
+                        <NavLink to="/accounting"><li>Accounts</li></NavLink>
+                       <NavLink to="/billing"> <li>Insides</li></NavLink>
                         <NavLink to="/resources"><li>Resource</li></NavLink>
                         <NavLink to="about"><li>About Us</li></NavLink>
 
                     </ul>
                 </div>
                 <div className="right-nav-landing">
-                    <button onClick={() => setShowLoginPopUp(true)}>sign Up</button>
+                    <button onClick={() => setShowLoginPopUp(true)}>Sign Up</button>    
                     <span id='menubar' onClick={() => setIsMobile(prev => !prev)}><i class="fa-solid fa-bars"></i></span>
                 </div>
 

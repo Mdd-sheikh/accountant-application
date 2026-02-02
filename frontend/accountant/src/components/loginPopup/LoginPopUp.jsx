@@ -10,7 +10,7 @@ const LoginPopUp = ({setShowLoginPopUp}) => {
             <form action="">
                 <div className="loginpopup-container">
                     <div className="heading">
-                        <h1>Welcome to Accountune  - Lets's Create Account</h1>
+                        <h1>Welcome to Bookwise  - Lets's Create Account</h1>
                         <span onClick={()=>setShowLoginPopUp(false)}>X</span>
                         
                     </div>

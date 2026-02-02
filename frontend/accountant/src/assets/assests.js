@@ -1,4 +1,4 @@
-import logo from '../assets/main-logo.webp'
+import logo from '../assets/bookwise-logo-main.svg'
 import bill_image from '../assets/bill-image.png'
 import cash_image from '../assets/cash-image.png'
 import dashboard_image from '../assets/dashboard.png'
