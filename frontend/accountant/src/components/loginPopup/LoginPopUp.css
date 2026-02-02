@@ -1,0 +1,91 @@
+.loginpopUp {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    z-index: 1;
+    background-color: #00000090;
+   
+}
+
+.loginpopup-container {
+    place-self: center;
+    transform: translate(-30px, 160px);
+    background-color: white;
+    padding: 10px 10px 10px 10px;
+    display: grid;
+    gap: 20px;
+    border-radius: 5px;
+    padding: 50px;
+
+}
+
+.heading {
+    display: flex;
+    gap: 10px;
+}
+
+
+.heading h1{
+    font-family: "Inter",sans-serif;
+    font-size: max(1.5vw,13px);
+}
+
+.heading span{
+    width: 30px;
+    height: 30px;
+    background-color: blue;
+    text-align: center;
+    align-content: center;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.loginpopup-container p {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    border: 1px solid rgb(255, 255, 255);
+    padding: 15px;
+    background-color: rgb(199, 195, 195);
+    border-radius: 5px;
+}
+
+.loginpopup-container input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: transparent;
+
+}
+
+.loginpopup-container input::placeholder {
+    color: black;
+}
+
+.bottom{
+    justify-content: space-between;
+}
+
+.button button {
+    width: 100%;
+    padding: 7px;
+    background-color: blue;
+    border: none;
+    color: white;
+    border-radius: 5px;
+}
+
+.bottom span i{
+   color: red;
+   cursor: pointer;
+}
+
+
+
+@media (max-width:450px) {
+    .loginpopup-container {
+        transform: translate(0px, 200px);
+        padding: 10px;
+    }
+}

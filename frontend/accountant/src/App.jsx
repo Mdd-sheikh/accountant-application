@@ -26,7 +26,7 @@ function App() {
           <Route path='/home' element={<Home />} />
           <Route path='/about' element={<About />} />
           <Route path='/billing' element={<Billing />} />
-          <Route path='/Gst_billing' element={<Gst_billing />} />
+          <Route path='/gst_billing' element={<Gst_billing />} />
           <Route path='/accounting' element={<Accounting />} />
           <Route path='/resources' element={<Resources/>}/>
           <Route path='/503/dashboard' element ={<Dashboard/>}/>
