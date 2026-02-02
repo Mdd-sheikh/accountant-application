@@ -1,0 +1,92 @@
+.footer {
+    width: 100%;
+}
+
+
+.footer-container {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+
+
+}
+
+.footer-container h2 {
+    font-family: Outfit;
+    cursor: pointer;
+}
+
+.footer-one {
+    padding: 40px;
+    cursor: pointer;
+}
+
+.footer-one i {
+    padding: 5px;
+}
+
+
+.footer-one img {
+    width: 200px;
+    height: auto;
+}
+
+.paragraph {
+    color: grey;
+}
+
+.footer-two {
+    display: grid;
+    gap: 1px;
+    cursor: pointer;
+}
+
+.footer-three {
+    display: grid;
+    gap: 1px;
+    cursor: pointer;
+}
+
+.footer-four i {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.container-two {
+    width: 75%;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.right-cont {
+    display: flex;
+    gap: 20px;
+}
+
+.right-cont button {
+    width: 50px;
+    height: 60px;
+    background-color: grey;
+    color: white;
+    border: none;
+    font-size: 19px;
+    cursor: pointer;
+}
+
+
+
+@media (max-width:970px) {
+    .footer-container {
+        flex-wrap: wrap;
+    }
+
+    .container-two {
+        flex-wrap: wrap;
+    }
+
+    .right-cont {
+        gap: 5px;
+    }
+}
