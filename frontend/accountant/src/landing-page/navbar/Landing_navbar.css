@@ -3,6 +3,7 @@
     font-family: Outfit;
     height: 120px;
     align-content: center;
+    background-color: rgba(238, 238, 238, 0.812);
 
 
 }
@@ -39,22 +40,22 @@
 
 .middle-nav-landing li {
     cursor: pointer;
-    
+
 
 }
 
-.middle-nav-landing a{
+.middle-nav-landing a {
     color: black;
 }
 
-.middle-nav-landing .active{
-  color: blue;
+.middle-nav-landing .active {
+    color: blue;
 }
 
 .right-nav-landing button {
     width: 160px;
     height: 52px;
-    background-color: blue;
+    background-color: rgb(104, 104, 107);
     color: white;
     border-radius: 10px;
     border: none;
@@ -91,25 +92,6 @@
         font-size: 17px;
     }
 
-     .mobile-container {
-        width: 100%;
-        display: block;
-        justify-items: center;
-        position: fixed;
-        background-color: rgb(249, 242, 234);
-        transition: all 2s;
-        opacity: 1;
-        z-index: 98;
-
-
-    }
-     .mobile-navbar-container li {
-        padding: 10px;
-    }
-}
-
-@media (max-width:450px) {
-
     .mobile-container {
         width: 100%;
         display: block;
@@ -126,6 +108,29 @@
     .mobile-navbar-container li {
         padding: 10px;
     }
+}
+
+@media (max-width:450px) {
+
+    .mobile-container {
+        width: 100%;
+        display: block;
+        justify-items: center;
+        position: fixed;
+        background: rgba(74, 72, 72, 0.3);
+        /* semi-transparent */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: all 2s;
+        opacity: 1;
+        z-index: 98;
+
+    }
+
+    .mobile-navbar-container li {
+        padding: 10px;
+        color: rgb(0, 0, 0);
+    }
 
     .right-nav-landing {
         display: flex;
@@ -140,6 +145,10 @@
         font-size: 12px;
     }
 
+
+    .left-nav-landing img {
+        width: 70px;
+        height: auto;
+
+    }
 }
-
-

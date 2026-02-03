@@ -75,10 +75,11 @@
     cursor: pointer;
 }
 
-.left-lanspage-container p:hover{
+.left-lanspage-container p:hover {
     background-color: rgb(41, 41, 233);
 }
-.right-lanspage-container{
+
+.right-lanspage-container {
     justify-content: center;
     align-content: center;
     text-align: center;
@@ -88,7 +89,37 @@
     width: 100%;
 }
 
+.landing-container-two {
+    width: 75%;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    align-items: center;
 
+}
+
+.payment-record-statement h1{
+   font-size: max(3vw,19px);
+   font-family: "Inter",sans-serif;
+}
+
+.payment-record-statement p{
+    color: grey;
+}
+
+.payment-record-statement span{
+    width: 170px;
+    background-color: blue;
+    color: white;
+    border: 1px solid black;
+    
+}
+
+.payment-record-image img {
+    width: 90%;
+    height: auto;
+    aspect-ratio: 16/9;
+}
 
 
 
@@ -100,7 +131,7 @@
 
 
 @media (max-width:950px) {
-    .landingpage-container{
+    .landingpage-container {
         flex-wrap: wrap;
         justify-items: center;
         gap: 30px;

@@ -11,6 +11,8 @@ import mobile_image from '../assets/mobile-image.png'
 import payment_icon from '../assets/payment-img.png'
 import landing_image from '../assets/landing_image.png'
 
+import landing_image_two from '../assets/landing_image_two.webp'
+
 
 
 export const assests = {
@@ -25,5 +27,6 @@ export const assests = {
     mobile_download_image,
     mobile_image,
     payment_icon,
-    landing_image
+    landing_image,
+    landing_image_two
 }

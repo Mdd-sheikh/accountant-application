@@ -1,4 +1,4 @@
-import React, { useContext} from 'react'
+import React, { useContext, useEffect} from 'react'
 import './Landing_navbar.css'
 import { assests } from '../../assets/assests';
 import { NavLink } from 'react-router-dom';
@@ -8,8 +8,19 @@ const Landing_navbar = ({ setShowLoginPopUp }) => {
 
     const{ IsMobile, setIsMobile} = useContext(Context)
 
+    const popUpScroll_Handler = () => {
+            if (window.scrollY > 100) {
+                setIsMobile(false)
+                
+            }
+        }
+    
+        useEffect(() => {
+            window.addEventListener("scroll", popUpScroll_Handler)
+    
+            return () => removeEventListener("scroll", popUpScroll_Handler)
+        }, [])
 
-   
     return (
         <div className='landing_navbar' id='navbar'>
             <div className="Landing_navbar_container">
@@ -42,7 +53,7 @@ const Landing_navbar = ({ setShowLoginPopUp }) => {
                             <NavLink to="/accounting"><li onClick={()=>setIsMobile(false)}>Accounting</li></NavLink>
                             <NavLink to="/billing"><li onClick={()=>setIsMobile(false)}>Billing</li></NavLink>
                             <NavLink to="/resources"><li onClick={()=>setIsMobile(false)}>Resource</li></NavLink>
-                            <NavLink to="/about"><li onClick={()=>setIsMobile(false)}>About Us</li></NavLink>
+                            <NavLink to="/about"><li onClick={()=>setIsMobile(false)}>About Us</li></NavLink> 
 
                         </ul>
                     </div>

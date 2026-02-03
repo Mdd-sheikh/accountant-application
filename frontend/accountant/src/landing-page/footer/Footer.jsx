@@ -8,7 +8,7 @@ const Footer = () => {
             <div className="footer-container">
                 <div className="footer-one">
                     <img src={assests.logo} alt="" />
-                    <p className='paragraph'>Accountune is a thriving community where <br />
+                    <p className='paragraph'>Bookwise is a thriving community where <br />
                         innovators,professionals, and enthusiasts come <br />
                         together to share knowledge, collaborate, and <br /> grow
                         </p>
