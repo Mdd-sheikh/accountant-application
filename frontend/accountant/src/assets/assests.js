@@ -12,6 +12,8 @@ import payment_icon from '../assets/payment-img.png'
 import landing_image from '../assets/landing_image.png'
 
 import landing_image_two from '../assets/landing_image_two.webp'
+import arrow from '../assets/arrow.svg'
+import clock_video from '../assets/clock.mp4'
 
 
 
@@ -28,5 +30,7 @@ export const assests = {
     mobile_image,
     payment_icon,
     landing_image,
-    landing_image_two
+    landing_image_two,
+    arrow,
+    clock_video
 }

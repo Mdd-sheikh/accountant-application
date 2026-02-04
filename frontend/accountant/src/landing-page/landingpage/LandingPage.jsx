@@ -1,6 +1,8 @@
 import React from 'react'
 import './LandingPage.css'
 import { assests } from '../../assets/assests'
+import LandingPageTwo from '../landingPageTwo/LandingPageTwo'
+import LandingPageThree from '../landingPageThree/LandingPageThree'
 
 const LandingPage = () => {
     return (
@@ -24,17 +26,8 @@ const LandingPage = () => {
                     <img src={assests.landing_image} alt="" />
                 </div>
             </div>
-            <div className="landing-container-two">
-                <div className="payment-record-statement">
-                    <h1>Record payments effortlessly</h1>
-                    <p>Track every payment, every time — without <br /> lifting a finger. While others make it <br /> complicated, we make it simple.</p>
-                    <span>Try It Free</span>
-                    <span>Request a demo</span>
-                </div>
-                <div className="payment-record-image">
-                    <img src={assests.landing_image_two} alt="record payments effortlessly" />
-                </div>
-            </div>
+             <LandingPageTwo/>
+             <LandingPageThree/>
         </div>
     )
 }

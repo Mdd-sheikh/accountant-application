@@ -1,0 +1,116 @@
+.landingpagethree {
+  width: 100%;
+  margin-top: 70px;
+  padding-bottom: 100px;
+}
+
+/* MAIN CONTAINER */
+.landing-page-three-container {
+  height: 300px;
+  background: #f4f4f4;
+  border-radius: 16px;
+  display: grid;
+  place-content: center;
+  text-align: center;
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* TEXT */
+.text-wrapper {
+  position: relative;
+  z-index: 3;
+  transition: transform 0.15s ease-out;
+}
+
+.text-wrapper h1 {
+  font-size: max(3.6vw, 22px);
+  font-weight: 700;
+}
+
+.text-wrapper p {
+  margin-top: 8px;
+  opacity: 0.85;
+}
+
+/* MULTI-LAYER SPOTLIGHT */
+.landing-page-three-container::before,
+.landing-page-three-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* INNER STRONG GLOW */
+.landing-page-three-container::before {
+  background: radial-gradient(
+    circle 90px at var(--x) var(--y),
+    rgba(
+      calc(100 + 155 * var(--speed)),
+      220,
+      255,
+      0.6
+    ),
+    transparent 60%
+  );
+  filter: blur(4px);
+}
+
+/* OUTER SOFT GLOW + ANIMATED GRADIENT */
+.landing-page-three-container::after {
+  background:
+    radial-gradient(
+      circle 180px at var(--x) var(--y),
+      rgba(0, 200, 255, 0.35),
+      transparent 70%
+    ),
+    linear-gradient(
+      120deg,
+      rgba(152, 154, 155, 0.25),
+      rgba(212, 239, 234, 0.25),
+      rgba(124, 125, 125, 0.25)
+    );
+
+  background-size: 100% 100%, 300% 300%;
+  animation: gradientMove 6s ease infinite;
+  filter: blur(10px);
+}
+
+/* SHOW EFFECT */
+.landing-page-three-container:hover::before,
+.landing-page-three-container:hover::after {
+  opacity: 1;
+}
+
+/* VIDEO INLINE WITH TEXT */
+.lock-video {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.lock-video video {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  pointer-events: none; /* prevents hover issues */
+  background-color: rgb(90, 87, 87);
+}
+
+
+/* GRADIENT MOTION */
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
