@@ -18,11 +18,11 @@ const Landing_navbar = ({ setShowLoginPopUp }) => {
         }
     }
 
-  const handleLogout = () => {
-  localStorage.removeItem("token");
-  setShowLoginPopUp(false); // optional
-  navigate("/"); // ✅ correct
-};
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        setShowLoginPopUp(false); // optional
+        navigate("/"); // ✅ correct
+    };
 
 
 
@@ -50,12 +50,16 @@ const Landing_navbar = ({ setShowLoginPopUp }) => {
                 </div>
                 <div className="right-nav-landing">
                     {localStorage.getItem("token") ? (
-                        <div>
-                            <div className="account">
-                                <i className="fa-solid fa-circle-user"></i>
-                                <div className="account-hover">
-                                    <button onClick={handleLogout}>Logout</button>
-                                </div>
+                        <div className="account">
+                            <i className="fa-solid fa-circle-user"></i>
+
+                            <div className="account-hover">
+                                
+                                <button><i className="fa-solid fa-circle-user"></i> Profile</button>
+                                <button> <i class="fa-solid fa-gear"></i> Settings</button>
+                                <button onClick={handleLogout} className="logout-btn">
+                                 <i class="fa-solid fa-arrow-up-from-bracket"></i>   Logout
+                                </button>
                             </div>
                         </div>
                     ) : (

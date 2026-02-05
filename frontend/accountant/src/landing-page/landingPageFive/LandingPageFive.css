@@ -1,0 +1,89 @@
+.features-wrapper {
+    max-width: 1200px;
+    margin: auto;
+    padding: 60px 20px;
+    font-family: Arial, sans-serif;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+/* Card */
+.feature-card {
+    background: #ffffff;
+    border: 1px solid #d7e3f4;
+    border-radius: 14px;
+    padding: 24px;
+}
+
+/* Icon */
+.icon-box {
+    width: 52px;
+    height: 52px;
+    background: #4682b4;
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
+}
+
+/* Title */
+.feature-card h3 {
+    font-size: 18px;
+    margin-bottom: 14px;
+}
+
+/* List */
+.feature-card ul {
+    padding-left: 18px;
+    margin-bottom: 18px;
+}
+
+.feature-card li {
+    margin-bottom: 8px;
+    color: #444;
+}
+
+/* Divider */
+.feature-card hr {
+    border: none;
+    border-top: 1px solid #d7e3f4;
+    margin: 16px 0;
+}
+
+/* Footer text */
+.card-footer {
+    color: #4682b4;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.feature-card {
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.feature-card:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    transform: translateY(-6px);
+    cursor: pointer;
+}
+
+
+/* Responsive */
+@media (max-width: 900px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}

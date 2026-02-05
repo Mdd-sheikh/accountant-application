@@ -1,0 +1,157 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Background wrapper */
+.business-bg {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+}
+
+/* Floating particles layer */
+.particles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.particles::before,
+.particles::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  animation: float 14s infinite alternate ease-in-out;
+}
+
+/* Particle 1 */
+.particles::before {
+  width: 320px;
+  height: 320px;
+  background: rgba(59, 130, 246, 0.18);
+  top: 10%;
+  left: 10%;
+}
+
+/* Particle 2 */
+.particles::after {
+  width: 220px;
+  height: 220px;
+  background: rgba(99, 102, 241, 0.22);
+  bottom: 15%;
+  right: 15%;
+  animation-duration: 18s;
+}
+
+/* Floating animation */
+@keyframes float {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-140px, -90px);
+  }
+}
+
+/* Content wrapper */
+.business-wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: auto;
+  padding: 70px 20px;
+  text-align: center;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Headings */
+.business-wrapper h1 {
+  font-size: 34px;
+  margin-bottom: 12px;
+}
+
+.business-wrapper p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 45px;
+}
+
+/* Grid */
+.business-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-bottom: 45px;
+}
+
+/* Glass Card */
+.business-card {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 18px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
+}
+
+/* Left side */
+.left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.icon {
+  font-size: 24px;
+  background: rgba(255, 255, 255, 0.75);
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.arrow {
+  font-size: 20px;
+}
+
+/* Button */
+.explore-btn {
+  background: rgba(59, 130, 246, 0.95);
+  color: white;
+  border: none;
+  padding: 14px 34px;
+  font-size: 16px;
+  border-radius: 14px;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(59, 130, 246, 0.35);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .business-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .business-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .business-wrapper h1 {
+    font-size: 28px;
+  }
+}

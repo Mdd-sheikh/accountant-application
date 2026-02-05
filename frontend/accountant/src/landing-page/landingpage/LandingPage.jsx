@@ -3,6 +3,8 @@ import './LandingPage.css'
 import { assests } from '../../assets/assests'
 import LandingPageTwo from '../landingPageTwo/LandingPageTwo'
 import LandingPageThree from '../landingPageThree/LandingPageThree'
+import LandingPageFour from '../landingPageFour/LandingPageFour'
+import LandingPageFive from '../landingPageFive/LandingPageFive'
 
 const LandingPage = () => {
     return (
@@ -26,8 +28,11 @@ const LandingPage = () => {
                     <img src={assests.landing_image} alt="" />
                 </div>
             </div>
+            {LandingPageFive}
              <LandingPageTwo/>
+             <LandingPageFive/>
              <LandingPageThree/>
+             <LandingPageFour/>
         </div>
     )
 }
