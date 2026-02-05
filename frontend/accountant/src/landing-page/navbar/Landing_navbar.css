@@ -58,19 +58,26 @@
 }
 
 .right-nav-landing button {
-    width: 160px;
-    height: 52px;
-    background-color: rgb(104, 104, 107);
-    color: white;
-    border-radius: 10px;
+    width: 100px;
+    height: 30px;
+    background-color: rgba(20, 84, 187, 0.927);
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
     border: none;
-    font-size: 19px;
+    font-size: 15px;
 
 }
 
 .right-nav-landing button:hover {
-    background-color: rgb(37, 37, 236);
+    background-color: rgb(72, 72, 222);
     cursor: pointer;
+}
+
+.login-btn{
+    background-color: blue;
+    margin-left: 20px;
+    width: 60px;
+    height: 30px;
 }
 
 .right-nav-landing span {
@@ -128,7 +135,7 @@
     background: none;
     border: none;
     text-align: left;
-    font-size: 10px;
+    font-size: 15px;
     cursor: pointer;
     color: black;
 
@@ -244,7 +251,7 @@
 
     .account-hover button {
         width: 100%;
-        font-size: 19px;
+        font-size: 16px;
         padding: 10px;
     }
 }

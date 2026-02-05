@@ -23,41 +23,41 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
         setUserData({ ...UserData, [event.target.name]: event.target.value })
     }
 
-   const submitHandler = async (e) => {
-    e.preventDefault();
+    const submitHandler = async (e) => {
+        e.preventDefault();
 
-    try {
-        let res;
+        try {
+            let res;
 
-        if (currentdata === false) {
-            // REGISTER
-            res = await axios.post(`${API_URL}/user/register`, UserData);
+            if (currentdata === false) {
+                // REGISTER
+                res = await axios.post(`${API_URL}/user/register`, UserData);
 
-            // ✅ Register success toast
-            toast.success("Registered successfully 🎉");
-        } else {
-            // LOGIN
-            res = await axios.post(`${API_URL}/user/login`, UserData);
+                // ✅ Register success toast
+                toast.success("Registered successfully 🎉");
+            } else {
+                // LOGIN
+                res = await axios.post(`${API_URL}/user/login`, UserData);
 
-            // ✅ Login success toast
-            toast.success("Login successful ✅");
+                // ✅ Login success toast
+                toast.success("Login successful ✅");
+            }
+
+            // ✅ Store token
+            localStorage.setItem("token", res.data.token);
+
+            setTimeout(() => {
+                setShowLoginPopUp(false);
+                navigate("/503/dashboard");
+            }, 1000);
+
+        } catch (error) {
+            toast.error(
+                error.response?.data?.message || "Something went wrong ❌"
+            );
+            console.log(error);
         }
-
-        // ✅ Store token
-        localStorage.setItem("token", res.data.token);
-
-        setTimeout(() => {
-            setShowLoginPopUp(false);
-            navigate("/503/dashboard");
-        }, 1000);
-
-    } catch (error) {
-        toast.error(
-            error.response?.data?.message || "Something went wrong ❌"
-        );
-        console.log(error);
-    }
-};
+    };
 
 
 

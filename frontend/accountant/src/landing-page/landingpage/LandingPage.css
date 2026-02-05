@@ -50,13 +50,13 @@
     left: 10px;
     color: rgb(252, 252, 252);
     font-weight: bold;
-    background-color: blue;
+    background-color: rgba(20, 84, 187, 0.927);
     border-radius: 50px;
 }
 
 
 .check-list li.checked {
-    background-color: blue;
+    background-color: rgba(20, 84, 187, 0.927);
     color: white;
 }
 
@@ -67,7 +67,7 @@
 .left-lanspage-container p {
     width: 100%;
     height: 40px;
-    background-color: blue;
+    background-color: rgba(20, 84, 187, 0.927);
     align-content: center;
     text-align: center;
     color: white;

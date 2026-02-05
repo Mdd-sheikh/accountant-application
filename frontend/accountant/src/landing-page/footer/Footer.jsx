@@ -53,7 +53,7 @@ const Footer = () => {
                     <p>Term of Use</p>
                     <p>Legal</p>
                     <p>SiteMap</p>
-                    <button>V</button>
+                    
                    
                 </div>
             </div>

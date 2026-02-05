@@ -63,7 +63,10 @@ const Landing_navbar = ({ setShowLoginPopUp }) => {
                             </div>
                         </div>
                     ) : (
-                        <button onClick={() => setShowLoginPopUp(true)}>Sign Up</button>
+                        <>
+                        <button className='login-btn' onClick={() => setShowLoginPopUp(true)}>Login</button>
+                        
+                        </>
                     )}
 
                     <span id='menubar' onClick={() => setIsMobile(prev => !prev)}><i class="fa-solid fa-bars"></i></span>
