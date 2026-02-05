@@ -9,7 +9,7 @@ export const Context = createContext(null)
 const ContextProvider = ({ children }) => {
     const [IsMobile, setIsMobile] = useState(false)
     const [token,setToken] = useState("")
-    const API_URL = "http://localhost:4000/api"
+    const API_URL = "https://accountant-application-4-ucz4.onrender.com/api"
 
 
     const mobile_nav_oof = () => {
