@@ -83,67 +83,67 @@
 }
 
 .account {
-  position: relative;
-  cursor: pointer;
+    position: relative;
+    cursor: pointer;
 }
 
 .account i {
-  font-size: 26px;
-  color: #131313;
+    font-size: 26px;
+    color: #131313;
 }
 
 /* Dropdown box */
 .account-hover {
-  position: absolute;
-  top: 38px;
-  right: 0;
-  background: #d3cfcf;
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
-  width: 160px;
-  padding: 8px 0;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
-  z-index: 100;
+    position: absolute;
+    top: 38px;
+    right: 0;
+    background: #d3cfcf;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    width: 160px;
+    padding: 8px 0;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 100;
 }
 
-.account-hover i{
+.account-hover i {
     font-size: 10px;
 }
 
 /* Show on hover */
 .account:hover .account-hover {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 /* Buttons */
 .account-hover button {
-  width: 100%;
-  padding: 10px 16px;
-  background: none;
-  border: none;
-  text-align: left;
-  font-size: 10px;
-  cursor: pointer;
-  color: black;
- 
+    width: 100%;
+    padding: 10px 16px;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 10px;
+    cursor: pointer;
+    color: black;
+
 }
 
 .account-hover button:hover {
-  background: #959698;
-  width: 100%;
-  
+    background: #959698;
+    width: 100%;
+
 }
 
 /* Logout special color */
 .logout-btn {
-  color: #dc2626;
-  font-weight: 400;
+    color: #dc2626;
+    font-weight: 400;
 }
 
 
@@ -220,30 +220,31 @@
 
     }
 }
+
 @media (max-width: 600px) {
-  .account-hover {
-    position: fixed;
-    top: 64px;
-    right: 12px;
-    left: 12px;
+    .account-hover {
+        position: fixed;
+        top: 64px;
+        right: 12px;
+        left: 12px;
 
-    width: auto;
-    max-width: 200px;
-    margin-left: auto;
+        width: auto;
+        max-width: 200px;
+        margin-left: auto;
 
-    padding: 12px 0;
-    border-radius: 16px;
+        padding: 12px 0;
+        border-radius: 16px;
 
-    background: rgba(255, 255, 255, 0.55);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+        background: rgba(255, 255, 255, 0.55);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
 
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
-  }
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+    }
 
-  .account-hover button {
-    width: 100%;
-    font-size: 14px;
-    padding: 10px;
-  }
+    .account-hover button {
+        width: 100%;
+        font-size: 19px;
+        padding: 10px;
+    }
 }
