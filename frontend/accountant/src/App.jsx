@@ -26,7 +26,7 @@ function App() {
       {showLoginPopUp ? <LoginPopUp setShowLoginPopUp={setShowLoginPopUp} /> : <></>}
         
       <div className="accountant">
-        <Landing_navbar setShowLoginPopUp={setShowLoginPopUp} />
+        
         <ToastContainer/>
         <Routes>
           <Route path='/' element={<LandingPage />} />
