@@ -84,6 +84,25 @@
 }
 
 
+.account-hover {
+    height: 70px;
+    border: 1px solid black;
+    background-color: grey;
+    color: black;
+    border-radius: 15px;
+    display: none;
+    position: fixed;
+}
+
+.account-hover button{
+    width: 40px;
+}
+
+.account:hover .account-hover{
+    display: block;
+}
+
+
 @media (max-width:1000px) {
     .middle-nav-landing {
         display: none;
@@ -113,7 +132,7 @@
 
     .mobile-navbar-container li {
         padding: 10px;
-        
+
     }
 }
 

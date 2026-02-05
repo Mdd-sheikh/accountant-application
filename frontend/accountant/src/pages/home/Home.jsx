@@ -1,10 +1,13 @@
 import React from 'react'
 import './Home.css'
+import { assests } from '../../assets/assests'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div className='home'>
+        home
+    </div>
   )
 }
 
-export default Home
+export default Home;

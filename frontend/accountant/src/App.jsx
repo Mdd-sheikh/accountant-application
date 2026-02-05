@@ -12,6 +12,8 @@ import Gst_billing from './pages/gst_billing/Gst_billing';
 import Accounting from './pages/accounting/Accounting';
 import Resources from './pages/resources/Resources';
 import Dashboard from './pages/dashboard/Dashboard';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [showLoginPopUp, setShowLoginPopUp] = useState(false)
@@ -22,8 +24,10 @@ function App() {
   return (
     <>
       {showLoginPopUp ? <LoginPopUp setShowLoginPopUp={setShowLoginPopUp} /> : <></>}
+        
       <div className="accountant">
         <Landing_navbar setShowLoginPopUp={setShowLoginPopUp} />
+        <ToastContainer/>
         <Routes>
           <Route path='/' element={<LandingPage />} />
           <Route path='/home' element={<Home />} />
