@@ -46,7 +46,7 @@ const Footer = () => {
             <hr />
             <div className="container-two">
                 <div className="left-cont">
-                    <p>© 2026 Accountune. All rights reserved.</p>
+                    <p>© 2026 bookwise. All rights reserved.</p>
                 </div>
                 <div className="right-cont">
                     <p>Privacy Policy</p>
