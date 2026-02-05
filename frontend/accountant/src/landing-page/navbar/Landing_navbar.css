@@ -187,10 +187,7 @@
         display: block;
         justify-items: center;
         position: fixed;
-        background-color: rgba(67, 67, 68, 0.3);
-        /* semi-transparent */
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        background-color: white;
         transition: all 2s;
         opacity: 1;
         z-index: 98;
