@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext} from 'react'
 import './App.css'
 import Footer from './landing-page/footer/Footer';
 import LoginPopUp from './components/loginPopup/LoginPopUp';
@@ -10,15 +10,16 @@ import Accounting from './pages/accounting/Accounting';
 import Resources from './pages/resources/Resources';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Dashboard from './pages/dashboard/Dashboard';
+import Dashboard from './account-pages/dashboard/Dashboard';
 import LandingPage from './landing-page/landingpage/LandingPage';
-import Landing_navbar from './landing-page/navbar/Landing_navbar';
+import { Context } from './context/Context';
+
 
 
 
 
 const App = () => {
-  const [showLoginPopUp, setShowLoginPopUp] = useState(false)
+  const {showLoginPopUp, setShowLoginPopUp} = useContext(Context)
 
 
 
@@ -30,15 +31,14 @@ const App = () => {
       <div className="accountant">
 
         <ToastContainer />
-        <Landing_navbar setShowLoginPopUp={setShowLoginPopUp} />
         <Routes>
           <Route path='/' element={<LandingPage />} />
-          <Route path='/about' element={<About />} />
           <Route path='/billing' element={<Billing />} />
           <Route path='/gst_billing' element={<Gst_billing />} />
           <Route path='/accounting' element={<Accounting />} />
           <Route path='/resources' element={<Resources />} />
-          <Route path='/dash' element={<Dashboard />} />
+           <Route path='/about' element={<About />} />
+          <Route path='/503/dashboard' element={<Dashboard />} />
         </Routes>
         <Footer />
       </div>

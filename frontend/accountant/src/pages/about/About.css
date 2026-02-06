@@ -1,0 +1,149 @@
+.about-wrapper {
+  font-family: "Inter", sans-serif;
+  background: #f4f2f1;
+  color: #1a1a1a;
+}
+
+/* HERO */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 100px 12%;
+  gap: 60px;
+}
+
+.hero-left h1 {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.hero-left p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.primary-btn {
+  background: #f4b860;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 40px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.primary-btn:hover {
+  transform: translateY(-3px);
+}
+
+.hero-right img {
+  width: 500px;
+  border-radius: 20px;
+}
+
+/* SPLIT SECTION */
+.split-section {
+  display: flex;
+  padding: 100px 12%;
+  gap: 60px;
+  align-items: center;
+}
+
+.split-left h2 {
+  font-size: 40px;
+  margin-bottom: 40px;
+}
+
+.feature {
+  margin-bottom: 25px;
+}
+
+.feature h3 {
+  font-size: 20px;
+}
+
+.feature p {
+  color: #666;
+}
+
+.split-right img {
+  width: 450px;
+  border-radius: 20px;
+}
+
+/* MISSION */
+.mission-section {
+  padding: 100px 12%;
+}
+
+.center-heading {
+  text-align: center;
+  font-size: 42px;
+  margin-bottom: 60px;
+}
+
+.mission-grid {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+.mission-card {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  width: 400px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+}
+
+/* CTA */
+.cta-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 100px 12%;
+  gap: 40px;
+}
+
+.cta-card {
+  background: linear-gradient(135deg, #ffe6d1, #ffd3b6);
+  padding: 50px;
+  border-radius: 25px;
+  text-align: center;
+}
+
+/* SCROLL ANIMATION */
+.fade {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s ease;
+}
+
+.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .hero,
+  .split-section,
+  .cta-section,
+  .mission-grid {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-right img,
+  .split-right img {
+    width: 100%;
+  }
+
+  .mission-card {
+    width: 100%;
+  }
+}

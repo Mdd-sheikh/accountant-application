@@ -1,8 +1,16 @@
 import React from 'react'
+import Landing_navbar from '../../landing-page/navbar/Landing_navbar'
+import { Context } from '../../context/Context'
+import { useContext } from 'react'
 
 const Resources = () => {
+
+  const {showLoginPopUp, setShowLoginPopUp} = useContext(Context)
   return (
-    <div>Resources</div>
+    <>
+      <Landing_navbar setShowLoginPopUp={setShowLoginPopUp} />
+      <div>Resources</div>
+    </>
   )
 }
 

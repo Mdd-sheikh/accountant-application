@@ -9,8 +9,7 @@ export const Context = createContext(null)
 const ContextProvider = ({ children }) => {
     const [IsMobile, setIsMobile] = useState(false)
     const API_URL = "https://accountant-application-4-ucz4.onrender.com/api"
-
-
+    const [showLoginPopUp, setShowLoginPopUp] = useState(false)
     const mobile_nav_oof = () => {
         const navbar = document.getElementById("navbar")
         if (window.scrollY > 330) {
@@ -29,7 +28,9 @@ const ContextProvider = ({ children }) => {
     const value = {
         IsMobile,
         setIsMobile,
-        API_URL
+        API_URL,
+        showLoginPopUp, 
+        setShowLoginPopUp
     }
 
     return <Context.Provider value={value}>
