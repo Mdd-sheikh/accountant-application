@@ -9,7 +9,6 @@ import LandingPageFive from '../landingPageFive/LandingPageFive'
 const LandingPage = () => {
     return (
         <> 
-        <Landing_navbar setShowLoginPopUp={setShowLoginPopUp} />
             <div className='landingPage'>
                 <div className="landingpage-container">
                     <div className="left-lanspage-container">
@@ -30,7 +29,7 @@ const LandingPage = () => {
                         <img src={assests.landing_image} alt="" />
                     </div>
                 </div>
-                {LandingPageFive}
+
                 <LandingPageTwo />
                 <LandingPageFive />
                 <LandingPageThree />
@@ -40,4 +39,4 @@ const LandingPage = () => {
     )
 }
 
-export default LandingPage
+export default LandingPage;
