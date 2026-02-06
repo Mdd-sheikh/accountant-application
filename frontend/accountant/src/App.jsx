@@ -34,7 +34,7 @@ function App() {
           <Route path='/gst_billing' element={<Gst_billing />} />
           <Route path='/accounting' element={<Accounting />} />
           <Route path='/resources' element={<Resources />} />
-          <Route path='/503/dashboard' element={<Dashboard />} />
+          <Route path='/dashboard' element={<Dashboard />} />
         </Routes>
         <Footer />
       </div>
