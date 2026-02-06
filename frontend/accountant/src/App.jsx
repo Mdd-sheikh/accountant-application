@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Footer from './landing-page/footer/Footer';
 import LoginPopUp from './components/loginPopup/LoginPopUp';
-import LandingPage from './landing-page/landingpage/LandingPage';
 import { Routes, Route } from 'react-router-dom';
 import About from './pages/about/About';
 import Billing from './pages/billing/Billing';
@@ -12,8 +11,13 @@ import Resources from './pages/resources/Resources';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Dashboard from './pages/dashboard/Dashboard';
+import LandingPage from './landing-page/landingpage/LandingPage';
+import Landing_navbar from './landing-page/navbar/Landing_navbar';
 
-function App() {
+
+
+
+const App = () => {
   const [showLoginPopUp, setShowLoginPopUp] = useState(false)
 
 
@@ -34,7 +38,7 @@ function App() {
           <Route path='/gst_billing' element={<Gst_billing />} />
           <Route path='/accounting' element={<Accounting />} />
           <Route path='/resources' element={<Resources />} />
-          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/dash' element={<Dashboard />} />
         </Routes>
         <Footer />
       </div>
