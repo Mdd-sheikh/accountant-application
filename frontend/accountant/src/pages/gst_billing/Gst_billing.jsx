@@ -116,8 +116,8 @@ const Gst_billing = () => {
             </p>
             <p>
               BookWise empowers businesses to make data-driven decisions,
-              optimize cash flow, and scale confidently.
-            </p>
+              optimize cash flow, and scale confidently. 
+            </p> 
           </div>
         </section>
 
@@ -126,4 +126,4 @@ const Gst_billing = () => {
   )
 }
 
-export default Gst_billing
+export default Gst_billing;
