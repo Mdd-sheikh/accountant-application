@@ -3,6 +3,7 @@ import './Billing.css'
 import Landing_navbar from '../../landing-page/navbar/Landing_navbar'
 import { Context } from '../../context/Context'
 import { useContext } from 'react'
+import Footer from '../../landing-page/footer/Footer'
 
 const Billing = () => {
 
@@ -11,6 +12,7 @@ const Billing = () => {
     <>
     <Landing_navbar setShowLoginPopUp={setShowLoginPopUp} />
     <div>Billing</div>
+    <Footer />
     </>
   )
 }

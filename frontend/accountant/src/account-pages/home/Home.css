@@ -1,0 +1,42 @@
+.home {
+    width: 70%;
+    margin-left: 300px;
+}
+.upper-container{
+    margin-top: 12px;
+}
+
+.upper-container input {
+    width: 250px;
+    height: 35px;
+    border: 1px solid rgb(220, 217, 217);
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    align-content: center;
+    border: 1px solid rgb(220, 219, 219);
+}
+
+.upper-container input::placeholder{
+    padding: 5px;
+}
+
+.upper-container button{
+    height: 36px;
+    width: 70px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border: none;
+}
+
+
+
+
+
+
+
+@media (max-width:550px) {
+    .home {
+        width: 100%;
+        margin-left: 0;
+    }
+}

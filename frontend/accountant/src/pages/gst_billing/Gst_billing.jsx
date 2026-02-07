@@ -4,6 +4,7 @@ import Landing_navbar from '../../landing-page/navbar/Landing_navbar'
 import { useRef,useEffect } from 'react'
 import { Context } from '../../context/Context'
 import { useContext } from 'react'
+import Footer from '../../landing-page/footer/Footer'
 
 const Gst_billing = () => {
   const {showLoginPopUp, setShowLoginPopUp} = useContext(Context)
@@ -122,6 +123,7 @@ const Gst_billing = () => {
         </section>
 
       </div>
+      <Footer />
     </>
   )
 }

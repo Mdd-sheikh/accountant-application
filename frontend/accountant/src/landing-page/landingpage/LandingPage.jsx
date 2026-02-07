@@ -7,6 +7,7 @@ import LandingPageFour from '../landingPageFour/LandingPageFour'
 import LandingPageFive from '../landingPageFive/LandingPageFive'
 import Landing_navbar from '../navbar/Landing_navbar'
 import { Context } from '../../context/Context'
+import Footer from '../footer/Footer'
 
 const LandingPage = () => {
 
@@ -40,6 +41,7 @@ const LandingPage = () => {
                 <LandingPageThree />
                 <LandingPageFour />
             </div>
+            <Footer />
         </>
     )
 }

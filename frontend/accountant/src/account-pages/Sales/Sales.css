@@ -1,0 +1,22 @@
+.sales{
+    margin-left: 300px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width:550px) {
+    .sales{
+        width: 100%;
+        margin-left: 0;
+    }
+}
