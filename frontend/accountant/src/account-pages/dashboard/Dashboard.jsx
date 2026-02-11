@@ -61,18 +61,20 @@ const Dashboard = () => {
                         <ul>
                             <NavLink to="/503/home"><li onClick={() => setIsSidebarOpen(false)}> <i class="fa-solid fa-film"></i> DashBoard</li></NavLink>
                             <hr />
-                            <NavLink to="/503/sales"><li><i class="fa-solid fa-business-time"></i> Sales</li></NavLink>
+                            <NavLink to="/503/sales"><li><i class="fa-solid fa-business-time"></i> Sales </li></NavLink>
                             <li><i class="fa-solid fa-cart-arrow-down"></i> Purchase</li>
                             <li> <i class="fa-solid fa-receipt"></i> Expenses</li>
                             <li> <i class="fa-solid fa-dollar-sign"></i>Receipt / Payments</li>
                             <li> <i class="fa-solid fa-calculator"></i> Accountant</li>
                             <hr />
                             <li> <i class="fa-solid fa-briefcase"></i> Items</li>
-                            <li> <i class="fa-solid fa-user"></i> Users</li>
+                            <li> <i class="fa-solid fa-user"></i> Users </li>
                             <li> <i class="fa-solid fa-users"></i> Parties</li>
                             <li> <i class="fa-solid fa-building-columns"></i> Banks</li>
                             <br />
                             <li> <i class="fa-solid fa-file"></i> Reports</li>
+                            <NavLink to="/503/account"> <li> < i class="fa-solid fa-circle-user"></i> Account</li></NavLink>
+                            
                         </ul>
                     </nav>
                 </aside>

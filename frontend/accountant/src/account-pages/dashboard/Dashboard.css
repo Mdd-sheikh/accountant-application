@@ -16,7 +16,12 @@
   height: 100vh;
   box-shadow: 4px 0 8px rgba(0, 0, 0, 0.08);
   animation: fade 1s ease-in;
+   overflow-y: scroll;
 
+}
+
+.aside:hover::-webkit-scrollbar{
+ display: none;
 }
 
 aside hr {
@@ -81,6 +86,7 @@ aside hr {
     height: 100vh;
     box-shadow: 4px 0 8px rgba(0, 0, 0, 0.08);
     animation: fade 1s ease-in;
+   
   }
 
   .header {

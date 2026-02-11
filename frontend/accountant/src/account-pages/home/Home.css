@@ -63,7 +63,8 @@
     height: 65px;
     align-content: center;
     border-radius: 5px;
-    padding-left: 15px
+    padding-left: 15px;
+    cursor: pointer;
 }
 
 .box-two {
@@ -72,7 +73,10 @@
     height: 65px;
     align-content: center;
     border-radius: 5px;
-    padding-left: 15px
+    padding-left: 15px;
+    cursor: pointer;
+
+
 }
 
 .box-three {
@@ -81,7 +85,8 @@
     height: 65px;
     align-content: center;
     border-radius: 5px;
-    padding-left: 15px
+    padding-left: 15px;
+    cursor: pointer;
 }
 
 .box-four {
@@ -90,7 +95,8 @@
     height: 65px;
     align-content: center;
     border-radius: 5px;
-    padding-left: 15px
+    padding-left: 15px;
+    cursor: pointer;
 }
 
 .box-five {
@@ -99,7 +105,9 @@
     height: 65px;
     align-content: center;
     border-radius: 5px;
-    padding-left: 15px
+    padding-left: 15px;
+    cursor: pointer;
+
 }
 
 
@@ -119,14 +127,24 @@
     padding: 5px;
 }
 
+.middle-container-box p {
+    padding: 5px;
+}
+
 
 .mid-one {
-    box-shadow: 2px 4px 6px 2px rgb(228, 223, 223);
+    box-shadow: 2px 4px 6px 2px rgb(231, 227, 227);
     width: 450px;
     height: 60px;
 
 
 
+}
+
+.mid-one:hover {
+    box-shadow: 2px 4px 6px 2px rgb(241, 236, 236);
+    cursor: pointer;
+    transform: translateY(-2px);
 }
 
 .mid-one div {
@@ -135,9 +153,15 @@
 
 
 .mid-two {
-    box-shadow: 2px 4px 6px 2px rgb(228, 223, 223);
+    box-shadow: 2px 4px 6px 2px rgb(234, 230, 230);
     width: 450px;
     height: 60px;
+}
+
+.mid-two:hover {
+    box-shadow: 2px 4px 6px 2px rgb(241, 236, 236);
+    cursor: pointer;
+    transform: translateY(-2px);
 }
 
 .mid-two div {
@@ -151,9 +175,15 @@
 }
 
 .mid-three {
-    box-shadow: 2px 4px 6px 2px rgb(228, 223, 223);
+    box-shadow: 2px 4px 6px 2px rgb(231, 226, 226);
     width: 450px;
     height: 60px;
+}
+
+.mid-three:hover {
+    box-shadow: 2px 4px 6px 2px rgb(241, 236, 236);
+    cursor: pointer;
+    transform: translateY(-1px);
 }
 
 .mid-three div {
