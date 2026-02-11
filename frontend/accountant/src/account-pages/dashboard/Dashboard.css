@@ -7,9 +7,7 @@
 .menubar {
   display: none;
 }
-.account:hover{
-   
-}
+
 
 
 .aside {
@@ -110,7 +108,5 @@ aside hr {
 
 
 @media (max-width:950px) {
-  .aside {
-    display: none;
-  }
+   
 }
