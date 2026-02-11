@@ -1,4 +1,35 @@
-.personal_account{
+.personal_account {
     width: 70%;
-    margin-left:300px ;
+    margin-left: 300px;
+
+}
+
+.personal_account button{
+   width: 60px;
+   height: 25px;
+   background-color: rgb(96, 96, 205);
+   color: white;
+   border-radius: 2px;
+   border: none;
+}
+
+.personal_account button:hover{
+    background-color:rgb(66, 66, 220) ;
+}
+
+.last-account-detail{
+    padding: 10px;
+    box-shadow: 2px 4px 6px 2px rgb(208, 206, 206);
+
+}
+
+.last-account-detail p{
+    color: grey;
+    padding: 5px;
+}
+
+.upper-account-detail p {
+    padding: 25px;
+    font-size: max(1.4vw,10px);
+    font-weight: 600;
 }

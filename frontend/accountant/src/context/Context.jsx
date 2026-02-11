@@ -7,7 +7,7 @@ export const Context = createContext(null)
 
 
 const ContextProvider = ({ children }) => {
-
+    const [IssidebarOpen, setIsSidebarOpen] = useState(true);
     const [IsMobile, setIsMobile] = useState(false)
     const API_URL = "https://accountant-application-4-ucz4.onrender.com/api"
     const [showLoginPopUp, setShowLoginPopUp] = useState(false)
@@ -37,7 +37,9 @@ const ContextProvider = ({ children }) => {
         setIsMobile,
         API_URL,
         showLoginPopUp, 
-        setShowLoginPopUp
+        setShowLoginPopUp,
+        IssidebarOpen, 
+        setIsSidebarOpen
     }
 
     

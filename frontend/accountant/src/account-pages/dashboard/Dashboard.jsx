@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Dashboard.css";
 import { assests } from "../../assets/assests";
 import { NavLink } from "react-router-dom";
+import { Context } from "../../context/Context";
+
 
 const Dashboard = () => {
-    const [IssidebarOpen, setIsSidebarOpen] = useState(true);
+    const {IssidebarOpen, setIsSidebarOpen} = useContext(Context)
     const [openMenu, setOpenMenu] = useState(null);
 
 

@@ -1,5 +1,5 @@
 .dashboard {
-  width: 100%;
+  width: 250PX;
   position: fixed;
 
 }
@@ -7,7 +7,9 @@
 .menubar {
   display: none;
 }
-
+.account:hover{
+   
+}
 
 
 .aside {

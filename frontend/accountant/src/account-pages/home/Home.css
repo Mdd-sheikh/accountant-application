@@ -104,6 +104,66 @@
 
 
 
+.middle-container-box {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.middle-container-box span {
+    color: grey;
+    padding: 5px;
+}
+
+
+.mid-one {
+    box-shadow: 2px 4px 6px 2px rgb(228, 223, 223);
+    width: 450px;
+    height: 60px;
+
+
+
+}
+
+.mid-one div {
+    text-align: center;
+}
+
+
+.mid-two {
+    box-shadow: 2px 4px 6px 2px rgb(228, 223, 223);
+    width: 450px;
+    height: 60px;
+}
+
+.mid-two div {
+    text-align: center;
+}
+
+
+.amount-received {
+    display: flex;
+    justify-content: space-between;
+}
+
+.mid-three {
+    box-shadow: 2px 4px 6px 2px rgb(228, 223, 223);
+    width: 450px;
+    height: 60px;
+}
+
+.mid-three div {
+    text-align: center;
+}
+
+.amount-payable {
+    display: flex;
+    justify-content: space-between;
+}
 
 
 
@@ -113,14 +173,31 @@
         margin-left: 0;
     }
 
-
+    .middle-container-box {
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: space-between;
+        align-items: center;
+    }
+   .mid-one{
+    width: 250px;
+   }
+   .mid-two{
+    width: 250px;
+   }
+   .mid-three{
+    width: 250px;
+   }
 }
 
 @media (max-width:950px) {
     .home {
         width: 100%;
         margin-left: 0;
-        
+
     }
 }
 
