@@ -47,7 +47,7 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
             setTimeout(() => {
                 setShowLoginPopUp(false);
                 navigate("/503/home");
-            }, 500);
+            }, 1000);
 
         } catch (error) {
             // Proper error handling

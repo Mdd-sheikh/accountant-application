@@ -51,7 +51,7 @@ const Dashboard = () => {
                                 <li> <i class="fa-solid fa-building-columns"></i> Banks</li>
                                 <br />
                                 <li> <i class="fa-solid fa-file"></i> Reports</li>
-                                <NavLink to="/503/account"> <li> < i class="fa-solid fa-circle-user"></i>User Account</li></NavLink>
+                                <NavLink to="/503/account"> <li onClick={()=>setIsSidebarOpen(false)}> < i class="fa-solid fa-circle-user"></i>User Account</li></NavLink>
                             </ul>
                         </nav>
                     </aside> : ""}

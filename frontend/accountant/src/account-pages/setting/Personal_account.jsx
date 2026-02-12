@@ -11,8 +11,8 @@ const Personal_account = () => {
     setTimeout(() => {
       localStorage.removeItem("token")
       Navigate("/")
-      
-    }, 1000)
+
+    }, 2000)
   }
   return (
     <div className='personal_account'>
