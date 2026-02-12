@@ -11,8 +11,8 @@ export const Registration = async (req, res) => {
     try {
         const { name, email, password } = req.body;
         console.log(req.body);
-        
-         
+
+
         // Email validation
         if (!validator.isEmail(email)) {
             return res.status(400).json({
@@ -109,3 +109,22 @@ export const Login = async (req, res) => {
         });
     }
 };
+
+
+// get all data 
+
+export const GetUser = async (req, res) => {
+    try {
+        const UserData = await UserRegister.find()
+        res.json({
+            messege: "User Found",
+            success: true,
+            data: UserData
+        })
+    } catch (error) {
+        res.json({
+            messege: "something went wrong",
+            success: false
+        })
+    }
+}
