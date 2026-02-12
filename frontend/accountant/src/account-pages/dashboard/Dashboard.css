@@ -48,7 +48,7 @@ aside hr {
 
 }
 
-.aside-nav ul a{
+.aside-nav ul a {
   background-color: rgb(187, 199, 203);
 }
 
@@ -152,6 +152,3 @@ aside hr {
 
   }
 }
-
-
-@media (max-width:950px) {}

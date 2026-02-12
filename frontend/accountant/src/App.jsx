@@ -17,6 +17,7 @@ import Home from './account-pages/home/Home';
 import Personal_account from './account-pages/setting/Personal_account';
 import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
+import SaleInvoice from './account-pages/Sales/sales-option/sale_invoice/SaleInvoice';
 
 
 
@@ -57,6 +58,7 @@ const App = () => {
                   <Route path="sales" element={<Sale />} />
                   <Route path="home" element={<Home />} />
                   <Route path="account" element={<Personal_account />} />
+                  <Route path='invoice/create' element={<SaleInvoice/>}/>
                 </Routes>
               </div>
             </PrivateRoute>

@@ -1,0 +1,304 @@
+.createinvoice {
+    width: 70%;
+    margin-left: 300px;
+}
+
+
+.invoice-Header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-invoice-header {
+    padding: 20px;
+}
+
+.left-invoice-header span {
+
+    font-size: max(1.3vw, 15px);
+    font-weight: 500;
+    font-family: "Inter", sans-serif;
+}
+
+.right-invoice-header {
+    padding: 20px;
+}
+
+.right-invoice-header select {
+    width: 300px;
+    height: 35px;
+    border: 1px solid rgb(233, 223, 223);
+}
+
+.right-invoice-header button {
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: 1px solid rgb(104, 102, 102);
+    border-radius: 2px;
+    margin-left: 10px;
+
+}
+
+.invoice-header-inputs {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.invoice-header-input-invoice-number p {
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "Inter", sans-serif;
+    padding: 3px;
+}
+
+.invoice-header-input-invoice-number button {
+    width: 110px;
+    height: 35px;
+    background-color: transparent;
+    border: 1px solid rgb(233, 223, 223);
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+
+}
+
+.invoice-header-input-invoice-number input {
+    height: 35px;
+    width: 150px;
+    background-color: transparent;
+    border: 1px solid rgb(233, 223, 223);
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.invoice-header-input-invoice-date p {
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "Inter", sans-serif;
+    padding: 3px;
+}
+
+.invoice-header-input-invoice-date input {
+    height: 35px;
+    width: 250px;
+    background-color: transparent;
+    border: 1px solid rgb(233, 223, 223);
+    font-family: "inter", sans-serif;
+    border-radius: 3px;
+}
+
+.invoice-header-input-invoice-date input[type="date"]::-webkit-calendar-picker-indicator {
+    border: 1px solid rgb(199, 192, 192);
+    height: 26.5px;
+    align-items: center;
+    width: 20px;
+}
+
+
+.invoice-header-input-select-add {
+    display: flex;
+    font-size: 14px;
+    gap: 300px;
+    padding: 3px;
+    font-family: "inter", sans-serif;
+    cursor: pointer;
+}
+
+.invoice-header-input-select-customer select {
+    width: 100%;
+    height: 35px;
+    border: 1px solid rgb(233, 223, 223);
+    border-radius: 3px;
+}
+
+.invoice-select-item {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgb(124, 119, 119);
+    padding: 30px;
+    border-radius: 5px;
+}
+
+.select-item p {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    padding: 3px;
+}
+
+.select-item select {
+    width: 250px;
+    height: 35px;
+    border: 1px solid rgb(233, 223, 223);
+    border-radius: 3px;
+}
+
+.item-quantity p {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    padding: 3px;
+}
+
+.item-quantity input {
+    width: 120px;
+    height: 35px;
+    border: 1px solid rgb(233, 223, 223);
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.item-quantity button {
+    width: 60px;
+    height: 35px;
+    border: 1px solid rgb(233, 223, 223);
+    background-color: transparent;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.item-price p {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    padding: 3px;
+}
+
+.item-price input {
+    width: 80px;
+    height: 35px;
+    border: 1px solid rgb(233, 223, 223);
+    border-radius: 3px;
+}
+
+.item-price select {
+    width: 70px;
+    height: 35px;
+    border: 1px solid rgb(233, 223, 223);
+    border-radius: 3px;
+}
+
+.item-discount p {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    padding: 3px;
+}
+
+.item-discount input {
+    width: 120px;
+    height: 35px;
+    border: 1px solid rgb(233, 223, 223);
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.item-discount select {
+    width: 70px;
+    height: 35px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border: 1px solid rgb(233, 223, 223);
+
+}
+
+.item-gst-rate p {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    padding: 3px;
+}
+
+.item-gst-rate select {
+    width: 140px;
+    height: 35px;
+    border: 1px solid rgb(233, 223, 223);
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.item-gst-rate button {
+    width: 65px;
+    height: 36px;
+    background-color: rgb(121, 121, 226);
+    border: 1px solid rgb(233, 223, 223);
+    color: white;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    margin-left: 10px;
+    font-family: "Inter", sans-serif;
+    border-radius: 3px;
+    cursor: pointer;
+
+}
+
+.invoice-select-charge {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+    border: 1px solid black;
+    margin-top: 25px;
+    border-radius: 5px;
+}
+
+.item-select-charges p {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    padding: 3px;
+}
+
+.item-select-charges select {
+    width: 550px;
+    height: 35px;
+    border: 1px solid rgb(233, 223, 223);
+    border-radius: 3px;
+}
+
+.item-amount p {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    padding: 3px;
+}
+
+.item-amount input {
+    width: 120px;
+    height: 35px;
+    border: 1px solid rgb(233, 223, 223);
+    border-radius: 3px;
+}
+
+.item-amount select {
+    width: 80px;
+    height: 35px;
+    border: 1px solid rgb(233, 223, 223);
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.item-gstRate p{
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    padding: 3px;
+}
+
+.item-gstRate select{
+    width: 120px;
+    height: 35px;
+    border: 1px solid rgb(233, 223, 223);
+
+}
+
+.item-gstRate button{
+     width: 65px;
+    height: 36px;
+    background-color: rgb(121, 121, 226);
+    border: 1px solid rgb(233, 223, 223);
+    color: white;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    margin-left: 10px;
+    font-family: "Inter", sans-serif;
+    border-radius: 3px;
+    cursor: pointer;
+}
