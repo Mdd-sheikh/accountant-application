@@ -23,7 +23,7 @@ const Home = () => {
           </div>
           <div className="boxes">
             <div className="box-one">
-              <p>sale</p>
+              <p>Sale</p>
               <p>0</p>
             </div>
             <div className="box-two">

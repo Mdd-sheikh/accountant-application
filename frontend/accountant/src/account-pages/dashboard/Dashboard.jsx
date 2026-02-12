@@ -91,7 +91,7 @@ const Dashboard = () => {
                             <li> <i class="fa-solid fa-users"></i> Customers</li>
                             <li> <i class="fa-solid fa-user"></i> Users </li>
                             <li> <i class="fa-solid fa-building-columns"></i> Banks</li>
-                            <br />
+                             <hr />
                             <li> <i class="fa-solid fa-file"></i> Reports</li>
                             <NavLink to="/503/account"> <li> < i class="fa-solid fa-circle-user"></i>User Account</li></NavLink>
 
