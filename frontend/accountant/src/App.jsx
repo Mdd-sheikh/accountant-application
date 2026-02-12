@@ -29,7 +29,9 @@ const App = () => {
 
 
   return (
+
     <>
+    <ToastContainer/>
       {showLoginPopUp ? <LoginPopUp setShowLoginPopUp={setShowLoginPopUp} /> : <></>}
 
       <Routes>

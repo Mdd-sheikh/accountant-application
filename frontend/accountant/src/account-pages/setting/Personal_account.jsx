@@ -1,14 +1,17 @@
 import React from 'react'
 import './Personal_account.css'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const Personal_account = () => {
 
   const Navigate = useNavigate()
   const Logout_handler = () => {
+    toast.success("logout")
     setTimeout(() => {
       localStorage.removeItem("token")
       Navigate("/")
+      
     }, 1000)
   }
   return (

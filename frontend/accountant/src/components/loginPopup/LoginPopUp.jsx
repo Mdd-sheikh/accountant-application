@@ -7,11 +7,11 @@ import { useNavigate } from 'react-router-dom'
 
 const LoginPopUp = ({ setShowLoginPopUp }) => {
     const navigate = useNavigate()
-    const {Userdata,setUserdata} = useContext(Context)
-    
+    const { Userdata, setUserdata } = useContext(Context)
+
     const [currentdata, setCurrentData] = useState(false)
 
-    
+
     const { API_URL } = useContext(Context)
 
     const [UserData, setUserData] = useState({
@@ -29,38 +29,37 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
         e.preventDefault();
 
         try {
-            let res;
+            const endpoint = currentdata
+                ? `${API_URL}/user/login`
+                : `${API_URL}/user/register`;
 
-            if (currentdata === false ) {
-                // REGISTER
-                res = await axios.post(`${API_URL}/user/register`, UserData);
-               //  Register success toast
-                toast.success(response?.data?.message);
+            const { data } = await axios.post(endpoint, UserData);
 
+            // ✅ Show success message
+            toast.success(data?.message || "Success");
 
-            } 
-            if(currentdata ===true){
-                res = await axios.post(`${API_URL}/user/login`, UserData);
-
-                //  Login success toast
-                toast.success("Login successful ✅");
+            // ✅ Store token only if exists
+            if (data?.token) {
+                localStorage.setItem("token", data.token);
             }
 
-            // ✅ Store token
-            localStorage.setItem("token", res.data.token);
-
+            // ✅ Redirect after short delay
             setTimeout(() => {
                 setShowLoginPopUp(false);
                 navigate("/503/home");
             }, 500);
 
         } catch (error) {
-            toast.error(
-                error.response?.data?.message || "Something went wrong ❌"
-            );
-            console.log(error);
+            // Proper error handling
+            const errorMessage =
+                error.response?.data?.message ||
+                "Something went wrong. Please try again.";
+
+            toast.error(errorMessage);
+            console.error("Auth Error:", error);
         }
     };
+
 
 
 
