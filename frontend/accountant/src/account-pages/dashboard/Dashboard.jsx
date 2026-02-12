@@ -6,9 +6,9 @@ import { Context } from "../../context/Context";
 
 
 const Dashboard = () => {
-    const {IssidebarOpen, setIsSidebarOpen} = useContext(Context)
+    const { IssidebarOpen, setIsSidebarOpen } = useContext(Context)
     const [openMenu, setOpenMenu] = useState(null);
-    const [Invoice,setinvoice]  = useState(true)
+    const [Invoice, setinvoice] = useState(true)
 
 
 
@@ -62,17 +62,17 @@ const Dashboard = () => {
                         <ul>
                             <NavLink to="/503/home"><li onClick={() => setIsSidebarOpen(false)}> <i class="fa-solid fa-film"></i> DashBoard</li></NavLink>
                             <hr />
-                            <NavLink to="/503/sales"><li onClick={()=>setinvoice(prev=>!prev)}><i class="fa-solid fa-business-time"></i> Bills / Invoice 
-                            {Invoice?<div className="invoice-dropdown">
-                                <ul>
-                                    <li>Sale Invoice</li>
-                                    <li>performa Invoice</li>
-                                    <li>Quotation</li>
-                                    <li>Deliver Challan</li>
-                                    <li>Sale Return</li>
-                                </ul>
-                            </div>:<></>}
-                             </li></NavLink>
+                            <NavLink to="/503/sales"><li onClick={() => setinvoice(prev => !prev)}><i class="fa-solid fa-business-time"></i> Bills / Invoice
+                                {Invoice ? <div className="invoice-dropdown">
+                                    <ul>
+                                        <div><li>Sale Invoice</li><button>+</button></div>
+                                        <div> <li>performa Invoice</li><button>+</button></div>
+                                        <div> <li>Quotation</li><button>+</button></div>
+                                        <div><li>Deliver Challan</li><button>+</button></div>
+                                        <div><li>Sale Return</li><button>+</button></div>
+                                    </ul>
+                                </div> : <></>}
+                            </li></NavLink>
                             <li><i class="fa-solid fa-cart-arrow-down"></i> Purchase</li>
                             <li> <i class="fa-solid fa-receipt"></i> Expenses</li>
                             <li> <i class="fa-solid fa-dollar-sign"></i>Receipt / Payments</li>
@@ -85,7 +85,7 @@ const Dashboard = () => {
                             <br />
                             <li> <i class="fa-solid fa-file"></i> Reports</li>
                             <NavLink to="/503/account"> <li> < i class="fa-solid fa-circle-user"></i>User Account</li></NavLink>
-                            
+
                         </ul>
                     </nav>
                 </aside>

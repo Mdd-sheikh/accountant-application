@@ -49,7 +49,7 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
             setTimeout(() => {
                 setShowLoginPopUp(false);
                 navigate("/503/home");
-            }, 1000);
+            }, 500);
 
         } catch (error) {
             toast.error(
