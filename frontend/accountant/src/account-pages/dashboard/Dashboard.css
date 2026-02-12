@@ -20,9 +20,6 @@
 
 }
 
-.aside:hover::-webkit-scrollbar {
-  display: none;
-}
 
 aside hr {
   background-color: rgb(248, 240, 240);
@@ -51,6 +48,10 @@ aside hr {
 
 }
 
+.aside-nav ul a{
+  background-color: rgb(187, 199, 203);
+}
+
 .aside li:hover {
   background-color: rgb(127, 140, 145);
   color: white;
@@ -72,6 +73,7 @@ aside hr {
 
 .invoice-dropdown div:hover button {
   display: block;
+  cursor: pointer;
 }
 
 .invoice-dropdown button {
@@ -101,6 +103,7 @@ aside hr {
 
   .menubar {
     display: block;
+    overflow-y: scroll;
 
   }
 
@@ -111,6 +114,7 @@ aside hr {
     height: 100vh;
     box-shadow: 4px 0 8px rgba(0, 0, 0, 0.08);
     animation: fade 1s ease-in;
+    overflow-y: scroll;
 
   }
 
