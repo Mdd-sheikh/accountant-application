@@ -6,6 +6,7 @@ import { Context } from "../../context/Context";
 
 
 const Dashboard = () => {
+
     const { IssidebarOpen, setIsSidebarOpen } = useContext(Context)
     const [openMenu, setOpenMenu] = useState(null);
     const [Invoice, setinvoice] = useState(false)
@@ -75,7 +76,7 @@ const Dashboard = () => {
                             <NavLink to="/503/sales"><li onClick={() => setinvoice(prev => !prev)}><i class="fa-solid fa-business-time"></i> Bills / Invoice</li></NavLink>
                             {Invoice ? <div className="invoice-dropdown">
                                 <ul>
-                                   <NavLink to="/503/invoice/create"><div><li>Sale Invoice</li><button>+</button></div></NavLink>
+                                    <NavLink to="/503/invoice/create"><div><li>Sale Invoice</li><button>+</button></div></NavLink>
                                     <div> <li>performa Invoice</li><button>+</button></div>
                                     <div> <li>Quotation</li><button>+</button></div>
                                     <div><li>Deliver Challan</li><button>+</button></div>
@@ -91,7 +92,7 @@ const Dashboard = () => {
                             <li> <i class="fa-solid fa-users"></i> Customers</li>
                             <li> <i class="fa-solid fa-user"></i> Users </li>
                             <li> <i class="fa-solid fa-building-columns"></i> Banks</li>
-                             <hr />
+                            <hr />
                             <li> <i class="fa-solid fa-file"></i> Reports</li>
                             <NavLink to="/503/account"> <li> < i class="fa-solid fa-circle-user"></i>User Account</li></NavLink>
 
