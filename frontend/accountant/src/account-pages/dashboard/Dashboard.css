@@ -65,6 +65,7 @@ aside hr {
 
 
 .invoice-dropdown div {
+  
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -84,6 +85,10 @@ aside hr {
   border: none;
   color: white;
   display: none;
+}
+
+.invoice-dropdown li{
+  width: 100%;
 }
 
 @keyframes fade {
