@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './SaleInvoice.css'
 
 const SaleInvoice = () => {
+
+    const [TermDropDown, setTermDropDown] = useState(false)
+    const [additionchargers, setAdditionaCharges] = useState(false)
     return (
         <div className='createinvoice'>
             <div className="createinvoice-container">
@@ -85,7 +88,7 @@ const SaleInvoice = () => {
                             <button>+ Add</button>
                         </div>
                     </div>
-                    <div className="invoice-select-charge">
+                    {additionchargers ? <div className="invoice-select-charge">
                         <div className="item-select-charges">
                             <p>select Charge <sup>*</sup></p>
                             <select name="" id="">
@@ -124,8 +127,33 @@ const SaleInvoice = () => {
                             <button>+ Add</button>
 
                         </div>
+                    </div> : <></>}
+
+                    <div className="invoice-terms-condition">
+                        <div className="invoice-additional-charges"><p onClick={() => setAdditionaCharges(true)}>{additionchargers ? "" : "+ Additional Charges"}</p></div>
+                        <div onClick={() => setTermDropDown(prev => !prev)} className="invoice-more-detail">
+                            <p>More Details</p>
+                            <p><i class="fa-solid fa-caret-up"></i></p>
+                        </div>
+                        {TermDropDown ? <div className="terms-condition-statements">
+                            <div className="term-condition-header">
+                                <p>Terms & Condition</p>
+                            </div>
+                            <div className="conditions">
+                                <ul>
+                                    <li> 1. Late payments will attract an interest of 2% per month on the outstanding balance.</li>
+                                    <li>2. Risk of loss or damage passes to the buyer upon delivery.</li>
+                                    <li>3. Goods once sold will not be taken back or exchanged unless found defective at the time of delivery.</li>
+                                    <li>4.  The seller is not liable for indirect or consequential damages.</li>
+                                    <li> 5. Subject to the jurisdiction of [City where Seller is located] only.</li>
+                                </ul>
+                            </div>
+
+
+                        </div> : <></>}
                     </div>
                 </main>
+
             </div>
         </div>
     )

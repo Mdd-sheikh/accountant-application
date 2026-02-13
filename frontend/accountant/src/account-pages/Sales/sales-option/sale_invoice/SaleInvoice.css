@@ -302,3 +302,46 @@
     border-radius: 3px;
     cursor: pointer;
 }
+
+.invoice-terms-condition{
+    width: 100%;
+    margin-top: 30px;
+}
+
+.invoice-terms-condition p{
+    font-size: 14px;
+    font-family: "Inter",sans-serif;
+    padding: 3px;
+    cursor: pointer;
+}
+
+.invoice-additional-charges{
+    text-align: right;
+}
+
+.invoice-more-detail{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: rgb(216, 230, 236);
+    border-radius: 5px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.terms-condition-statements{
+    padding: 20px;
+    border: 1px solid rgb(231, 224, 224);
+    border-radius: 5px;
+}
+.conditions{
+    border: 1px solid rgb(162, 157, 157);
+    border-radius: 5px;
+}
+
+.conditions li{
+    padding: 5px;
+    font-family: "Inter",sans-serif;
+    font-size: 13.5px;
+}
