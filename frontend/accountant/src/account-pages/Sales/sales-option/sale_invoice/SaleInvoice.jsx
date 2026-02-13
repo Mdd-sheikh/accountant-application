@@ -8,6 +8,7 @@ const SaleInvoice = () => {
     return (
         <div className='createinvoice'>
             <div className="createinvoice-container">
+
                 {/* headet like page heading and address of customer */}
                 <header className='invoice-Header'>
                     <div className="left-invoice-header">
@@ -21,7 +22,6 @@ const SaleInvoice = () => {
                         <button title='upcoming'>:</button>
                     </div>
                 </header>
-
                 <section>
                     <div className="invoice-header-inputs">
                         <div className="invoice-header-input-invoice-number">
@@ -44,6 +44,43 @@ const SaleInvoice = () => {
                         </div>
                     </div>
                 </section>
+                <div class="table-container">
+                    <table class="invoice-table">
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Items</th>
+                                <th>Qty.</th>
+                                <th>Rate</th>
+                                <th>Discount</th>
+                                <th>Taxable Amt.</th>
+                                <th>GST</th>
+                                <th class="total-highlight">Total</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>hfrhhhhht</td>
+                                <td>1 BAL</td>
+                                <td>
+                                    ₹0.00 <br />
+                                    <span class="sub-text">(Exc. tax)</span>
+                                </td>
+                                <td>₹0.00</td>
+                                <td>₹0.00</td>
+                                <td>₹0.00</td>
+                                <td>₹0.00</td>
+                                <td class="action-icons">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
                 <main>
                     <div className="invoice-select-item">
