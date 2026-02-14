@@ -417,6 +417,125 @@
 
 }
 
+/*----------------------------------for add item css--------------------------------*/
+/* ================= POPUP OVERLAY ================= */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+/* ================= ITEM POPUP ================= */
+.item-popup {
+    width: 900px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    animation: popupFade 0.2s ease-in-out;
+}
+
+@keyframes popupFade {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.popup-header h2 {
+    font-size: 20px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.popup-body {
+    margin-top: 20px;
+}
+
+.item-type {
+    margin-bottom: 20px;
+}
+
+.item-type div {
+    display: flex;
+    gap: 20px;
+    margin-top: 5px;
+}
+
+.item-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.item-row div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.item-row input,
+.item-row select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.popup-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.cancel-btn {
+    padding: 8px 20px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.save-btn {
+    padding: 8px 20px;
+    background: #4f79a4;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.save-btn:hover {
+    background: #3c6289;
+}
+
+/*---------------------------------------------------------------------------------*/
+
 .invoice-select-charge {
     display: flex;
     align-items: center;
@@ -533,80 +652,95 @@
 }
 
 /*--------------------------footer-----------------------------*/
+/* ================= CONTAINER ================= */
 .bill-container {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 40px;
     padding: 30px;
     background: #f5f7fa;
-    border-radius: 10px;
-    flex-wrap: wrap;
+    border-radius: 12px;
 }
 
-/* LEFT SIDE */
+/* ================= LEFT SIDE ================= */
 .bill-left {
-    flex: 1;
-    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .bill-left textarea {
     width: 100%;
-    height: 80px;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    margin-top: 8px;
+    min-height: 90px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #d0d5dd;
+    resize: none;
+    font-size: 14px;
 }
 
-/* RIGHT SIDE */
+/* ================= RIGHT SIDE ================= */
 .bill-right {
-    flex: 1;
-    min-width: 350px;
-}
-
-.bill-row {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 15px;
+    flex-direction: column;
+    gap: 18px;
 }
 
+/* EACH ROW */
+.bill-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+/* If only 2 items in row */
+.bill-row.two-col {
+    grid-template-columns: 1fr auto;
+}
+
+/* ================= DISCOUNT ================= */
 .discount-box {
     display: flex;
-    gap: 5px;
+    gap: 6px;
+    align-items: center;
 }
 
 .discount-box input {
-    width: 80px;
-    padding: 5px;
-    border-radius: 4px;
+    width: 70px;
+    padding: 6px;
+    border-radius: 6px;
     border: 1px solid #ccc;
+    font-size: 13px;
 }
 
 .discount-box select {
-    padding: 5px;
-    border-radius: 4px;
+    padding: 6px;
+    border-radius: 6px;
     border: 1px solid #ccc;
+    font-size: 13px;
 }
 
+/* ================= BILL AMOUNT ================= */
 .bill-amount-box {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: #d8e7f5;
-    padding: 12px;
-    border-radius: 6px;
+    padding: 14px 16px;
+    border-radius: 8px;
     font-weight: 600;
-    margin-bottom: 15px;
-    border: 1px solid #5b9bd5;
+    border: 1px solid #4f87a3;
+    font-size: 15px;
 }
 
-/* Toggle Switch */
+/* ================= TOGGLE ================= */
 .switch {
     position: relative;
     display: inline-block;
-    width: 42px;
-    height: 22px;
+    width: 40px;
+    height: 20px;
 }
 
 .switch input {
@@ -617,26 +751,22 @@
 
 .slider {
     position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background-color: #ccc;
-    border-radius: 34px;
-    transition: 0.4s;
+    border-radius: 20px;
+    transition: 0.3s;
 }
 
 .slider:before {
-    position: absolute;
     content: "";
-    height: 16px;
-    width: 16px;
+    position: absolute;
+    height: 14px;
+    width: 14px;
     left: 3px;
     bottom: 3px;
-    background-color: white;
+    background: white;
     border-radius: 50%;
-    transition: 0.4s;
+    transition: 0.3s;
 }
 
 .switch input:checked+.slider {
@@ -644,58 +774,109 @@
 }
 
 .switch input:checked+.slider:before {
-    transform: translateX(20px);
+    transform: translateX(18px);
 }
 
-/* Receipt Select */
+/* ================= RECEIPT ================= */
 .receipt-select {
-    padding: 6px;
-    border-radius: 4px;
+    padding: 7px 10px;
+    border-radius: 6px;
     border: 1px solid #ccc;
+    min-width: 120px;
 }
 
-/* Buttons */
+/* ================= BUTTONS ================= */
 .button-group {
     display: flex;
     justify-content: flex-end;
-    gap: 15px;
-    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.button-group button {
+    padding: 9px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s ease;
 }
 
 .cancel-btn {
     background: #4f87a3;
-    color: white;
-    padding: 8px 20px;
+    color: #fff;
     border: none;
-    border-radius: 6px;
-    cursor: pointer;
 }
 
 .draft-btn {
-    background: white;
+    background: #fff;
     border: 1px solid #333;
-    padding: 8px 20px;
-    border-radius: 6px;
-    cursor: pointer;
 }
 
 .save-btn {
     background: #4f87a3;
-    color: white;
-    padding: 8px 20px;
+    color: #fff;
     border: none;
-    border-radius: 6px;
-    cursor: pointer;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* ================= HOVER EFFECT ================= */
+.button-group button:hover {
+    opacity: 0.85;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* Large Tablet */
+@media (max-width: 1024px) {
     .bill-container {
-        flex-direction: column;
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .bill-row {
+        grid-template-columns: 1fr auto;
+    }
+
+    .discount-box {
+        flex-wrap: wrap;
     }
 
     .button-group {
         justify-content: center;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .bill-container {
+        padding: 18px;
+        gap: 25px;
+    }
+
+    .bill-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .bill-amount-box {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .button-group {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .button-group button {
+        width: 100%;
+    }
+
+    .receipt-select {
+        width: 100%;
     }
 }
 

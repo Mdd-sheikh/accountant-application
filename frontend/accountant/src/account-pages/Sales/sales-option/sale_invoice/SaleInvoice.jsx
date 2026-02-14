@@ -8,6 +8,10 @@ const SaleInvoice = () => {
 
     {/*------------------------for customer add* */ }
     const [showLedgerPopup, setShowLedgerPopup] = useState(false)
+
+    {/*----------------------------------create item popup----------------------* */ }
+    const [showItemPopup, setShowItemPopup] = useState(false)
+
     return (
         <div className='createinvoice'>
             <div className="createinvoice-container">
@@ -153,8 +157,13 @@ const SaleInvoice = () => {
                     <div className="invoice-select-item">
                         <div className="select-item">
                             <p>Select Item <sup>*</sup></p>
-                            <select name="" id="">
+                            <select name="" id="" onChange={(e) => {
+                                if (e.target.value === "add_item") {
+                                    setShowItemPopup(true)
+                                }
+                            }}>
                                 <option value="">Select Item</option>
+                                <option value="add_item"> <button >+ Add Item</button></option>
                             </select>
                         </div>
                         <div className="item-quantity">
@@ -192,6 +201,100 @@ const SaleInvoice = () => {
                             <button>+ Add</button>
                         </div>
                     </div>
+                    {  /*---------------------------for add item -----------*/}
+
+                    {/* 🔥 ITEM POPUP */}
+                    {showItemPopup && (
+                        <div className="popup-overlay">
+                            <div className="item-popup">
+
+                                <div className="popup-header">
+                                    <h2>Create Item</h2>
+                                    <button
+                                        className="close-btn"
+                                        onClick={() => setShowItemPopup(false)}
+                                    >
+                                        ×
+                                    </button>
+                                </div>
+
+                                <div className="popup-body">
+
+                                    <div className="item-type">
+                                        <label>Type</label>
+                                        <div>
+                                            <input type="radio" name="type" defaultChecked /> Goods
+                                            <input type="radio" name="type" /> Service
+                                        </div>
+                                    </div>
+
+                                    <div className="item-row">
+                                        <div>
+                                            <label>Item Name *</label>
+                                            <input type="text" placeholder="Enter Item Name" />
+                                        </div>
+
+                                        <div>
+                                            <label>Unit *</label>
+                                            <select>
+                                                <option>Select Unit</option>
+                                                <option>BAL</option>
+                                                <option>PCS</option>
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label>HSN Code</label>
+                                            <input type="text" placeholder="Enter HSN Code" />
+                                        </div>
+                                    </div>
+
+                                    <div className="item-row">
+                                        <div>
+                                            <label>GST Rate *</label>
+                                            <select>
+                                                <option>Select GST Rate</option>
+                                                <option>5%</option>
+                                                <option>12%</option>
+                                                <option>18%</option>
+                                                <option>28%</option>
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label>Cess Rate</label>
+                                            <select>
+                                                <option>Select Cess Rate</option>
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label>Category</label>
+                                            <input type="text" placeholder="Select Category" />
+                                        </div>
+                                    </div>
+
+                                    <div className="popup-footer">
+                                        <button
+                                            className="cancel-btn"
+                                            onClick={() => setShowItemPopup(false)}
+                                        >
+                                            Cancel
+                                        </button>
+
+                                        <button className="save-btn">
+                                            Save
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+
+                    {/* ----------------------------for add addition chargees like shipping charges and delivery like*/}
+
                     {additionchargers ? <div className="invoice-select-charge">
                         <div className="item-select-charges">
                             <p>select Charge <sup>*</sup></p>
