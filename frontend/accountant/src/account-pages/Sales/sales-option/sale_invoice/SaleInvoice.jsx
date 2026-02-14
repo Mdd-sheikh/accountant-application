@@ -6,7 +6,7 @@ const SaleInvoice = () => {
     const [TermDropDown, setTermDropDown] = useState(false)
     const [additionchargers, setAdditionaCharges] = useState(false)
 
-    {/*------------------------for customer add* */}
+    {/*------------------------for customer add* */ }
     const [showLedgerPopup, setShowLedgerPopup] = useState(false)
     return (
         <div className='createinvoice'>
@@ -39,10 +39,10 @@ const SaleInvoice = () => {
                         <div className="invoice-header-input-select-customer">
                             <div className="invoice-header-input-select-add">
                                 <p>select customer <sup>*</sup></p>
-                                <p onClick={()=>setShowLedgerPopup(true)}>+Add new</p>
+                                <p onClick={() => setShowLedgerPopup(true)}>+Add new</p>
                             </div>
                             <select name="" id="">
-                                <option value="">Custome </option>
+                                <option value="">Customer </option>
                             </select>
                         </div>
                     </div>
@@ -72,14 +72,16 @@ const SaleInvoice = () => {
                                         </select>
                                     </div>
 
-                                    <div>
-                                        <label>Name *</label>
-                                        <input type="text" placeholder="Enter Ledger Name" />
-                                    </div>
+                                    <div className="customer-information">
+                                        <div>
+                                            <label>Name *</label>
+                                            <input type="text" placeholder="Enter Ledger Name" />
+                                        </div>
 
-                                    <div>
-                                        <label>GST Number</label>
-                                        <input type="text" placeholder="Enter GST Number" />
+                                        <div>
+                                            <label>GST Number</label>
+                                            <input type="text" placeholder="Enter GST Number" />
+                                        </div>
                                     </div>
                                 </div>
 
@@ -255,6 +257,83 @@ const SaleInvoice = () => {
                         </div> : <></>}
                     </div>
                 </main>
+                <div className="bill-container">
+
+                    <div className="bill-left">
+                        <label>Remarks</label>
+                        <textarea placeholder="Add Remarks (if any)" />
+
+                        <div className="toggle-row">
+                            <span>Recurring Invoice</span>
+                            <label className="switch">
+                                <input type="checkbox" />
+                                <span className="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div className="bill-right">
+                        <div className="bill-row">
+                            <span>Taxable Value</span>
+                            <span>₹0.00</span>
+                        </div>
+
+                        <div className="bill-row">
+                            <span>GST (IGST)</span>
+                            <span>₹0.00</span>
+                        </div>
+
+                        <div className="bill-row">
+                            <span>Additional Discount</span>
+                            <div className="discount-box">
+                                <input type="text" placeholder="Enter" />
+                                <select>
+                                    <option>%</option>
+                                    <option>₹</option>
+                                </select>
+                            </div>
+                            <span>₹0.00</span>
+                        </div>
+
+                        <div className="bill-row toggle-row">
+                            <span>Round Off</span>
+                            <label className="switch">
+                                <input type="checkbox" />
+                                <span className="slider"></span>
+                            </label>
+                            <span>₹0.00</span>
+                        </div>
+
+                        <div className="bill-amount-box">
+                            <span>Bill Amount</span>
+                            <span>₹0.00</span>
+                        </div>
+
+                        <div className="bill-row toggle-row">
+                            <span>TDS Deducted by Customer</span>
+                            <label className="switch">
+                                <input type="checkbox" />
+                                <span className="slider"></span>
+                            </label>
+                        </div>
+
+                        <div className="bill-row">
+                            <span>Receipt In *</span>
+                            <select className="receipt-select">
+                                <option>Select</option>
+                                <option>Cash</option>
+                                <option>Bank</option>
+                            </select>
+                        </div>
+
+                        <div className="button-group">
+                            <button className="cancel-btn">Cancel</button>
+                            <button className="draft-btn">Save as Draft</button>
+                            <button className="save-btn">Save</button>
+                        </div>
+
+                    </div>
+                </div>
 
             </div>
         </div>

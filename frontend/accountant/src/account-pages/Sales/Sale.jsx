@@ -1,5 +1,6 @@
 import React from 'react'
 import './Sales.css'
+import { NavLink } from 'react-router-dom'
 
 const Sale = () => {
   return (
@@ -25,9 +26,9 @@ const Sale = () => {
               <i className="fa-regular fa-calendar calendar-icon"></i>
             </div>
 
-            <button className="create-btn">
+           <NavLink to="/503/invoice/create"> <button className="create-btn">
               + Create Purchase
-            </button>
+            </button></NavLink>
           </div>
         </div>
 
