@@ -35,11 +35,11 @@ const Dashboard = () => {
                                 <li onClick={() => setinvoice(prev => !prev)}><i class="fa-solid fa-business-time"></i> Bill / Invoice</li>
                                 {Invoice ? <div className="invoice-dropdown">
                                     <ul>
-                                        <div><NavLink to="/503/sales"><li>Sale Invoice</li></NavLink><NavLink to="/invoice/create"><button>+</button></NavLink></div>
-                                        <div><NavLink to='/503/performainvoice'> <li>performa Invoice</li></NavLink><NavLink to="/invoice/create"><button>+</button></NavLink></div>
-                                        <div> <NavLink to="/503/quotation"> <li>Quotation</li></NavLink><NavLink to="/invoice/create"><button>+</button></NavLink></div>
-                                        <div><NavLink to="/503/deliverychallan"><li>Deliver Challan</li></NavLink><NavLink to="/invoice/create"><button>+</button></NavLink></div>
-                                        <div><NavLink to="/503/salesreturn"><li>Sale Return</li></NavLink><NavLink to="/invoice/create"><button>+</button></NavLink></div>
+                                        <div><NavLink to="/503/sales"><li>Sale Invoice</li></NavLink><NavLink to="/503/invoice/create"><button>+</button></NavLink></div>
+                                        <div><NavLink to='/503/performainvoice'> <li>performa Invoice</li></NavLink><NavLink to="/503/invoice/create"><button>+</button></NavLink></div>
+                                        <div> <NavLink to="/503/quotation"> <li>Quotation</li></NavLink><NavLink to="/503/invoice/create"><button>+</button></NavLink></div>
+                                        <div><NavLink to="/503/deliverychallan"><li>Deliver Challan</li></NavLink><NavLink to="/503/invoice/create"><button>+</button></NavLink></div>
+                                        <div><NavLink to="/503/salesreturn"><li>Sale Return</li></NavLink><NavLink to="/503/invoice/create"><button>+</button></NavLink></div>
                                     </ul>
                                 </div> : <></>}
                                 <li><i class="fa-solid fa-cart-arrow-down"></i> Purchase</li>
