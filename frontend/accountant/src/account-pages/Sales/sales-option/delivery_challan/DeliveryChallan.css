@@ -1,0 +1,211 @@
+.deliverychallan-page {
+  padding: 20px;
+  background: #f8f9fc;
+  min-height: 100vh;
+  margin-left: 300px;
+}
+
+.deliverychallan-wrapper {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+/* ================= HEADER ================= */
+
+.deliverychallan-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.deliverychallan-header h2 {
+  margin: 0;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+/* ================= SEARCH ================= */
+
+.search-wrapper {
+  position: relative;
+}
+
+.search-box {
+  padding: 8px 35px 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  min-width: 250px;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+/* ================= DATE ================= */
+
+.date-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+}
+
+.date-input {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.date-separator {
+  font-size: 14px;
+}
+
+.calendar-icon {
+  position: absolute;
+  right: -22px;
+  color: #888;
+}
+
+/* ================= BUTTON ================= */
+
+.create-btn {
+  padding: 8px 14px;
+  background: #4e73df;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* ================= TOP ACTIONS ================= */
+
+.top-actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 15px;
+  font-size: 18px;
+  color: #555;
+}
+
+/* ================= TABLE ================= */
+
+.table-container {
+  margin-top: 15px;
+  overflow-x: auto;
+}
+
+.deliverychallan-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.deliverychallan-table th,
+.deliverychallan-table td {
+  border: 1px solid #eee;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.deliverychallan-table th {
+  background: #4a82a8;
+  color: white;
+  font-family: "Inter",sans-serif;
+  font-size: 13px;
+}
+
+.no-record {
+  padding: 20px;
+  text-align: center;
+  color: #999;
+}
+
+/* ================= FOOTER ================= */
+
+.table-footer {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.left-info select {
+  margin: 0 5px;
+  padding: 5px;
+}
+
+.pagination button {
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  margin: 0 3px;
+}
+
+.pagination .active {
+  background: #4e73df;
+  color: white;
+  border-color: #4e73df;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+
+  .deliverychallan-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-right {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-box {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .date-wrapper {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .date-input {
+    width: 48%;
+  }
+
+  .calendar-icon {
+    display: none;
+  }
+
+  .create-btn {
+    width: 100%;
+  }
+
+  .table-footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+}

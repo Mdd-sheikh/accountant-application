@@ -1,21 +1,26 @@
-import React from 'react'
-import './Sales.css'
+import React from "react";
+import "./SaleReturn.css";
 
-const Sale = () => {
+const SaleReturn = () => {
   return (
-    <div className='sales'>
-      <div className="purchase-wrapper">
+    <div className="salereturn-page">
+      <div className="salereturn-wrapper">
 
-        {/* Top Header */}
-        <div className="purchase-header">
-          <h2>Purchases</h2>
+        {/* Header */}
+        <div className="salereturn-header">
+          <h2>Sales Return List</h2>
 
           <div className="header-right">
-            <input
-              type="text"
-              placeholder="Search by Supplier, Voucher No. or Inv..."
-              className="search-box"
-            />
+
+            {/* Search */}
+            <div className="search-wrapper">
+              <input
+                type="text"
+                placeholder="Search by Customer Name, Return No."
+                className="search-box"
+              />
+              <i className="fa-solid fa-magnifying-glass search-icon"></i>
+            </div>
 
             {/* Date Range */}
             <div className="date-wrapper">
@@ -25,13 +30,15 @@ const Sale = () => {
               <i className="fa-regular fa-calendar calendar-icon"></i>
             </div>
 
+            {/* Button */}
             <button className="create-btn">
-              + Create Purchase
+              + Create Sales Return
             </button>
+
           </div>
         </div>
 
-        {/* Action Icons */}
+        {/* Export Icons */}
         <div className="top-actions">
           <i className="fa-solid fa-print"></i>
           <i className="fa-solid fa-file-excel"></i>
@@ -41,14 +48,27 @@ const Sale = () => {
 
         {/* Table */}
         <div className="table-container">
-          <table className="purchase-table">
+          <table className="salereturn-table">
             <thead>
               <tr>
                 <th>S.No</th>
-                <th>Voucher Date</th>
-                <th>Supp. Inv. No.</th>
-                <th>Supplier Name</th>
-                <th>Amount</th>
+                <th>
+                  Date
+                  <i className="fa-solid fa-sort ms-icon"></i>
+                  <i className="fa-solid fa-filter ms-icon"></i>
+                </th>
+                <th>
+                  Sales Return No.
+                  <i className="fa-solid fa-filter ms-icon"></i>
+                </th>
+                <th>
+                  Customer Name
+                  <i className="fa-solid fa-filter ms-icon"></i>
+                </th>
+                <th>
+                  Amount
+                  <i className="fa-solid fa-filter ms-icon"></i>
+                </th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -63,7 +83,7 @@ const Sale = () => {
           </table>
         </div>
 
-        {/* Footer Pagination */}
+        {/* Footer */}
         <div className="table-footer">
           <div className="left-info">
             Showing
@@ -84,7 +104,7 @@ const Sale = () => {
 
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Sale;
+export default SaleReturn;

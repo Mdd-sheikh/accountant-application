@@ -17,6 +17,7 @@ const Dashboard = () => {
     return (
         <div className="dashboard">
             <div className="dashboard-container">
+                {/*------------------------------------------for mobile-------------------------------------------------------*/}
                 <div className="menubar">
 
                     {IssidebarOpen ? <aside className="aside-mobile-nav">
@@ -34,11 +35,11 @@ const Dashboard = () => {
                                 <li onClick={() => setinvoice(prev => !prev)}><i class="fa-solid fa-business-time"></i> Bill / Invoice</li>
                                 {Invoice ? <div className="invoice-dropdown">
                                     <ul>
-                                       <div><NavLink to="/503/sales"><li>Sale Invoice</li></NavLink><NavLink to="/invoice/create"><button>+</button></NavLink></div>
-                                        <div> <li>performa Invoice</li><NavLink to="/invoice/create"><button>+</button></NavLink></div>
-                                        <div> <li>Quotation</li><NavLink to="/invoice/create"><button>+</button></NavLink></div>
-                                        <div><li>Deliver Challan</li><button>+</button></div>
-                                        <div><li>Sale Return</li><NavLink to="/invoice/create"><button>+</button></NavLink></div>
+                                        <div><NavLink to="/503/sales"><li>Sale Invoice</li></NavLink><NavLink to="/invoice/create"><button>+</button></NavLink></div>
+                                        <div><NavLink to='/503/performainvoice'> <li>performa Invoice</li></NavLink><NavLink to="/invoice/create"><button>+</button></NavLink></div>
+                                        <div> <NavLink to="/503/quotation"> <li>Quotation</li></NavLink><NavLink to="/invoice/create"><button>+</button></NavLink></div>
+                                        <div><NavLink to="/503/deliverychallan"><li>Deliver Challan</li></NavLink><NavLink to="/invoice/create"><button>+</button></NavLink></div>
+                                        <div><NavLink to="/503/salesreturn"><li>Sale Return</li></NavLink><NavLink to="/invoice/create"><button>+</button></NavLink></div>
                                     </ul>
                                 </div> : <></>}
                                 <li><i class="fa-solid fa-cart-arrow-down"></i> Purchase</li>
@@ -73,14 +74,14 @@ const Dashboard = () => {
                         <ul>
                             <NavLink to="/503/home" end><li onClick={() => setIsSidebarOpen(false)}> <i class="fa-solid fa-film"></i> DashBoard</li></NavLink>
                             <hr />
-                            <NavLink to="/503/sales"><li onClick={() => setinvoice(prev => !prev)}><i class="fa-solid fa-business-time"></i> Bills / Invoice</li></NavLink>
+                            <li onClick={() => setinvoice(prev => !prev)}><i class="fa-solid fa-business-time"></i> Bills / Invoice</li>
                             {Invoice ? <div className="invoice-dropdown">
                                 <ul>
-                                    <NavLink to="/503/invoice/create"><div><li>Sale Invoice</li><button>+</button></div></NavLink>
-                                    <div> <li>performa Invoice</li><button>+</button></div>
-                                    <div> <li>Quotation</li><button>+</button></div>
-                                    <div><li>Deliver Challan</li><button>+</button></div>
-                                    <div><li>Sale Return</li><button>+</button></div>
+                                    <div><NavLink to="/503/invoice"><li>Sale Invoice</li></NavLink><NavLink to="/503/invoice/create"><button>+</button></NavLink></div>
+                                    <div><NavLink to='/503/performainvoice'><li>performa Invoice</li></NavLink><NavLink to="/503/invoice/create"><button>+</button></NavLink></div>
+                                    <div><NavLink to="/503/quotation"> <li>Quotation</li></NavLink><NavLink to="/503/invoice/create"><button>+</button></NavLink></div>
+                                    <div><NavLink to="/503/deliverychallan"><li>Deliver Challan</li></NavLink><NavLink to="/503/invoice/create"><button>+</button></NavLink></div>
+                                    <div><NavLink to="/503/salesreturn"><li>Sale Return</li></NavLink><NavLink to="/503/invoice/create"><button>+</button></NavLink></div>
                                 </ul>
                             </div> : <></>}
                             <li><i class="fa-solid fa-cart-arrow-down"></i> Purchase</li>

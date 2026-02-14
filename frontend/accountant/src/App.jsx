@@ -18,6 +18,10 @@ import Personal_account from './account-pages/setting/Personal_account';
 import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
 import SaleInvoice from './account-pages/Sales/sales-option/sale_invoice/SaleInvoice';
+import PerformaInvoice from './account-pages/Sales/sales-option/performa_invoice/PerformaInvoice';
+import Quotation from './account-pages/Sales/sales-option/quotation/Quotation';
+import DeliveryChallan from './account-pages/Sales/sales-option/delivery_challan/DeliveryChallan';
+import SaleReturn from './account-pages/Sales/sales-option/salesReturn/SaleReturn';
 
 
 
@@ -32,7 +36,7 @@ const App = () => {
   return (
 
     <>
-    <ToastContainer/>
+      <ToastContainer />
       {showLoginPopUp ? <LoginPopUp setShowLoginPopUp={setShowLoginPopUp} /> : <></>}
 
       <Routes>
@@ -55,10 +59,16 @@ const App = () => {
               <div className="main-account">
                 <Dashboard />
                 <Routes>
-                  <Route path="sales" element={<Sale />} />
+                  <Route path="invoice" element={<Sale />} />
+                  <Route path='invoice/create' element={<SaleInvoice />} />
+                  <Route path='performainvoice' element={<PerformaInvoice/>} />
                   <Route path="home" element={<Home />} />
                   <Route path="account" element={<Personal_account />} />
-                  <Route path='invoice/create' element={<SaleInvoice/>}/>
+                  <Route path='quotation' element={<Quotation/>}/>
+                  <Route path='/deliverychallan' element={<DeliveryChallan/>}/>
+                  <Route path='salesreturn' element={<SaleReturn/>}/>
+
+
                 </Routes>
               </div>
             </PrivateRoute>

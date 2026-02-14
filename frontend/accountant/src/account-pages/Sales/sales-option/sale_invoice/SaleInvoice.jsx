@@ -5,6 +5,9 @@ const SaleInvoice = () => {
 
     const [TermDropDown, setTermDropDown] = useState(false)
     const [additionchargers, setAdditionaCharges] = useState(false)
+
+    {/*------------------------for customer add* */}
+    const [showLedgerPopup, setShowLedgerPopup] = useState(false)
     return (
         <div className='createinvoice'>
             <div className="createinvoice-container">
@@ -36,14 +39,75 @@ const SaleInvoice = () => {
                         <div className="invoice-header-input-select-customer">
                             <div className="invoice-header-input-select-add">
                                 <p>select customer <sup>*</sup></p>
-                                <p>+Add new</p>
+                                <p onClick={()=>setShowLedgerPopup(true)}>+Add new</p>
                             </div>
                             <select name="" id="">
-                                <option value="">Cash Sale</option>
+                                <option value="">Custome </option>
                             </select>
                         </div>
                     </div>
                 </section>
+                {/* 🔥 LEDGER POPUP */}
+                {showLedgerPopup && (
+                    <div className="popup-overlay">
+                        <div className="ledger-popup">
+
+                            <div className="popup-header">
+                                <h2>Create Ledger</h2>
+                                <button
+                                    className="close-btn"
+                                    onClick={() => setShowLedgerPopup(false)}
+                                >
+                                    ×
+                                </button>
+                            </div>
+
+                            <div className="popup-body">
+
+                                <div className="popup-row">
+                                    <div>
+                                        <label>Group *</label>
+                                        <select>
+                                            <option>Customers (Debtors)</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label>Name *</label>
+                                        <input type="text" placeholder="Enter Ledger Name" />
+                                    </div>
+
+                                    <div>
+                                        <label>GST Number</label>
+                                        <input type="text" placeholder="Enter GST Number" />
+                                    </div>
+                                </div>
+
+                                <div className="accordion-box">Opening Balance (F1)</div>
+                                <div className="accordion-box">Address Details (F2)</div>
+                                <div className="accordion-box">Contact Details (F3)</div>
+                                <div className="accordion-box">Credit Details (F4)</div>
+                                <div className="accordion-box">Bank Details (F5)</div>
+                                <div className="accordion-box">Additions Details (F6)</div>
+
+                                <div className="popup-footer">
+                                    <button
+                                        className="cancel-btn"
+                                        onClick={() => setShowLedgerPopup(false)}
+                                    >
+                                        Cancel
+                                    </button>
+
+                                    <button className="save-btn">
+                                        Save
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                )}
+
                 <div class="table-container">
                     <table class="invoice-table">
                         <thead>
@@ -78,6 +142,7 @@ const SaleInvoice = () => {
                                     <i class="fa-regular fa-trash-can"></i>
                                 </td>
                             </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -87,7 +152,7 @@ const SaleInvoice = () => {
                         <div className="select-item">
                             <p>Select Item <sup>*</sup></p>
                             <select name="" id="">
-                                <option value="">customer name</option>
+                                <option value="">Select Item</option>
                             </select>
                         </div>
                         <div className="item-quantity">

@@ -1,30 +1,23 @@
-.sales {
+.quotation-page {
+
+    min-height: 100vh;
+    padding: 20px;
+    font-family: "Segoe UI", sans-serif;
     margin-left: 300px;
 }
 
-/* Page Background */
-
-/* Main Wrapper */
-.purchase-wrapper {
-    background: #fff;
+.quotation-wrapper {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* ================= HEADER ================= */
-
-.purchase-header {
+/* Header */
+.quotation-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
-}
-
-.purchase-header h2 {
-    font-size: 20px;
-    font-weight: 600;
-    margin: 0;
 }
 
 .header-right {
@@ -33,22 +26,27 @@
     gap: 12px;
 }
 
-/* Search Box */
+/* Search */
+.search-wrapper {
+    position: relative;
+}
+
 .search-box {
-    padding: 8px 14px;
-    border: 1px solid #ddd;
+    padding: 8px 35px 8px 14px;
     border-radius: 20px;
+    border: 1px solid #ddd;
     width: 260px;
-    outline: none;
-    transition: 0.2s;
 }
 
-.search-box:focus {
-    border-color: #3b7ea1;
+.search-icon {
+    position: absolute;
+    right: 12px;
+    top: 9px;
+    font-size: 14px;
+    color: #777;
 }
 
-/* ================= DATE ================= */
-
+/* Date */
 .date-wrapper {
     display: flex;
     align-items: center;
@@ -63,12 +61,6 @@
     border: none;
     outline: none;
     font-size: 14px;
-    background: transparent;
-    color: #333;
-}
-
-.date-input::-webkit-calendar-picker-indicator {
-    cursor: pointer;
 }
 
 .date-separator {
@@ -81,8 +73,7 @@
     color: #555;
 }
 
-/* ================= BUTTON ================= */
-
+/* Button */
 .create-btn {
     background: #3b7ea1;
     color: white;
@@ -90,64 +81,57 @@
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    font-weight: 500;
-    transition: 0.2s ease;
 }
 
 .create-btn:hover {
     background: #2f6c8b;
 }
 
-/* ================= ACTION ICONS ================= */
-
+/* Icons */
 .top-actions {
     display: flex;
     justify-content: flex-end;
     gap: 18px;
-    font-size: 18px;
     margin: 15px 0;
-    color: #444;
+    font-size: 18px;
     cursor: pointer;
+    color: #444;
 }
 
 .top-actions i:hover {
     color: #3b7ea1;
 }
 
-/* ================= TABLE ================= */
-
+/* Table */
 .table-container {
     overflow-x: auto;
 }
 
-.purchase-table {
+.quotation-table {
     width: 100%;
     border-collapse: collapse;
-    background: #fff;
 }
 
-/* Table Header */
-.purchase-table thead {
-    background: #3b7ea1;
+.quotation-table thead {
+    background: #4a82a8;
     color: white;
 }
 
-.purchase-table th {
+.quotation-table th {
     padding: 12px;
-    font-size: 14px;
-    font-weight: 500;
     text-align: left;
+    font-size: 14px;
 }
 
-/* Table Body */
-.purchase-table td {
+.quotation-table td {
     padding: 12px;
     border-bottom: 1px solid #eee;
-    font-size: 14px;
 }
 
-.purchase-table tbody tr:hover {
-    background: #f8fbfd;
+.ms-icon {
+    margin-left: 6px;
+    font-size: 12px;
+    cursor: pointer;
 }
 
 .no-record {
@@ -156,14 +140,12 @@
     color: #777;
 }
 
-/* ================= FOOTER ================= */
-
+/* Footer */
 .table-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 15px;
-    font-size: 14px;
 }
 
 .table-footer select {
@@ -173,7 +155,6 @@
     border: 1px solid #ccc;
 }
 
-/* Pagination */
 .pagination button {
     padding: 6px 12px;
     margin-left: 6px;
@@ -181,11 +162,6 @@
     background: white;
     border-radius: 6px;
     cursor: pointer;
-    transition: 0.2s;
-}
-
-.pagination button:hover {
-    background: #eaf3f8;
 }
 
 .pagination .active {
@@ -196,19 +172,22 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 @media (max-width:550px) {
-    .sales {
-        width: 100%;
+    .quotation-page {
         margin-left: 0;
+    }
+
+    .quotation-table {
+        width: 100%;
+    }
+
+    .quotation-header {
+        flex-wrap: wrap;
+    }
+
+    .quotation-table th {
+        padding: 5px;
+        text-align: left;
+        font-size: 10px;
     }
 }

@@ -65,10 +65,14 @@ aside hr {
 
 
 .invoice-dropdown div {
-  
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+}
+
+.invoice-dropdown ul{
   background-color: transparent;
 }
 
