@@ -186,117 +186,123 @@
 /* 🔥 POPUP OVERLAY */
 .popup-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999;
-}
-
-/* 🔥 POPUP BOX */
-.ledger-popup {
-    width: 80%;
-    max-width: 1000px;
-    background: #fff;
-    border-radius: 8px;
     padding: 20px;
-    animation: popupFade 0.3s ease;
+    z-index: 1000;
 }
 
-/* HEADER */
+.ledger-popup {
+    background: #fff;
+    width: 100%;
+    max-width: 750px;
+    border-radius: 10px;
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
 .popup-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    padding: 15px 20px;
     border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
 }
 
-.close-btn {
-    background: none;
-    border: none;
-    font-size: 22px;
-    cursor: pointer;
-}
-
-/* BODY */
 .popup-body {
-    margin-top: 20px;
+    padding: 20px;
 }
 
 .popup-row {
-    gap: 20px;
-    margin-bottom: 20px;
-}
-
-.popup-row div {
-    flex: 1;
     display: flex;
-    flex-direction: column;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
-.popup-row input,
-.popup-row select {
+.customer-information {
+    display: flex;
+    gap: 20px;
+    flex: 1;
+    flex-wrap: wrap;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+label {
+    font-size: 14px;
+    margin-bottom: 4px;
+    display: block;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
     padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+textarea {
+    min-height: 70px;
+}
+
+.accordion-box {
+    background: #f3f4f6;
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.accordion-box:hover {
+    background: #e5e7eb;
+}
+
+.accordion-content {
+    background: #fafafa;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 6px;
     margin-top: 5px;
 }
 
-/* ACCORDION STYLE BOX */
-.accordion-box {
-    background: #d9e4ed;
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-/* FOOTER */
 .popup-footer {
     display: flex;
     justify-content: flex-end;
-    gap: 15px;
+    gap: 10px;
     margin-top: 20px;
 }
 
 .cancel-btn {
-    padding: 8px 20px;
-    background: #eee;
-    border: 1px solid #ccc;
-    cursor: pointer;
+    padding: 8px 14px;
+    background: #ddd;
+    border: none;
+    border-radius: 6px;
 }
 
 .save-btn {
-    padding: 8px 20px;
-    background: #4b7fa5;
-    color: #fff;
+    padding: 8px 14px;
+    background: #2563eb;
+    color: white;
     border: none;
-    cursor: pointer;
+    border-radius: 6px;
 }
 
-/* + Add New style */
-.add-new-btn {
-    color: #4b7fa5;
-    cursor: pointer;
-    font-weight: 500;
-}
-
-/* Animation */
-@keyframes popupFade {
-    from {
-        transform: scale(0.95);
-        opacity: 0;
-    }
-
-    to {
-        transform: scale(1);
-        opacity: 1;
+/* Responsive */
+@media (max-width: 600px) {
+    .grid-2 {
+        grid-template-columns: 1fr;
     }
 }
-
 
 /*--------------------------------------------------------------------------------------------------------------------------------*/
 

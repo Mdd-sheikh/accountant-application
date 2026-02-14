@@ -12,6 +12,12 @@ const SaleInvoice = () => {
     {/*----------------------------------create item popup----------------------* */ }
     const [showItemPopup, setShowItemPopup] = useState(false)
 
+    const [activeAccordion, setActiveAccordion] = useState(null);
+
+    const toggleAccordion = (section) => {
+        setActiveAccordion(activeAccordion === section ? null : section);
+    };
+
     return (
         <div className='createinvoice'>
             <div className="createinvoice-container">
@@ -56,6 +62,7 @@ const SaleInvoice = () => {
                     <div className="popup-overlay">
                         <div className="ledger-popup">
 
+                            {/* Header */}
                             <div className="popup-header">
                                 <h2>Create Ledger</h2>
                                 <button
@@ -68,11 +75,13 @@ const SaleInvoice = () => {
 
                             <div className="popup-body">
 
+                                {/* Group & Basic Info */}
                                 <div className="popup-row">
                                     <div>
                                         <label>Group *</label>
                                         <select>
                                             <option>Customers (Debtors)</option>
+                                            <option>Suppliers (Creditors)</option>
                                         </select>
                                     </div>
 
@@ -89,13 +98,128 @@ const SaleInvoice = () => {
                                     </div>
                                 </div>
 
-                                <div className="accordion-box">Opening Balance (F1)</div>
-                                <div className="accordion-box">Address Details (F2)</div>
-                                <div className="accordion-box">Contact Details (F3)</div>
-                                <div className="accordion-box">Credit Details (F4)</div>
-                                <div className="accordion-box">Bank Details (F5)</div>
-                                <div className="accordion-box">Additions Details (F6)</div>
+                                {/* F1 Opening Balance */}
+                                <div className="accordion-box" onClick={() => toggleAccordion("f1")}>
+                                    Opening Balance (F1)
+                                </div>
+                                {activeAccordion === "f1" && (
+                                    <div className="accordion-content">
+                                        <div className="grid-2">
+                                            <div>
+                                                <label>Amount</label>
+                                                <input type="number" placeholder="Enter Amount" />
+                                            </div>
+                                            <div>
+                                                <label>Type</label>
+                                                <select>
+                                                    <option>Debit</option>
+                                                    <option>Credit</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
 
+                                {/* F2 Address Details */}
+                                <div className="accordion-box" onClick={() => toggleAccordion("f2")}>
+                                    Address Details (F2)
+                                </div>
+                                {activeAccordion === "f2" && (
+                                    <div className="accordion-content">
+                                        <label>Address</label>
+                                        <textarea placeholder="Enter Full Address"></textarea>
+
+                                        <div className="grid-2">
+                                            <div>
+                                                <label>City</label>
+                                                <input type="text" placeholder="Enter City" />
+                                            </div>
+                                            <div>
+                                                <label>State</label>
+                                                <input type="text" placeholder="Enter State" />
+                                            </div>
+                                        </div>
+
+                                        <label>Pincode</label>
+                                        <input type="text" placeholder="Enter Pincode" />
+                                    </div>
+                                )}
+
+                                {/* F3 Contact Details */}
+                                <div className="accordion-box" onClick={() => toggleAccordion("f3")}>
+                                    Contact Details (F3)
+                                </div>
+                                {activeAccordion === "f3" && (
+                                    <div className="accordion-content">
+                                        <div className="grid-2">
+                                            <div>
+                                                <label>Phone Number</label>
+                                                <input type="text" placeholder="Enter Phone Number" />
+                                            </div>
+                                            <div>
+                                                <label>Email</label>
+                                                <input type="email" placeholder="Enter Email" />
+                                            </div>
+                                        </div>
+
+                                        <label>Contact Person</label>
+                                        <input type="text" placeholder="Enter Contact Person Name" />
+                                    </div>
+                                )}
+
+                                {/* F4 Credit Details */}
+                                <div className="accordion-box" onClick={() => toggleAccordion("f4")}>
+                                    Credit Details (F4)
+                                </div>
+                                {activeAccordion === "f4" && (
+                                    <div className="accordion-content">
+                                        <div className="grid-2">
+                                            <div>
+                                                <label>Credit Limit</label>
+                                                <input type="number" placeholder="Enter Credit Limit" />
+                                            </div>
+                                            <div>
+                                                <label>Credit Days</label>
+                                                <input type="number" placeholder="Enter Credit Days" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* F5 Bank Details */}
+                                <div className="accordion-box" onClick={() => toggleAccordion("f5")}>
+                                    Bank Details (F5)
+                                </div>
+                                {activeAccordion === "f5" && (
+                                    <div className="accordion-content">
+                                        <label>Bank Name</label>
+                                        <input type="text" placeholder="Enter Bank Name" />
+
+                                        <div className="grid-2">
+                                            <div>
+                                                <label>Account Number</label>
+                                                <input type="text" placeholder="Enter Account Number" />
+                                            </div>
+                                            <div>
+                                                <label>IFSC Code</label>
+                                                <input type="text" placeholder="Enter IFSC Code" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* F6 Additional Details */}
+                                <div className="accordion-box" onClick={() => toggleAccordion("f6")}>
+                                    Additions Details (F6)
+                                </div>
+                                {activeAccordion === "f6" && (
+                                    <div className="accordion-content">
+                                        <label>Notes</label>
+                                        <textarea placeholder="Enter Additional Notes"></textarea>
+                                    </div>
+                                )}
+
+                                {/* Footer */}
                                 <div className="popup-footer">
                                     <button
                                         className="cancel-btn"
@@ -103,10 +227,7 @@ const SaleInvoice = () => {
                                     >
                                         Cancel
                                     </button>
-
-                                    <button className="save-btn">
-                                        Save
-                                    </button>
+                                    <button className="save-btn">Save</button>
                                 </div>
 
                             </div>
@@ -152,7 +273,7 @@ const SaleInvoice = () => {
                         </tbody>
                     </table>
                 </div>
-
+                {/*------------------------------------------- add items and ------------------------*/}
                 <main>
                     <div className="invoice-select-item">
                         <div className="select-item">
@@ -201,7 +322,7 @@ const SaleInvoice = () => {
                             <button>+ Add</button>
                         </div>
                     </div>
-                    {  /*---------------------------for add item -----------*/}
+                    {  /*---------------------------for add item popup--------------------------------- -----------*/}
 
                     {/* 🔥 ITEM POPUP */}
                     {showItemPopup && (

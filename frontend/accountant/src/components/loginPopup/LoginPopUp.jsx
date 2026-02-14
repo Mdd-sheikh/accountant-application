@@ -17,10 +17,12 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
     const [UserData, setUserData] = useState({
         name: "",
         email: "",
-        password: ""
+        password: "",
+        companyName:"",
+        gstNumber:""
     })
 
-
+  
     const UserData_Handler = (event) => {
         setUserData({ ...UserData, [event.target.name]: event.target.value })
     }
@@ -92,7 +94,10 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
                         <p><i class="fa-solid fa-envelope"></i><input type="email" name='email' onChange={UserData_Handler} required placeholder='Enter Email' /></p>
                         <label htmlFor="">Password</label>
                         <p><i class="fa-solid fa-lock"></i><input type="password" name='password' onChange={UserData_Handler} required placeholder='Enter  Password' /></p>
-
+                        { !currentdata?<label htmlFor="">Company Name</label>:""}
+                         {!currentdata?<p><i class="fa-regular fa-building"></i> <input type="text" name="companyName" onChange={UserData_Handler} placeholder='Company Name' id="" /></p>:""}
+                         {!currentdata?<label htmlFor="">Gst Number</label>:""}
+                         {!currentdata?<p><i class="fa-solid fa-feather"></i><input type="text" name="gstNumber" id="" onChange={UserData_Handler} placeholder='Enter GST Number' /></p>:""}
                     </div>
                     <div className="button">
                         <button type='submit'>{currentdata ? "login" : "signup"}</button>
