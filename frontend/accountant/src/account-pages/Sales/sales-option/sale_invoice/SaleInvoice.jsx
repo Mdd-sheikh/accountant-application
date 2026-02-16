@@ -162,7 +162,7 @@ const SaleInvoice = () => {
                 }
             );
 
-            alert("Customer created successfully");
+            toast.success("Customer created successfully");
 
             console.log("Response 👉", res.data);
 
@@ -181,7 +181,7 @@ const SaleInvoice = () => {
 
         } catch (error) {
             console.error(error.response?.data || error.message);
-            alert(error.response?.data?.message || "Something went wrong");
+            toast.error(error.response?.data?.message);
         }
     };
     {/**--------------------------------------------------------------------------------------------------------------------- */ }
