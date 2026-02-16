@@ -7,18 +7,32 @@ const CustomerSchema = new Schema({
         required: true
     },
 
-    name: { type: String, required: true },
+    name: { type: String, required: true},
     email: String,
     phone: String,
 
     address: {
         line1: String,
-        city: String,
+        city: String, 
         state: String,
         pincode: String
     },
 
-    gstNumber: String
+    gstNumber: String,
+
+    bankDetails: {
+        bankName: String,
+        accountNumber: String,
+        ifscCode: String
+    },
+
+    // 🆕 Notes field
+    notes: {
+        type: String,
+        trim: true,
+        maxlength: 500
+    }
+
 }, { timestamps: true });
 
 export const Customer = mongoose.model("Customer", CustomerSchema);

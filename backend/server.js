@@ -3,6 +3,7 @@ import DbConeection from './config/db.js'
 import cors from 'cors'
 import router from './routes/UserRoute.js'
 import dotenv from 'dotenv'
+import customerRouter from './routes/customerRouter.js'
 
 const app = express()
 const port = (process.env.PORT || 5000)
@@ -15,6 +16,7 @@ dotenv.config()
 // api endpoint
 
 app.use("/api/user",router)
+app.use("/api/customer",customerRouter)
 
 // mongo db cnnection
 DbConeection()
