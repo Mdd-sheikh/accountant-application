@@ -5,20 +5,20 @@ import { Customer } from "../models/customer.js";
  */
 export const createCustomer = async (req, res) => {
     try {
+        console.log("BODY 👉", req.body);
+        console.log("USER 👉", req.user);
+
         const customer = await Customer.create({
             ...req.body,
-            userId: req.user._id
+            userId: req.user.userId   // ✅ FIXED
         });
-        console.log(req.body);
-        
-        
 
         res.status(201).json({
             success: true,
             message: "Customer created successfully",
             customer
         });
-        console.log(req.body);
+
     } catch (error) {
         res.status(500).json({
             success: false,
