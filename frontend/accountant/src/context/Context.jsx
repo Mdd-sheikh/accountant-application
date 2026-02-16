@@ -41,7 +41,6 @@ const ContextProvider = ({ children }) => {
     useEffect(() => {
 
          //calling getuserdata_handler function
-          getData_Handler()
         window.addEventListener("scroll", mobile_nav_oof)
 
         return () => removeEventListener("scroll", mobile_nav_oof)

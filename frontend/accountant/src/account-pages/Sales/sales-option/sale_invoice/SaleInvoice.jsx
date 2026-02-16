@@ -11,10 +11,10 @@ const SaleInvoice = () => {
     const [TermDropDown, setTermDropDown] = useState(false)
     const [additionchargers, setAdditionaCharges] = useState(false)
 
-    {/*------------------------for customer add* */ }
+    {/*------------------------for customer add------------- */ }
     const [showLedgerPopup, setShowLedgerPopup] = useState(false)
 
-    {/*----------------------------------create item popup----------------------* */ }
+    {/*----------------------------------create item popup---------------------- */ }
     const [showItemPopup, setShowItemPopup] = useState(false)
 
     {/*-------------------------------------- for customer details accordian-------------------------*/ }
@@ -91,7 +91,6 @@ const SaleInvoice = () => {
 
 
     const [clientsData, setClientsData] = useState({
-
         "name": "",
         "email": "",
         "phone": "",
@@ -113,27 +112,78 @@ const SaleInvoice = () => {
 
         "notes": "Preferred customer. Allow 15 days credit."
     })
-
-    const clientsData_handler = (event) => {
-        setClientsData({ ...clientsData, [event.target.name]: event.target.value })
-    }
     console.log(clientsData);
+
+
+    const clientsData_handler = (e) => {
+        const { name, value } = e.target
+
+        if (["line1", "city", "state", "pincode"].includes(name)) {
+            setClientsData({
+                ...clientsData,
+                address: {
+                    ...clientsData.address,
+                    [name]: value
+                }
+            })
+        } else if (["bankName", "accountNumber", "ifscCode"].includes(name)) {
+            setClientsData({
+                ...clientsData,
+                bankDetails: {
+                    ...clientsData.bankDetails,
+                    [name]: value
+                }
+            })
+        } else {
+            setClientsData({
+                ...clientsData,
+                [name]: value
+            })
+        }
+    }
+
+
     const { API_URL } = useContext(Context)
+
+
 
     const customerData = async () => {
         try {
-            const {response} = await axios.post(`${API_URL}/customer/create`, clientsData)
-            toast.success(response.data?.messege)
+            const token = localStorage.getItem("token"); // saved after login
+
+            const res = await axios.post(
+                `${API_URL}/customer/create`, // your route
+                clientsData,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            alert("Customer created successfully");
+
+            console.log("Response 👉", res.data);
+
+            setShowLedgerPopup(false);
+
+            // OPTIONAL: reset form
+            setClientsData({
+                name: "",
+                email: "",
+                phone: "",
+                address: { line1: "", city: "", state: "", pincode: "" },
+                gstNumber: "",
+                bankDetails: { bankName: "", accountNumber: "", ifscCode: "" },
+                notes: ""
+            });
 
         } catch (error) {
-           const errror = error.response?.data?.messege
-           console.log(errror);
-           
-
+            console.error(error.response?.data || error.message);
+            alert(error.response?.data?.message || "Something went wrong");
         }
-
-    }
-
+    };
     {/**--------------------------------------------------------------------------------------------------------------------- */ }
     return (
         <div className='createinvoice'>
@@ -174,7 +224,7 @@ const SaleInvoice = () => {
                         </div>
                     </div>
                 </section>
-                {/**-----------------------------------------------------for customer inputs data------------------------- */}
+                {/*-----------------------------------------------------for customer inputs data------------------------- */}
                 {/* 🔥 LEDGER POPUP */}
                 {showLedgerPopup && (
                     <div className="popup-overlay">
@@ -648,7 +698,7 @@ const SaleInvoice = () => {
                     )}
 
 
-                    {/* ----------------------------for add addition chargees like shipping charges and delivery like*/}
+                    {/* ----------------------------for add addition chargees like shipping charges and delivery like------------------*/}
 
                     {additionchargers ? <div className="invoice-select-charge">
                         <div className="item-select-charges">
@@ -798,4 +848,4 @@ const SaleInvoice = () => {
     )
 }
 
-export default SaleInvoice
+export default SaleInvoice;
