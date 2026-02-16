@@ -304,6 +304,187 @@ textarea {
     }
 }
 
+/*----------------------------------------for display customer data---------------------------*/
+
+
+/*-----------------------------------for display customer data*------------------------------------------------------------------------------------------*/
+/* Wrapper */
+.cs-wrapper {
+  padding: 30px;
+  font-family: Arial, sans-serif;
+}
+
+/* Top Balance */
+.cs-balance-text {
+  text-align: right;
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #444;
+}
+
+/* Main Layout */
+.cs-container {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+/* LEFT SIDE */
+.cs-left {
+  flex: 1;
+  min-width: 320px;
+}
+
+/* Form Group */
+.cs-form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.cs-form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.cs-required {
+  color: red;
+}
+
+/* Select Box */
+.cs-select-box {
+  background: #fff;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  padding: 10px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.cs-select-box:hover {
+  border-color: #3b82f6;
+}
+
+/* Icons */
+.cs-icons {
+  display: flex;
+  gap: 10px;
+  color: #888;
+  cursor: pointer;
+}
+
+/* Dropdown */
+.cs-dropdown-menu {
+  position: absolute;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-top: 5px;
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.cs-dropdown-item {
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.cs-dropdown-item:hover {
+  background: #f1f5ff;
+}
+
+/* RIGHT SIDE */
+.cs-right {
+  flex: 1;
+  min-width: 320px;
+}
+
+/* Card */
+.cs-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Card Header */
+.cs-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.cs-card-header h4 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.cs-edit-icon {
+  cursor: pointer;
+  color: #555;
+  transition: 0.2s;
+}
+
+.cs-edit-icon:hover {
+  color: #3b82f6;
+}
+
+/* Card Body */
+.cs-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cs-detail-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.cs-detail-row span:first-child {
+  font-weight: 500;
+  color: #555;
+}
+
+.cs-detail-row span:last-child {
+  text-align: right;
+  max-width: 60%;
+  word-break: break-word;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cs-container {
+    flex-direction: column;
+  }
+
+  .cs-detail-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .cs-detail-row span:last-child {
+    max-width: 100%;
+    text-align: left;
+  }
+}
+
+
+
 /*--------------------------------------------------------------------------------------------------------------------------------*/
 
 .invoice-select-item {

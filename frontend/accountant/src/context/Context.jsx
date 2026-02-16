@@ -26,22 +26,6 @@ const ContextProvider = ({ children }) => {
 
 
 
-    const [Userdata,setUserdata] = useState([])
-
-
-
-    // for get Userdata and match password and email for login and signup
-
-    const getData_Handler = async()=>{
-       try {
-        const response = await axios.get(`${API_URL}/user/userdata`)
-       setUserdata(response.data.data)
-       } catch (error) {
-         console.log("error to fetch",error);
-         
-       }
-
-    }
 
 
     // for navbaar sticky----------------------------------------------------
@@ -77,8 +61,6 @@ const ContextProvider = ({ children }) => {
         setShowLoginPopUp,
         IssidebarOpen, 
         setIsSidebarOpen,
-        Userdata,
-        setUserdata
     }
 
     

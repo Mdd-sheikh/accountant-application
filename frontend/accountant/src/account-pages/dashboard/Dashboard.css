@@ -48,13 +48,9 @@ aside hr {
 
 }
 
-.aside-nav ul a {
-  background-color: rgb(187, 199, 203);
-}
 
 .aside li:hover {
-  background-color: rgb(127, 140, 145);
-  color: white;
+  background-color: rgb(252, 246, 247);
   cursor: pointer;
   border-radius: 2px;
 }
@@ -65,11 +61,28 @@ aside hr {
 
 
 .invoice-dropdown div {
+  background-color: rgb(252, 246, 247);
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
+}
+/*---------------------------for bill /invoice dropdown------------------------------------------*/
+
+#dropdown-icon{
+  padding-left: 80px;
+  
+
+}
+.bill-invoice-dropdown{
+  
+}
+
+/*---------------------------------------------------------------------------*/
+
+.invoice-dropdown div:hover{
+  background-color: rgb(246, 226, 230);
 }
 
 .invoice-dropdown ul{
@@ -92,7 +105,13 @@ aside hr {
 }
 
 .invoice-dropdown li{
+
   width: 100%;
+}
+
+.invoice-dropdown  a{
+  background-color: transparent;
+  color: black;
 }
 
 @keyframes fade {

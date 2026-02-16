@@ -72,9 +72,9 @@ const Dashboard = () => {
                     <hr />
                     <nav className="aside-nav" id="aside">
                         <ul>
-                            <NavLink to="/503/home" end><li onClick={() => setIsSidebarOpen(false)}> <i class="fa-solid fa-film"></i> DashBoard</li></NavLink>
+                            <NavLink to="/503/home" end ><li onClick={() => setIsSidebarOpen(false)}> <i class="fa-solid fa-film"></i> DashBoard</li></NavLink>
                             <hr />
-                            <li onClick={() => setinvoice(prev => !prev)}><i class="fa-solid fa-business-time"></i> Bills / Invoice</li>
+                            <li className="bill-invoice-dropdown" onClick={() => setinvoice(prev => !prev)}><i class="fa-solid fa-business-time"></i> Bills / Invoice <i id="dropdown-icon" class="fa-solid fa-caret-up"></i></li>
                             {Invoice ? <div className="invoice-dropdown">
                                 <ul>
                                     <div><NavLink to="/503/invoice"><li>Sale Invoice</li></NavLink><NavLink to="/503/invoice/create"><button>+</button></NavLink></div>

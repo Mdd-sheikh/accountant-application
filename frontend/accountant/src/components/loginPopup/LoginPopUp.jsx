@@ -22,6 +22,7 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
         gstNumber:""
     })
 
+  console.log(UserData);
   
     const UserData_Handler = (event) => {
         setUserData({ ...UserData, [event.target.name]: event.target.value })

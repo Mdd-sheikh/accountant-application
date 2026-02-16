@@ -1,5 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './SaleInvoice.css'
+import { FaChevronDown, FaTimes, FaPen } from "react-icons/fa";
+import axios from 'axios';
+import { Context } from '../../../../context/Context';
+import { toast } from 'react-toastify';
+
 
 const SaleInvoice = () => {
 
@@ -12,12 +17,124 @@ const SaleInvoice = () => {
     {/*----------------------------------create item popup----------------------* */ }
     const [showItemPopup, setShowItemPopup] = useState(false)
 
+    {/*-------------------------------------- for customer details accordian-------------------------*/ }
     const [activeAccordion, setActiveAccordion] = useState(null);
 
     const toggleAccordion = (section) => {
         setActiveAccordion(activeAccordion === section ? null : section);
     };
+    {/**-------------------------------------------------------------------------------------------- */ }
 
+
+    {/** ----------------------------------------for customer data display---------------------------- */ }
+    const [selectedState, setSelectedState] = useState("24 - Gujarat");
+    const [showDropdown, setShowDropdown] = useState(false);
+    const [showCustomerData, setShowCustomerData] = useState(true)
+
+    const indianStates = [
+        "01 - Jammu & Kashmir",
+        "02 - Himachal Pradesh",
+        "03 - Punjab",
+        "04 - Chandigarh",
+        "05 - Uttarakhand",
+        "06 - Haryana",
+        "07 - Delhi",
+        "08 - Rajasthan",
+        "09 - Uttar Pradesh",
+        "10 - Bihar",
+        "11 - Sikkim",
+        "12 - Arunachal Pradesh",
+        "13 - Nagaland",
+        "14 - Manipur",
+        "15 - Mizoram",
+        "16 - Tripura",
+        "17 - Meghalaya",
+        "18 - Assam",
+        "19 - West Bengal",
+        "20 - Jharkhand",
+        "21 - Odisha",
+        "22 - Chhattisgarh",
+        "23 - Madhya Pradesh",
+        "24 - Gujarat",
+        "25 - Daman & Diu",
+        "26 - Dadra & Nagar Haveli",
+        "27 - Maharashtra",
+        "28 - Andhra Pradesh",
+        "29 - Karnataka",
+        "30 - Goa",
+        "31 - Lakshadweep",
+        "32 - Kerala",
+        "33 - Tamil Nadu",
+        "34 - Puducherry",
+        "35 - Andaman & Nicobar Islands",
+        "36 - Telangana",
+        "37 - Andhra Pradesh (New)",
+        "38 - Ladakh"
+    ];
+
+
+
+    const [clientItem, setClientItem] = useState({
+        itemname: "",
+        unit: "",
+        HSNnumber: "",
+        GstRate: "",
+        CessRate: "",
+        category: ""
+    })
+
+    const clientItem_data_Handler = (event) => {
+        setClientItem({ ...clientItem, [event.target.name]: event.target.value })
+    }
+
+
+
+
+    const [clientsData, setClientsData] = useState({
+
+        "name": "",
+        "email": "",
+        "phone": "",
+
+        "address": {
+            "line1": "",
+            "city": "",
+            "state": "",
+            "pincode": ""
+        },
+
+        "gstNumber": "",
+
+        "bankDetails": {
+            "bankName": "",
+            "accountNumber": "",
+            "ifscCode": ""
+        },
+
+        "notes": "Preferred customer. Allow 15 days credit."
+    })
+
+    const clientsData_handler = (event) => {
+        setClientsData({ ...clientsData, [event.target.name]: event.target.value })
+    }
+    console.log(clientsData);
+    const { API_URL } = useContext(Context)
+
+    const customerData = async () => {
+        try {
+            const {response} = await axios.post(`${API_URL}/customer/create`, clientsData)
+            toast.success(response.data?.messege)
+
+        } catch (error) {
+           const errror = error.response?.data?.messege
+           console.log(errror);
+           
+
+        }
+
+    }
+
+    {/**--------------------------------------------------------------------------------------------------------------------- */ }
     return (
         <div className='createinvoice'>
             <div className="createinvoice-container">
@@ -57,6 +174,7 @@ const SaleInvoice = () => {
                         </div>
                     </div>
                 </section>
+                {/**-----------------------------------------------------for customer inputs data------------------------- */}
                 {/* 🔥 LEDGER POPUP */}
                 {showLedgerPopup && (
                     <div className="popup-overlay">
@@ -79,7 +197,7 @@ const SaleInvoice = () => {
                                 <div className="popup-row">
                                     <div>
                                         <label>Group *</label>
-                                        <select>
+                                        <select >
                                             <option>Customers (Debtors)</option>
                                             <option>Suppliers (Creditors)</option>
                                         </select>
@@ -88,12 +206,12 @@ const SaleInvoice = () => {
                                     <div className="customer-information">
                                         <div>
                                             <label>Name *</label>
-                                            <input type="text" placeholder="Enter Ledger Name" />
+                                            <input type="text" name='name' value={clientsData.name} onChange={clientsData_handler} placeholder="Enter Ledger Name" />
                                         </div>
 
                                         <div>
                                             <label>GST Number</label>
-                                            <input type="text" placeholder="Enter GST Number" />
+                                            <input type="text" name='gstNumber' value={clientsData.gstNumber} onChange={clientsData_handler} placeholder="Enter GST Number" />
                                         </div>
                                     </div>
                                 </div>
@@ -107,11 +225,11 @@ const SaleInvoice = () => {
                                         <div className="grid-2">
                                             <div>
                                                 <label>Amount</label>
-                                                <input type="number" placeholder="Enter Amount" />
+                                                <input type="number" name='amout' placeholder="Enter Amount" />
                                             </div>
                                             <div>
                                                 <label>Type</label>
-                                                <select>
+                                                <select >
                                                     <option>Debit</option>
                                                     <option>Credit</option>
                                                 </select>
@@ -127,21 +245,21 @@ const SaleInvoice = () => {
                                 {activeAccordion === "f2" && (
                                     <div className="accordion-content">
                                         <label>Address</label>
-                                        <textarea placeholder="Enter Full Address"></textarea>
+                                        <textarea name='line1' value={clientsData.address.line1} onChange={clientsData_handler} placeholder="Enter Full Address"></textarea>
 
                                         <div className="grid-2">
                                             <div>
                                                 <label>City</label>
-                                                <input type="text" placeholder="Enter City" />
+                                                <input type="text" name='city' value={clientsData.address.city} onChange={clientsData_handler} placeholder="Enter City" />
                                             </div>
                                             <div>
                                                 <label>State</label>
-                                                <input type="text" placeholder="Enter State" />
+                                                <input type="text" name='state' value={clientsData.address.state} onChange={clientsData_handler} placeholder="Enter State" />
                                             </div>
                                         </div>
 
                                         <label>Pincode</label>
-                                        <input type="text" placeholder="Enter Pincode" />
+                                        <input type="text" name='pincode' value={clientsData.address.pincode} onChange={clientsData_handler} placeholder="Enter Pincode" />
                                     </div>
                                 )}
 
@@ -154,11 +272,11 @@ const SaleInvoice = () => {
                                         <div className="grid-2">
                                             <div>
                                                 <label>Phone Number</label>
-                                                <input type="text" placeholder="Enter Phone Number" />
+                                                <input type="text" name='phone' value={clientsData.phone} onChange={clientsData_handler} placeholder="Enter Phone Number" />
                                             </div>
                                             <div>
                                                 <label>Email</label>
-                                                <input type="email" placeholder="Enter Email" />
+                                                <input type="email" name='email' value={clientsData.email} onChange={clientsData_handler} placeholder="Enter Email" />
                                             </div>
                                         </div>
 
@@ -193,16 +311,16 @@ const SaleInvoice = () => {
                                 {activeAccordion === "f5" && (
                                     <div className="accordion-content">
                                         <label>Bank Name</label>
-                                        <input type="text" placeholder="Enter Bank Name" />
+                                        <input type="text" name='bankName' value={clientsData.bankDetails.bankName} onChange={clientsData_handler} placeholder="Enter Bank Name" />
 
                                         <div className="grid-2">
                                             <div>
                                                 <label>Account Number</label>
-                                                <input type="text" placeholder="Enter Account Number" />
+                                                <input type="text" name='accountNumber' value={clientsData.bankDetails.accountNumber} onChange={clientsData_handler} placeholder="Enter Account Number" />
                                             </div>
                                             <div>
                                                 <label>IFSC Code</label>
-                                                <input type="text" placeholder="Enter IFSC Code" />
+                                                <input type="text" name='ifscCode' value={clientsData.bankDetails.ifscCode} onChange={clientsData_handler} placeholder="Enter IFSC Code" />
                                             </div>
                                         </div>
                                     </div>
@@ -215,7 +333,7 @@ const SaleInvoice = () => {
                                 {activeAccordion === "f6" && (
                                     <div className="accordion-content">
                                         <label>Notes</label>
-                                        <textarea placeholder="Enter Additional Notes"></textarea>
+                                        <textarea name="notes" value={clientsData.notes} onChange={clientsData_handler} placeholder="Enter Additional Notes"></textarea>
                                     </div>
                                 )}
 
@@ -227,14 +345,129 @@ const SaleInvoice = () => {
                                     >
                                         Cancel
                                     </button>
-                                    <button className="save-btn">Save</button>
+                                    <button className="save-btn" onClick={customerData}>Save</button>
                                 </div>
 
                             </div>
                         </div>
                     </div>
                 )}
+                {/**--------------------------------------for customer display data ------------------------------------------------------------------------------------ */}
+                {showCustomerData ? <div className="cs-wrapper">
 
+                    <div className="cs-balance-text">
+                        Current balance: ₹0.00
+                    </div>
+
+                    <div className="cs-container">
+
+                        {/* LEFT SIDE */}
+                        <div className="cs-left">
+
+                            <div className="cs-form-group">
+                                <label>
+                                    Place of Supply <span className="cs-required">*</span>
+                                </label>
+
+                                <div
+                                    className="cs-select-box"
+                                    onClick={() => setShowDropdown(!showDropdown)}
+                                >
+                                    <span>{selectedState || "Select State"}</span>
+
+                                    <div className="cs-icons">
+                                        {selectedState && (
+                                            <FaTimes
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    setSelectedState("");
+                                                }}
+                                            />
+                                        )}
+                                        <FaChevronDown />
+                                    </div>
+                                </div>
+
+                                {showDropdown && (
+                                    <div className="cs-dropdown-menu">
+                                        {indianStates.map((state, index) => (
+                                            <div
+                                                key={index}
+                                                className="cs-dropdown-item"
+                                                onClick={() => {
+                                                    setSelectedState(state);
+                                                    setShowDropdown(false);
+                                                }}
+                                            >
+                                                {state}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Shipping Address */}
+                            <div className="cs-form-group">
+                                <label>Shipping Address</label>
+                                <div className="cs-select-box">
+                                    <span>
+                                        vill-kandha post-khanpur dist-gaya, KOLKATA, BIHAR,
+                                        805131, India
+                                    </span>
+                                    <div className="cs-icons">
+                                        <FaTimes />
+                                        <FaChevronDown />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        {/* RIGHT SIDE */}
+                        <div className="cs-right">
+                            <div className="cs-card">
+
+                                <div className="cs-card-header">
+                                    <h4>Customer Details</h4>
+                                    <FaPen className="cs-edit-icon" />
+                                </div>
+
+                                <div className="cs-card-body">
+                                    <div className="cs-detail-row">
+                                        <span>Name</span>
+                                        <span>Md Aadil</span>
+                                    </div>
+
+                                    <div className="cs-detail-row">
+                                        <span>Address</span>
+                                        <span>
+                                            vill-kandha post-khanpur dist-gaya, KOLKATA, BIHAR,
+                                            805131, India
+                                        </span>
+                                    </div>
+
+                                    <div className="cs-detail-row">
+                                        <span>GST No.</span>
+                                        <span>-</span>
+                                    </div>
+
+                                    <div className="cs-detail-row">
+                                        <span>Mobile No.</span>
+                                        <span>7488191669</span>
+                                    </div>
+
+                                    <div className="cs-detail-row">
+                                        <span>Email</span>
+                                        <span>mda231034@gmail.com</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div> : <></>}
+                {/**---------------------------------------------------------------------------------------------------------------------- */}
                 <div class="table-container">
                     <table class="invoice-table">
                         <thead>
@@ -280,6 +513,7 @@ const SaleInvoice = () => {
                             <p>Select Item <sup>*</sup></p>
                             <select name="" id="" onChange={(e) => {
                                 if (e.target.value === "add_item") {
+
                                     setShowItemPopup(true)
                                 }
                             }}>
