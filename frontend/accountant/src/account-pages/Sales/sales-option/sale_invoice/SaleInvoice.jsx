@@ -195,7 +195,7 @@ const SaleInvoice = () => {
                         <span>Create Invoice</span>
                     </div>
                     <div className="right-invoice-header">
-                        <select name="" id="">
+                        <select name="" id=""> 
 
                             <option value="">Registered address</option>
                         </select>
