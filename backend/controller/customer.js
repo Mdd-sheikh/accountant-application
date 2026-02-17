@@ -10,7 +10,7 @@ export const createCustomer = async (req, res) => {
 
         const customer = await Customer.create({
             ...req.body,
-            userId: req.user.userId   // ✅ FIXED
+            userId: req.user._id   // ✅ FIX HERE
         });
 
         res.status(201).json({
@@ -22,7 +22,7 @@ export const createCustomer = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: error.message 
+            message: error.message
         });
     }
 };
