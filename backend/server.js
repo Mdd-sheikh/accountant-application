@@ -7,16 +7,16 @@ import customerRouter from './routes/customerRouter.js'
 
 const app = express()
 const port = (process.env.PORT || 5000)
+dotenv.config()
 
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
-dotenv.config()
 
 // api endpoint
 
-app.use("/api/user",router)
-app.use("/api/customer",customerRouter)
+app.use("/api/user", router)
+app.use("/api/customer", customerRouter);
 
 // mongo db cnnection
 DbConeection()
