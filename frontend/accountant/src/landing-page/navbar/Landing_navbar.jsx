@@ -44,7 +44,7 @@ const Landing_navbar = ({ setShowLoginPopUp }) => {
                         <NavLink to="/accounting"><li>Accounts</li></NavLink>
                         <NavLink to="/billing"> <li>Insides</li></NavLink>
                         <NavLink to="/resources"><li>Resource</li></NavLink>
-                        <NavLink to="about"><li>About Us</li></NavLink>
+                        <NavLink to="/about"><li>About Us</li></NavLink>
 
                     </ul>
                 </div>
