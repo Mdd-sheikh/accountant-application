@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './SaleInvoice.css'
 import { FaChevronDown, FaTimes, FaPen } from "react-icons/fa";
 import axios from 'axios';
@@ -11,7 +11,7 @@ const SaleInvoice = () => {
     const [TermDropDown, setTermDropDown] = useState(false)
     const [additionchargers, setAdditionaCharges] = useState(false)
 
-    {/*------------------------for customer add------------- */ }
+    {/*------------------------for customer  add------------- */ }
     const [showLedgerPopup, setShowLedgerPopup] = useState(false)
 
     {/*----------------------------------create item popup---------------------- */ }
@@ -29,7 +29,7 @@ const SaleInvoice = () => {
     {/** ----------------------------------------for customer data display---------------------------- */ }
     const [selectedState, setSelectedState] = useState("24 - Gujarat");
     const [showDropdown, setShowDropdown] = useState(false);
-    const [showCustomerData, setShowCustomerData] = useState(true)
+    const [showCustomerData, setShowCustomerData] = useState(true);
 
     const indianStates = [
         "01 - Jammu & Kashmir",
@@ -184,6 +184,9 @@ const SaleInvoice = () => {
             toast.error(error.response?.data?.message);
         }
     };
+
+    // get customer adresss--------------------------
+    
     {/**--------------------------------------------------------------------------------------------------------------------- */ }
     return (
         <div className='createinvoice'>
@@ -195,7 +198,7 @@ const SaleInvoice = () => {
                         <span>Create Invoice</span>
                     </div>
                     <div className="right-invoice-header">
-                        <select name="" id=""> 
+                        <select name="" id="">
 
                             <option value="">Registered address</option>
                         </select>

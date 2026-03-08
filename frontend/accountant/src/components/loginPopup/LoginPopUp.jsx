@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 const LoginPopUp = ({ setShowLoginPopUp }) => {
     const navigate = useNavigate()
     const { Userdata, setUserdata } = useContext(Context)
-
+    const [loading, setLoading] = useState(false)
     const [currentdata, setCurrentData] = useState(false)
 
 
@@ -18,18 +18,19 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
         name: "",
         email: "",
         password: "",
-        companyName:"",
-        gstNumber:""
+        companyName: "",
+        gstNumber: ""
     })
 
-  console.log(UserData);
-  
+    console.log(UserData);
+
     const UserData_Handler = (event) => {
         setUserData({ ...UserData, [event.target.name]: event.target.value })
     }
 
     const submitHandler = async (e) => {
         e.preventDefault();
+        setLoading(true);   // start loading
 
         try {
             const endpoint = currentdata
@@ -38,28 +39,28 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
 
             const { data } = await axios.post(endpoint, UserData);
 
-            // ✅ Show success message
             toast.success(data?.message || "Success");
 
-            // ✅ Store token only if exists
             if (data?.token) {
                 localStorage.setItem("token", data.token);
             }
 
-            // ✅ Redirect after short delay
             setTimeout(() => {
                 setShowLoginPopUp(false);
                 navigate("/503/home");
             }, 1000);
 
         } catch (error) {
-            // Proper error handling
+
             const errorMessage =
                 error.response?.data?.message ||
                 "Something went wrong. Please try again.";
 
             toast.error(errorMessage);
             console.error("Auth Error:", error);
+
+        } finally {
+            setLoading(false);   // stop loading
         }
     };
 
@@ -95,13 +96,15 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
                         <p><i class="fa-solid fa-envelope"></i><input type="email" name='email' onChange={UserData_Handler} required placeholder='Enter Email' /></p>
                         <label htmlFor="">Password</label>
                         <p><i class="fa-solid fa-lock"></i><input type="password" name='password' onChange={UserData_Handler} required placeholder='Enter  Password' /></p>
-                        { !currentdata?<label htmlFor="">Company Name</label>:""}
-                         {!currentdata?<p><i class="fa-regular fa-building"></i> <input type="text" name="companyName" onChange={UserData_Handler} placeholder='Company Name' id="" /></p>:""}
-                         {!currentdata?<label htmlFor="">Gst Number</label>:""}
-                         {!currentdata?<p><i class="fa-solid fa-feather"></i><input type="text" name="gstNumber" id="" onChange={UserData_Handler} placeholder='Enter GST Number' /></p>:""}
+                        {!currentdata ? <label htmlFor="">Company Name</label> : ""}
+                        {!currentdata ? <p><i class="fa-regular fa-building"></i> <input type="text" name="companyName" onChange={UserData_Handler} placeholder='Company Name' id="" /></p> : ""}
+                        {!currentdata ? <label htmlFor="">Gst Number</label> : ""}
+                        {!currentdata ? <p><i class="fa-solid fa-feather"></i><input type="text" name="gstNumber" id="" onChange={UserData_Handler} placeholder='Enter GST Number' /></p> : ""}
                     </div>
                     <div className="button">
-                        <button type='submit'>{currentdata ? "login" : "signup"}</button>
+                        <button type='submit' disabled={loading}>
+                            {loading ? <span className="loader"></span> : (currentdata ? "Login" : "Signup")}
+                        </button>
                     </div>
                     <div className="bottom">
                         <span>create account {currentdata ? <i onClick={() => setCurrentData(false)}>sign Up</i> : <i onClick={() => setCurrentData(true)}>Login</i>}</span>
