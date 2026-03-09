@@ -4,9 +4,11 @@ import { assests } from "../../assets/assests";
 import { NavLink } from "react-router-dom";
 import { Context } from "../../context/Context";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 
 const Dashboard = () => {
+    const navigate = useNavigate();
 
     const { IssidebarOpen, setIsSidebarOpen } = useContext(Context)
     const { collapse, setCollapse} = useContext(Context)
@@ -17,7 +19,7 @@ const Dashboard = () => {
 
         setTimeout(() => {
             localStorage.removeItem("token");
-            window.location.href = "/";
+            navigate("/");
             toast.success("Logout successful");
         }, 2000)
         setIsSidebarOpen(false);
@@ -194,7 +196,7 @@ const Dashboard = () => {
                         <button className="logout-btn">
 
                             <i className="fa-solid fa-right-from-bracket"></i>
-                            <span>Logout</span>
+                            <span onClick={LogoutHandler}>Logout</span>
 
                         </button>
 
