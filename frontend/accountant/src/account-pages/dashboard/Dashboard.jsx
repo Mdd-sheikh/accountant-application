@@ -88,32 +88,32 @@ const Dashboard = () => {
 
                         <div className="dropdown-row">
                             <NavLink to="/503/invoice">Invoices</NavLink>
-                            <button className="plus-btn">+</button>
+                           <NavLink to="/503/invoice/create"> <button className="plus-btn">+</button> </NavLink>
                         </div>
 
                         <div className="dropdown-row">
                             <NavLink to="/503/quotation">Quotations</NavLink>
-                            <button className="plus-btn">+</button>
+                            <NavLink to="/503/invoice/create"> <button className="plus-btn">+</button> </NavLink>
                         </div>
 
                         <div className="dropdown-row">
                             <NavLink to="/503/salesreturn">Sales Return</NavLink>
-                            <button className="plus-btn">+</button>
+                            <NavLink to="/503/invoice/create"> <button className="plus-btn">+</button> </NavLink>
                         </div>
 
                         <div className="dropdown-row">
                             <NavLink to="/503/creditnote">Credit Note</NavLink>
-                            <button className="plus-btn">+</button>
+                            <NavLink to="/503/invoice/create"> <button className="plus-btn">+</button> </NavLink>
                         </div>
 
                         <div className="dropdown-row">
                             <NavLink to="/503/deliverychallan">Delivery Challan</NavLink>
-                            <button className="plus-btn">+</button>
+                            <NavLink to="/503/invoice/create"> <button className="plus-btn">+</button> </NavLink>
                         </div>
 
                         <div className="dropdown-row">
                             <NavLink to="/503/proforma">Proforma Invoice</NavLink>
-                            <button className="plus-btn">+</button>
+                            <NavLink to="/503/invoice/create"> <button className="plus-btn">+</button> </NavLink>
                         </div>
 
                     </div>
