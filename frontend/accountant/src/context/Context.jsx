@@ -2,10 +2,10 @@ import axios from "axios";
 import { createContext, useState, useEffect } from "react";
 
 
-export const Context = createContext(null)
+export const Context = createContext(null);
 
 
-
+const [UserCustomerData, setUserCustomerData] = useState([]);
 
 const ContextProvider = ({ children }) => {
     // for sidebar open and close
@@ -13,15 +13,15 @@ const ContextProvider = ({ children }) => {
     //------------------------------------------------------
 
     // for mobile -----------------------------------
-    const [IsMobile, setIsMobile] = useState(false)
+    const [IsMobile, setIsMobile] = useState(false);
     //------------------------------------------
 
     // for api Url------------------------------------
-    const API_URL = "https://accountant-application-4-ucz4.onrender.com/api"
+    const API_URL = "https://accountant-application-4-ucz4.onrender.com/api";
     //---------------------------------------
 
     // for login popup sate -------------------------------------------
-    const [showLoginPopUp, setShowLoginPopUp] = useState(false)
+    const [showLoginPopUp, setShowLoginPopUp] = useState(false);
     //-----------------------------------------------------------------
 
 
@@ -64,7 +64,9 @@ const ContextProvider = ({ children }) => {
         collapse,
         setCollapse,
         salesOpen,
-        setSalesOpen
+        setSalesOpen,
+        UserCustomerData,
+        setUserCustomerData
     }
 
 

@@ -7,9 +7,11 @@ import { toast } from 'react-toastify';
 
 
 const SaleInvoice = () => {
+     const { API_URL } = useContext(Context)
 
     const [TermDropDown, setTermDropDown] = useState(false)
     const [additionchargers, setAdditionaCharges] = useState(false)
+
 
     {/*------------------------for customer  add------------- */ }
     const [showLedgerPopup, setShowLedgerPopup] = useState(false)
@@ -30,7 +32,9 @@ const SaleInvoice = () => {
     const [selectedState, setSelectedState] = useState("24 - Gujarat");
     const [showDropdown, setShowDropdown] = useState(false);
     const [showCustomerData, setShowCustomerData] = useState(true);
-
+    const {UserCustomerData, setUserCustomerData} = useContext(Context)
+    console.log(UserCustomerData);
+    
     const indianStates = [
         "01 - Jammu & Kashmir",
         "02 - Himachal Pradesh",
@@ -73,7 +77,7 @@ const SaleInvoice = () => {
     ];
 
 
-
+// for post customer item data into database--------------------------------------------------------
     const [clientItem, setClientItem] = useState({
         itemname: "",
         unit: "",
@@ -89,7 +93,7 @@ const SaleInvoice = () => {
 
 
 
-
+// for User customer post into database--------------------------------------------------------
     const [clientsData, setClientsData] = useState({
         "name": "",
         "email": "",
@@ -142,10 +146,10 @@ const SaleInvoice = () => {
     }
 
 
-    const { API_URL } = useContext(Context)
+   
 
 
-
+// for post  customer data into database--------------------------------------------------------
     const customerData = async () => {
         try {
             const token = localStorage.getItem("token"); // saved after login
@@ -184,6 +188,8 @@ const SaleInvoice = () => {
         }
     };
 
+
+    // for get customer data from database--------------------------------------------------------
     const GetCustomerData  = () =>{
         const token = localStorage.getItem("token"); // saved after login
 
@@ -193,7 +199,8 @@ const SaleInvoice = () => {
             }
         })
         .then(response => {
-            console.log("Customer Data 👉", response.data);
+            console.log("Customer Data fetched 👉");
+            setUserCustomerData(response.data.data);
             // Handle the response data as needed
         })
         .catch(error => {
@@ -485,8 +492,7 @@ const SaleInvoice = () => {
                                 <label>Shipping Address</label>
                                 <div className="cs-select-box">
                                     <span>
-                                        vill-kandha post-khanpur dist-gaya, KOLKATA, BIHAR,
-                                        805131, India
+                                        {UserCustomerData.length > 0 ? UserCustomerData[0].address.line1 : "No address found"}
                                     </span>
                                     <div className="cs-icons">
                                         <FaTimes />
