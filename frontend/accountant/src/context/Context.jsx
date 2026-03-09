@@ -10,7 +10,7 @@ export const Context = createContext(null)
 const ContextProvider = ({ children }) => {
     // for sidebar open and close
     const [IssidebarOpen, setIsSidebarOpen] = useState(true);
-//------------------------------------------------------
+    //------------------------------------------------------
 
     // for mobile -----------------------------------
     const [IsMobile, setIsMobile] = useState(false)
@@ -25,7 +25,8 @@ const ContextProvider = ({ children }) => {
     //-----------------------------------------------------------------
 
 
-
+    const [collapse, setCollapse] = useState(false);
+    const [salesOpen, setSalesOpen] = useState(false);
 
 
     // for navbaar sticky----------------------------------------------------
@@ -40,12 +41,12 @@ const ContextProvider = ({ children }) => {
     }
     useEffect(() => {
 
-         //calling getuserdata_handler function
+        //calling getuserdata_handler function
         window.addEventListener("scroll", mobile_nav_oof)
 
         return () => removeEventListener("scroll", mobile_nav_oof)
 
-         
+
 
     }, [])
 
@@ -56,13 +57,17 @@ const ContextProvider = ({ children }) => {
         IsMobile,
         setIsMobile,
         API_URL,
-        showLoginPopUp, 
+        showLoginPopUp,
         setShowLoginPopUp,
-        IssidebarOpen, 
+        IssidebarOpen,
         setIsSidebarOpen,
+        collapse,
+        setCollapse,
+        salesOpen,
+        setSalesOpen
     }
 
-    
+
 
     return <Context.Provider value={value}>
         {children}

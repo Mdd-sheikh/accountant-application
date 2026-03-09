@@ -59,9 +59,9 @@ const Personal_account = () => {
 
         {/* Header */}
 
-        <div className="profile-header">
+        <div className="avatar-container">
 
-          <div className="avatar-container">
+          <label htmlFor="image" className="avatar-click">
 
             {image ? (
               <img src={URL.createObjectURL(image)} alt="profile" />
@@ -71,17 +71,15 @@ const Personal_account = () => {
               </div>
             )}
 
-            <input
-              type="file"
-              onChange={(e) => setImage(e.target.files[0])}
-            />
+          </label>
 
-          </div>
-
-          <div className="profile-info">
-            <h2>{userinformation?.name}</h2>
-            <p>{userinformation?.email}</p>
-          </div>
+          <input
+            type="file"
+            id="image"
+            accept="image/*"
+            hidden
+            onChange={(e) => setImage(e.target.files[0])}
+          />
 
         </div>
 

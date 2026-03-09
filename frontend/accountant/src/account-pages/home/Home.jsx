@@ -10,7 +10,6 @@ const Home = () => {
     <div className='home'>
       <div className="home-container">
         <div className="upper-container">
-          <button className='menubar-dashboard' onClick={() => setIsSidebarOpen(prev => !prev)}><i class="fa-solid fa-bars"></i></button>
           <input title='search your item' type="search" placeholder='search' /><button><i class="fa-solid fa-magnifying-glass"></i></button>
 
         </div>

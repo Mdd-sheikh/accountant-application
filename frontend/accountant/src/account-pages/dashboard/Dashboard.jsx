@@ -3,105 +3,210 @@ import "./Dashboard.css";
 import { assests } from "../../assets/assests";
 import { NavLink } from "react-router-dom";
 import { Context } from "../../context/Context";
+import { toast } from "react-toastify";
 
 
 const Dashboard = () => {
 
     const { IssidebarOpen, setIsSidebarOpen } = useContext(Context)
-    const [openMenu, setOpenMenu] = useState(null);
-    const [Invoice, setinvoice] = useState(false)
+    const { collapse, setCollapse} = useContext(Context)
+    const {salesOpen, setSalesOpen} = useContext(Context);
 
+
+    const LogoutHandler = () => {
+
+        setTimeout(() => {
+            localStorage.removeItem("token");
+            window.location.href = "/";
+            toast.success("Logout successful");
+        }, 2000)
+        setIsSidebarOpen(false);
+    };
 
 
 
     return (
         <div className="dashboard">
-            <div className="dashboard-container">
-                {/*------------------------------------------for mobile-------------------------------------------------------*/}
-                <div className="menubar">
 
-                    {IssidebarOpen ? <aside className="aside-mobile-nav">
+            <aside className={`aside ${collapse ? "collapse" : ""}`}>
 
-                        <header className="header">
-                            <img src={assests.logo} alt="bookwise official logo " />
-                            <i id="menubar" onClick={() => setIsSidebarOpen(prev => !prev)} class="fa-solid fa-bars"></i>
+                {/* HEADER */}
 
-                        </header>
-                        <hr />
-                        <nav className="aside-mobile" id="aside">
-                            <ul>
-                                <NavLink to="/503/home"><li onClick={() => setIsSidebarOpen(false)}> <i class="fa-solid fa-film"></i> DashBoard</li></NavLink>
-                                <hr />
-                                <li onClick={() => setinvoice(prev => !prev)}><i class="fa-solid fa-business-time"></i> Bill / Invoice</li>
-                                {Invoice ? <div className="invoice-dropdown">
-                                    <ul>
-                                        <div><NavLink to="/503/invoice"><li>Sale Invoice</li></NavLink><NavLink to="/503/invoice/create"><button>+</button></NavLink></div>
-                                        <div><NavLink to='/503/performainvoice'> <li>performa Invoice</li></NavLink><NavLink to="/503/invoice/create"><button>+</button></NavLink></div>
-                                        <div> <NavLink to="/503/quotation"> <li>Quotation</li></NavLink><NavLink to="/503/invoice/create"><button>+</button></NavLink></div>
-                                        <div><NavLink to="/503/deliverychallan"><li>Deliver Challan</li></NavLink><NavLink to="/503/invoice/create"><button>+</button></NavLink></div>
-                                        <div><NavLink to="/503/salesreturn"><li>Sale Return</li></NavLink><NavLink to="/503/invoice/create"><button>+</button></NavLink></div>
-                                    </ul>
-                                </div> : <></>}
-                                <li><i class="fa-solid fa-cart-arrow-down"></i> Purchase</li>
-                                <li> <i class="fa-solid fa-receipt"></i> Expenses</li>
-                                <li> <i class="fa-solid fa-dollar-sign"></i>Receipt / Payments</li>
-                                <li> <i class="fa-solid fa-calculator"></i> Accountant</li>
-                                <hr />
-                                <li> <i class="fa-solid fa-briefcase"></i> Items</li>
-                                <li> <i class="fa-solid fa-user"></i> Users</li>
-                                <li> <i class="fa-solid fa-users"></i> Parties</li>
-                                <li> <i class="fa-solid fa-building-columns"></i> Banks</li>
-                                <br />
-                                <li> <i class="fa-solid fa-file"></i> Reports</li>
-                                <NavLink to="/503/account"> <li onClick={() => setIsSidebarOpen(false)}> < i class="fa-solid fa-circle-user"></i>User Account</li></NavLink>
-                            </ul>
-                        </nav>
-                    </aside> : ""}
+                <div className="sidebar-top">
+
+                    {collapse ? null : <img src={assests.logo} alt="logo" />}
+
+                    <button
+                        className="collapse-btn"
+                        onClick={() => setCollapse(!collapse)}
+                    >
+                        <i className="fa-solid fa-bars"></i>
+                    </button>
+
                 </div>
 
-                {/*--------------------------- for desktop navbar -------------------------------------------------------------------------*/}
-                <aside className="aside">
 
-                    <header className="header">
-                        <img src={assests.logo} alt="bookwise official logo " />
-                        <div className="account">
-                            <NavLink to="/503/account"> < i class="fa-solid fa-circle-user"></i></NavLink>
+                <nav className="aside-nav">
+
+                    {/* DASHBOARD */}
+
+                    <NavLink
+                        to="/503/home"
+                        end
+                        className={({ isActive }) =>
+                            isActive ? "menu-item active" : "menu-item"}
+                    >
+
+                        <i className="fa-solid fa-table-columns"></i>
+                        <span>Dashboard</span>
+
+                    </NavLink>
+
+
+                    {/* SALES */}
+
+                    <div
+                        className="menu-item sales-btn"
+                        onClick={() => setSalesOpen(!salesOpen)}
+                    >
+
+                        <div className="menu-left">
+
+                            <i className="fa-solid fa-desktop"></i>
+                            <span>Sales</span>
 
                         </div>
-                    </header>
-                    <hr />
-                    <nav className="aside-nav" id="aside">
-                        <ul>
-                            <NavLink to="/503/home" end ><li onClick={() => setIsSidebarOpen(false)}> <i class="fa-solid fa-film"></i> DashBoard</li></NavLink>
-                            <hr />
-                            <li className="bill-invoice-dropdown" onClick={() => setinvoice(prev => !prev)}><i class="fa-solid fa-business-time"></i> Bills / Invoice <i id="dropdown-icon" class="fa-solid fa-caret-up"></i></li>
-                            {Invoice ? <div className="invoice-dropdown">
-                                <ul>
-                                    <div><NavLink to="/503/invoice"><li>Sale Invoice</li></NavLink><NavLink to="/503/invoice/create"><button>+</button></NavLink></div>
-                                    <div><NavLink to='/503/performainvoice'><li>performa Invoice</li></NavLink><NavLink to="/503/invoice/create"><button>+</button></NavLink></div>
-                                    <div><NavLink to="/503/quotation"> <li>Quotation</li></NavLink><NavLink to="/503/invoice/create"><button>+</button></NavLink></div>
-                                    <div><NavLink to="/503/deliverychallan"><li>Deliver Challan</li></NavLink><NavLink to="/503/invoice/create"><button>+</button></NavLink></div>
-                                    <div><NavLink to="/503/salesreturn"><li>Sale Return</li></NavLink><NavLink to="/503/invoice/create"><button>+</button></NavLink></div>
-                                </ul>
-                            </div> : <></>}
-                            <li><i class="fa-solid fa-cart-arrow-down"></i> Purchase</li>
-                            <li> <i class="fa-solid fa-receipt"></i> Expenses</li>
-                            <li> <i class="fa-solid fa-dollar-sign"></i>Receipt / Payments</li>
-                            <li> <i class="fa-solid fa-calculator"></i> Accountant</li>
-                            <hr />
-                            <li> <i class="fa-solid fa-briefcase"></i> Products</li>
-                            <li> <i class="fa-solid fa-users"></i> Customers</li>
-                            <li> <i class="fa-solid fa-user"></i> Users </li>
-                            <li> <i class="fa-solid fa-building-columns"></i> Banks</li>
-                            <hr />
-                            <li> <i class="fa-solid fa-file"></i> Reports</li>
-                            <NavLink to="/503/account"> <li> < i class="fa-solid fa-circle-user"></i>User Account</li></NavLink>
 
-                        </ul>
-                    </nav>
-                </aside>
-            </div>
+                        <i className={`fa-solid ${salesOpen ? "fa-chevron-up" : "fa-chevron-down"}`}></i>
+
+                    </div>
+
+
+                    <div className={`sales-dropdown ${salesOpen ? "show" : ""}`}>
+
+                        <div className="dropdown-row">
+                            <NavLink to="/503/invoice">Invoices</NavLink>
+                            <button className="plus-btn">+</button>
+                        </div>
+
+                        <div className="dropdown-row">
+                            <NavLink to="/503/quotation">Quotations</NavLink>
+                            <button className="plus-btn">+</button>
+                        </div>
+
+                        <div className="dropdown-row">
+                            <NavLink to="/503/salesreturn">Sales Return</NavLink>
+                            <button className="plus-btn">+</button>
+                        </div>
+
+                        <div className="dropdown-row">
+                            <NavLink to="/503/creditnote">Credit Note</NavLink>
+                            <button className="plus-btn">+</button>
+                        </div>
+
+                        <div className="dropdown-row">
+                            <NavLink to="/503/deliverychallan">Delivery Challan</NavLink>
+                            <button className="plus-btn">+</button>
+                        </div>
+
+                        <div className="dropdown-row">
+                            <NavLink to="/503/proforma">Proforma Invoice</NavLink>
+                            <button className="plus-btn">+</button>
+                        </div>
+
+                    </div>
+
+
+                    {/* PURCHASE */}
+
+                    <NavLink
+                        to="/503/purchase"
+                        className={({ isActive }) =>
+                            isActive ? "menu-item active" : "menu-item"}
+                    >
+
+                        <i className="fa-solid fa-cart-shopping"></i>
+                        <span>Purchase</span>
+
+                    </NavLink>
+
+
+                    {/* EXPENSE */}
+
+                    <NavLink
+                        to="/503/expense"
+                        className={({ isActive }) =>
+                            isActive ? "menu-item active" : "menu-item"}
+                    >
+
+                        <i className="fa-solid fa-receipt"></i>
+                        <span>Expenses</span>
+
+                    </NavLink>
+
+
+                    {/* PAYMENT */}
+
+                    <NavLink
+                        to="/503/payment"
+                        className={({ isActive }) =>
+                            isActive ? "menu-item active" : "menu-item"}
+                    >
+
+                        <i className="fa-solid fa-indian-rupee-sign"></i>
+                        <span>Receipt / Payment</span>
+
+                    </NavLink>
+
+
+                    {/* ACCOUNTANT */}
+
+                    <NavLink
+                        to="/503/accountant"
+                        className={({ isActive }) =>
+                            isActive ? "menu-item active" : "menu-item"}
+                    >
+
+                        <i className="fa-solid fa-calculator"></i>
+                        <span>Accountant</span>
+
+                    </NavLink>
+
+
+                    {/* SETTINGS */}
+
+                    <NavLink
+                        to="/503/settings"
+                        className={({ isActive }) =>
+                            isActive ? "menu-item active" : "menu-item"}
+                    >
+
+                        <i className="fa-solid fa-gear"></i>
+                        <span>Settings</span>
+
+                    </NavLink>
+
+
+                    {/* LOGOUT */}
+
+                    <div className="logout-container">
+
+                        <button className="logout-btn">
+
+                            <i className="fa-solid fa-right-from-bracket"></i>
+                            <span>Logout</span>
+
+                        </button>
+
+                    </div>
+
+                </nav>
+
+            </aside>
+
         </div>
+
+
     );
 };
 

@@ -22,7 +22,7 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
         gstNumber: ""
     })
 
-    console.log(UserData);
+
 
     const UserData_Handler = (event) => {
         setUserData({ ...UserData, [event.target.name]: event.target.value })
@@ -75,9 +75,9 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
     }
 
     useEffect(() => {
-        window.addEventListener("scroll", popUpScroll_Handler)
+        window.addEventListener("scroll", popUpScroll_Handler);
 
-        return () => removeEventListener("scroll", popUpScroll_Handler)
+        return () => removeEventListener("scroll", popUpScroll_Handler);
     }, [])
     return (
 

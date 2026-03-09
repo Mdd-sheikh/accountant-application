@@ -22,6 +22,7 @@ import PerformaInvoice from './account-pages/Sales/sales-option/performa_invoice
 import Quotation from './account-pages/Sales/sales-option/quotation/Quotation';
 import DeliveryChallan from './account-pages/Sales/sales-option/delivery_challan/DeliveryChallan';
 import SaleReturn from './account-pages/Sales/sales-option/salesReturn/SaleReturn';
+import Account_navbar from './account-pages/account-navbar/Account_navbar';
 
 
 
@@ -57,6 +58,7 @@ const App = () => {
           element={
             <PrivateRoute>
               <div className="main-account">
+                <Account_navbar/>
                 <Dashboard />
                 <Routes>
                   <Route path="invoice" element={<Sale />} />

@@ -112,7 +112,6 @@ const SaleInvoice = () => {
 
         "notes": "Preferred customer. Allow 15 days credit."
     })
-    console.log(clientsData);
 
 
     const clientsData_handler = (e) => {
@@ -185,6 +184,28 @@ const SaleInvoice = () => {
         }
     };
 
+    const GetCustomerData  = () =>{
+        const token = localStorage.getItem("token"); // saved after login
+
+        axios.get(`${API_URL}/customer/get`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            console.log("Customer Data 👉", response.data);
+            // Handle the response data as needed
+        })
+        .catch(error => {
+            console.error("Error fetching customer data:", error.response?.data || error.message);
+            toast.error("Failed to fetch customer data");
+        });
+    }
+
+
+    useEffect(()=>{
+        GetCustomerData();
+    },[])
     // get customer adresss--------------------------
     
     {/**--------------------------------------------------------------------------------------------------------------------- */ }

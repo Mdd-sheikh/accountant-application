@@ -1,0 +1,33 @@
+.account_navbar {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+}
+
+.account_navbar_container button {
+    display: none;
+}
+
+@media (max-width:550px) {
+
+    .account_navbar{
+        display: block;
+    }
+    .account_navbar_container button {
+        display: block;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.2rem;
+        color: #333;
+        background-color: #f0f0f0;
+        padding: 0.5rem;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+        margin-top: 50px;
+    }
+}
