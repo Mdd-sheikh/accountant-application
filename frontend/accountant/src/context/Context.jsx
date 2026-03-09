@@ -5,7 +5,7 @@ import { createContext, useState, useEffect } from "react";
 export const Context = createContext(null);
 
 
-const [UserCustomerData, setUserCustomerData] = useState([]);
+
 
 const ContextProvider = ({ children }) => {
     // for sidebar open and close
@@ -27,6 +27,7 @@ const ContextProvider = ({ children }) => {
 
     const [collapse, setCollapse] = useState(false);
     const [salesOpen, setSalesOpen] = useState(false);
+    const [UserCustomerData, setUserCustomerData] = useState([]);
 
 
     // for navbaar sticky----------------------------------------------------
@@ -51,7 +52,7 @@ const ContextProvider = ({ children }) => {
     }, [])
 
 
-    //--------------------------------------------------------------------------------
+   
 
     const value = {
         IsMobile,

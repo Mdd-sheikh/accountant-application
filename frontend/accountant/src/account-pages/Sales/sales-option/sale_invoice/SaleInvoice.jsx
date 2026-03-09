@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 
 const SaleInvoice = () => {
-     const { API_URL } = useContext(Context)
+    const { API_URL } = useContext(Context)
 
     const [TermDropDown, setTermDropDown] = useState(false)
     const [additionchargers, setAdditionaCharges] = useState(false)
@@ -32,9 +32,10 @@ const SaleInvoice = () => {
     const [selectedState, setSelectedState] = useState("24 - Gujarat");
     const [showDropdown, setShowDropdown] = useState(false);
     const [showCustomerData, setShowCustomerData] = useState(true);
-    const {UserCustomerData, setUserCustomerData} = useContext(Context)
-    console.log(UserCustomerData);
-    
+    const { UserCustomerData, setUserCustomerData } = useContext(Context)
+
+console.log(UserCustomerData);
+
     const indianStates = [
         "01 - Jammu & Kashmir",
         "02 - Himachal Pradesh",
@@ -77,7 +78,7 @@ const SaleInvoice = () => {
     ];
 
 
-// for post customer item data into database--------------------------------------------------------
+   
     const [clientItem, setClientItem] = useState({
         itemname: "",
         unit: "",
@@ -87,13 +88,10 @@ const SaleInvoice = () => {
         category: ""
     })
 
-    const clientItem_data_Handler = (event) => {
-        setClientItem({ ...clientItem, [event.target.name]: event.target.value })
-    }
 
 
 
-// for User customer post into database--------------------------------------------------------
+    
     const [clientsData, setClientsData] = useState({
         "name": "",
         "email": "",
@@ -146,10 +144,10 @@ const SaleInvoice = () => {
     }
 
 
-   
 
 
-// for post  customer data into database--------------------------------------------------------
+
+    // for post  customer data into database--------------------------------------------------------
     const customerData = async () => {
         try {
             const token = localStorage.getItem("token"); // saved after login
@@ -167,7 +165,7 @@ const SaleInvoice = () => {
 
             toast.success("Customer created successfully");
 
-            console.log("Response 👉", res.data);
+            console.log("Response 👉", res.data.data);
 
             setShowLedgerPopup(false);
 
@@ -190,31 +188,30 @@ const SaleInvoice = () => {
 
 
     // for get customer data from database--------------------------------------------------------
-    const GetCustomerData  = () =>{
-        const token = localStorage.getItem("token"); // saved after login
+    const GetCustomerData = async() => {
+        try {
+            const token = localStorage.getItem("token"); // saved after login
 
-        axios.get(`${API_URL}/customer/get`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        .then(response => {
-            console.log("Customer Data fetched 👉");
-            setUserCustomerData(response.data.data);
-            // Handle the response data as needed
-        })
-        .catch(error => {
-            console.error("Error fetching customer data:", error.response?.data || error.message);
+            const res = await axios.get(`${API_URL}/customer/get`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            console.log("response data",res.data.customers.slice(-1)[0]); // for getting last added customer data   
+            
+            setUserCustomerData(res.data.customers) // for storing data in context
+        } catch (error) {
+            console.error(error.response?.data || error.message);
             toast.error("Failed to fetch customer data");
-        });
+        }
     }
 
 
-    useEffect(()=>{
+    useEffect(() => {
         GetCustomerData();
-    },[])
+    }, [])
     // get customer adresss--------------------------
-    
+
     {/**--------------------------------------------------------------------------------------------------------------------- */ }
     return (
         <div className='createinvoice'>
@@ -251,6 +248,9 @@ const SaleInvoice = () => {
                             </div>
                             <select name="" id="">
                                 <option value="">Customer </option>
+                                {UserCustomerData.length > 0 && UserCustomerData.map((customer, index) => (
+                                    <option key={index} value={customer.name}>{customer.name}</option> 
+                                ))}
                             </select>
                         </div>
                     </div>
@@ -492,7 +492,7 @@ const SaleInvoice = () => {
                                 <label>Shipping Address</label>
                                 <div className="cs-select-box">
                                     <span>
-                                        {UserCustomerData.length > 0 ? UserCustomerData[0].address.line1 : "No address found"}
+                                        {UserCustomerData.length > 0 ? `${UserCustomerData.slice(0,1)[0].address.line1}, ${UserCustomerData.slice(0,1)[0].address.city}, ${UserCustomerData.slice(0,1)[0].address.state} - ${UserCustomerData.slice(0,1)[0].address.pincode}` : "Enter Address"}
                                     </span>
                                     <div className="cs-icons">
                                         <FaTimes />
@@ -515,30 +515,29 @@ const SaleInvoice = () => {
                                 <div className="cs-card-body">
                                     <div className="cs-detail-row">
                                         <span>Name</span>
-                                        <span>Md Aadil</span>
+                                        <span>{UserCustomerData.length > 0 ? UserCustomerData.slice(0, 1)[0].name : "Enter Name"}</span>
                                     </div>
 
                                     <div className="cs-detail-row">
                                         <span>Address</span>
                                         <span>
-                                            vill-kandha post-khanpur dist-gaya, KOLKATA, BIHAR,
-                                            805131, India
+                                            {UserCustomerData.length > 0 ? `${UserCustomerData.slice(0,1)[0].address.line1}, ${UserCustomerData.slice(0,1)[0].address.city}, ${UserCustomerData.slice(0,1)[0].address.state} - ${UserCustomerData.slice(0,1)[0].address.pincode}` : "Enter Address"}
                                         </span>
                                     </div>
 
                                     <div className="cs-detail-row">
                                         <span>GST No.</span>
-                                        <span>-</span>
+                                        <span>{UserCustomerData.length > 0 ? UserCustomerData.slice(0, 1)[0].gstNumber : "Enter GST No."}</span>
                                     </div>
 
                                     <div className="cs-detail-row">
                                         <span>Mobile No.</span>
-                                        <span>7488191669</span>
+                                        <span>{UserCustomerData.length > 0 ? UserCustomerData.slice(0, 1)[0].phone : "Enter Mobile No."}</span>
                                     </div>
 
                                     <div className="cs-detail-row">
                                         <span>Email</span>
-                                        <span>mda231034@gmail.com</span>
+                                        <span>{UserCustomerData.length > 0 ? UserCustomerData.slice(0, 1)[0].email : "Enter Email"} </span>
                                     </div>
                                 </div>
 

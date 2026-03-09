@@ -184,7 +184,7 @@ const Dashboard = () => {
                     >
 
                         <i className="fa-solid fa-gear"></i>
-                        <span>Settings</span>
+                       <NavLink to="/503/account"> <span>Settings</span> </NavLink>
 
                     </NavLink>
 

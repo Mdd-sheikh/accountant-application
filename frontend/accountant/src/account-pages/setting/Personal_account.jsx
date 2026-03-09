@@ -6,7 +6,9 @@ import { toast } from "react-toastify";
 import { Context } from "../../context/Context";
 import axios from "axios";
 
+
 const Personal_account = () => {
+  const { UserCustomerData } = useContext(Context);
 
   const [userinformation, setUserinformation] = useState({});
   const [showEdit, setShowEdit] = useState(false);
@@ -99,7 +101,7 @@ const Personal_account = () => {
 
           <div className="profile-row">
             <span>Mobile</span>
-            <p>Not Added</p>
+            <p>{UserCustomerData.length > 0 ? UserCustomerData.slice(0, 1)[0].phone : "Enter Mobile No."}</p>
           </div>
 
         </div>
