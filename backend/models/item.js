@@ -1,3 +1,5 @@
+import mongoose, { Schema } from "mongoose";
+
 const ItemSchema = new Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -14,7 +16,6 @@ const ItemSchema = new Schema({
 
   type: {
     type: String,
-    enum: ["GOODS", "SERVICE"],
     required: true
   },
 
@@ -38,10 +39,6 @@ const ItemSchema = new Schema({
     default: 0
   },
 
-  taxInclusive: {
-    type: Boolean,
-    default: false
-  },
 
   // PRICING
   price: {
@@ -50,18 +47,19 @@ const ItemSchema = new Schema({
   },
 
   // INVENTORY
-  openingStock: {
+  quantity: {
     type: Number,
-    default: 0
+  },
+
+  discount: {
+    type: Number,
   },
 
   category: {
     type: String
   },
 
-  isActive: {
-    type: Boolean,
-    default: true
-  }
 
 }, { timestamps: true });
+
+export default ItemSchema;

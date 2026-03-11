@@ -4,6 +4,7 @@ import cors from 'cors'
 import router from './routes/UserRoute.js'
 import dotenv from 'dotenv'
 import customerRouter from './routes/customerRouter.js'
+import itemrouter from './routes/item.js'
 
 const app = express()
 const port = (process.env.PORT || 5000)
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/user", router)
 app.use("/api/customer", customerRouter);
+app.use("/api/items",itemrouter);
 
 // mongo db cnnection
 DbConeection()

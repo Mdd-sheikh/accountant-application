@@ -32,9 +32,8 @@ export const createCustomer = async (req, res) => {
  */
 export const getCustomers = async (req, res) => {
     try {
-        const customers = await Customer.find({
-            userId: req.user._id
-        }).sort({ createdAt: -1 });
+        const customers = await Customer.find({ userId: req.userId }) // ✅ filter by logged-in user
+            .sort({ createdAt: -1 });
 
         res.status(200).json({
             success: true,

@@ -1,18 +1,18 @@
 import mongoose, { Schema } from "mongoose";
+import ItemSchema from "./item";
 
 // Invoice Item Schema
-const InvoiceItemSchema = new Schema({
-    itemId: { type: mongoose.Schema.Types.ObjectId, ref: "Item", required: true },
-    itemName: { type: String, required: true },
-    quantity: { type: Number, required: true, min: 0 },
-    unit: { type: String },
-    rate: { type: Number, required: true, min: 0 },
-    discount: { type: Number, default: 0, min: 0 },
-    taxableAmount: { type: Number, required: true, min: 0 },
-    gstRate: { type: Number, required: true, min: 0 },
-    gstAmount: { type: Number, required: true, min: 0 },
-    total: { type: Number, required: true, min: 0 }
-});
+export const invoiceItem = {
+  itemId: item._id,
+  itemName: item.name,
+  quantity: 10,
+  unit: item.unit,
+  rate: item.price,
+  gstRate: item.gstRate,
+  taxableAmount: item.price * 10,
+  gstAmount: (item.gstRate / 100) * (item.price * 10),
+  total: (item.price * 10) + ((item.gstRate / 100) * (item.price * 10))
+};
 
 // Main Invoice Schema
 const InvoiceSchema = new Schema({
@@ -28,7 +28,7 @@ const InvoiceSchema = new Schema({
     },
     invoiceNumber: { type: String, required: true },
     invoiceDate: { type: Date, required: true },
-    items: { type: [InvoiceItemSchema], required: true },
+    items: { type: [ItemSchema], required: true },
     subTotal: { type: Number, required: true, min: 0 },
     gstTotal: { type: Number, required: true, min: 0 },
     additionalDiscount: { type: Number, default: 0, min: 0 },
