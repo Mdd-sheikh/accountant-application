@@ -1,11 +1,11 @@
 // controllers/itemController.js
-import ItemSchema from "../models/item.js";
+import { Item } from "../models/item.js";
 
 
 export const createItem = async (req, res) => {
   try {
 
-    const item = await ItemSchema.create({
+    const item = await Item.create({
       ...req.body,
       userId: req.user._id   // only logged-in user can create item
     });
