@@ -14,11 +14,6 @@ const ItemSchema = new Schema({
     trim: true
   },
 
-  type: {
-    type: String,
-    required: true
-  },
-
   unit: {
     type: String, // PCS, KG, BAG
     required: true

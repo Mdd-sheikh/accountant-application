@@ -1,32 +1,34 @@
 // controllers/itemController.js
 import ItemSchema from "../models/item.js";
 
-// Create a new item
+// Create Item
 export const createItem = async (req, res) => {
   try {
+
     const {
-      userId,
       name,
-      type,
       unit,
       hsnCode,
       gstRate,
-      cessRate = 0,
-      taxInclusive = false,
-      price = 0,
-      quantity = 0,
+      cessRate,
+      price,
+      quantity,
+      discount,
       category
     } = req.body;
 
-    // Basic validation
-    if (!userId || !name || !type || !unit || gstRate === undefined) {
+    // get userId from logged in user
+    const userId = req.user._id;
+
+    // validation
+    if (!name || !type || !unit || gstRate === undefined) {
       return res.status(400).json({
         success: false,
-        message: "Missing required fields: userId, name, type, unit, gstRate"
+        message: "Missing required fields: name, type, unit, gstRate"
       });
     }
 
-    const item = await ItemSchema.create({
+    const item = new ItemSchema({
       userId,
       name,
       type,
@@ -34,25 +36,26 @@ export const createItem = async (req, res) => {
       hsnCode,
       gstRate,
       cessRate,
-      taxInclusive,
       price,
       quantity,
+      discount,
       category
     });
 
-    item.save();
+    await item.save();
 
     res.status(201).json({
       success: true,
       message: "Item created successfully",
-      item
+      data: item
     });
 
   } catch (error) {
-    console.error("Error creating item:", error);
+    console.error("Create Item Error:", error);
+
     res.status(500).json({
       success: false,
-      message: error.message
+      message: "Server Error"
     });
   }
 };
