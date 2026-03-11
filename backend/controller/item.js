@@ -1,5 +1,5 @@
 // controllers/itemController.js
-import ItemSchema from "../models/item";
+import ItemSchema from "../models/item.js";
 
 
 export const createItem = async (req, res) => {
