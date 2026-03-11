@@ -5,8 +5,6 @@ import { Customer } from "../models/customer.js";
  */
 export const createCustomer = async (req, res) => {
     try {
-        console.log("BODY 👉", req.body);
-        console.log("USER 👉", req.user);
 
         const customer = await Customer.create({
             ...req.body,
