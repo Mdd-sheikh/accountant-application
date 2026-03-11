@@ -1,0 +1,261 @@
+/* =========================== CREATE INVOICE =========================== */
+.createinvoice {
+    width: 70%;
+    margin-left: 300px;
+    font-family: "Inter", sans-serif;
+}
+
+/* =========================== INVOICE HEADER =========================== */
+.invoice-Header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-invoice-header {
+    padding: 20px;
+}
+
+.left-invoice-header span {
+    font-size: max(1.3vw, 15px);
+    font-weight: 500;
+}
+
+.right-invoice-header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.right-invoice-header select {
+    width: 300px;
+    height: 35px;
+    border: 1px solid rgb(233, 223, 223);
+}
+
+.right-invoice-header button {
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: 1px solid rgb(104, 102, 102);
+    border-radius: 2px;
+}
+
+/* =========================== HEADER INPUTS =========================== */
+.invoice-header-inputs {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.invoice-header-input-invoice-number p,
+.invoice-header-input-invoice-date p {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 3px;
+}
+
+.invoice-header-input-invoice-number input,
+.invoice-header-input-invoice-date input {
+    height: 35px;
+    border: 1px solid rgb(233, 223, 223);
+    border-radius: 3px;
+    padding: 0 5px;
+}
+
+.invoice-header-input-invoice-number button {
+    width: 110px;
+    height: 35px;
+    background-color: transparent;
+    border: 1px solid rgb(233, 223, 223);
+    border-radius: 3px 0 0 3px;
+}
+
+.invoice-header-input-invoice-number input {
+    border-radius: 0 3px 3px 0;
+}
+
+.invoice-header-input-invoice-date input[type="date"]::-webkit-calendar-picker-indicator {
+    border: 1px solid rgb(199, 192, 192);
+    height: 26.5px;
+    width: 20px;
+}
+
+.invoice-header-input-select-add {
+    display: flex;
+    gap: 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* =========================== CUSTOMER SELECT =========================== */
+.invoice-header-input-select-customer select {
+    width: 100%;
+    height: 35px;
+    border: 1px solid rgb(233, 223, 223);
+    border-radius: 3px;
+}
+
+/* =========================== DATA TABLE =========================== */
+.table-container {
+    width: 100%;
+    margin-top: 20px;
+    overflow-x: auto;
+    border-radius: 5px 5px 0 0;
+}
+
+.invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+.invoice-table thead {
+    background: linear-gradient(to right, #3b7ea1, #4e8fb2);
+    color: white;
+}
+
+.invoice-table th,
+.invoice-table td {
+    padding: 12px 15px;
+    border: 1px solid #cfcfcf;
+    text-align: left;
+    font-size: 14px;
+}
+
+.invoice-table tbody tr:nth-child(even) {
+    background-color: #ececec;
+}
+
+/* =========================== SELECT ITEMS =========================== */
+.invoice-select-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgb(124, 119, 119);
+    padding: 30px;
+    border-radius: 5px;
+}
+
+.invoice-select-item p {
+    font-size: 14px;
+    padding: 3px;
+}
+
+.select-item select,
+.item-quantity input,
+.item-price input,
+.item-discount input,
+.item-gst-rate select {
+    border: 1px solid rgb(233, 223, 223);
+    border-radius: 3px;
+    height: 35px;
+}
+
+.item-quantity button,
+.item-gst-rate button {
+    cursor: pointer;
+}
+
+/* =========================== ADDITIONAL CHARGES =========================== */
+.invoice-select-charge {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+    border: 1px solid black;
+    margin-top: 25px;
+    border-radius: 5px;
+}
+
+/* =========================== TERMS & CONDITIONS =========================== */
+.invoice-terms-condition p {
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* =========================== MORE DETAIL =========================== */
+.invoice-more-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: rgb(216, 230, 236);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* =========================== FOOTER/BILL =========================== */
+.bill-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 30px;
+    background: #f5f7fa;
+    border-radius: 12px;
+}
+
+.bill-left textarea {
+    width: 100%;
+    min-height: 90px;
+    border-radius: 8px;
+    border: 1px solid #d0d5dd;
+    padding: 12px;
+    font-size: 14px;
+    resize: none;
+}
+
+.bill-right .bill-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.bill-amount-box {
+    display: flex;
+    justify-content: space-between;
+    background: #d8e7f5;
+    padding: 14px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: 1px solid #4f87a3;
+}
+
+/* =========================== BUTTONS =========================== */
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.button-group button {
+    padding: 9px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* =========================== RESPONSIVE =========================== */
+@media (max-width: 550px) {
+    .createinvoice { width: 100%; margin: 0; padding: 10px; }
+    .invoice-Header { flex-direction: column; gap: 10px; }
+    .right-invoice-header select { width: 70%; }
+    .right-invoice-header button { display: none; }
+    .invoice-header-inputs { flex-direction: column; align-items: flex-start; gap: 15px; }
+    .invoice-header-input-invoice-number input,
+    .invoice-header-input-invoice-date input,
+    .invoice-header-input-select-customer select { width: 100%; }
+    .invoice-select-item, .invoice-select-charge { flex-direction: column; gap: 15px; padding: 15px; }
+}
+
+@media (min-width: 551px) and (max-width: 1024px) {
+    .createinvoice { width: 95%; margin-left: 20px; }
+    .invoice-header-inputs, .invoice-select-item, .invoice-select-charge { flex-wrap: wrap; gap: 20px; }
+    .select-item select { width: 200px; }
+    .item-select-charges select { width: 350px; }
+    .invoice-table { min-width: 800px; }
+}
