@@ -10,7 +10,7 @@ export const createItem = async (req, res) => {
       userId: req.user._id   // only logged-in user can create item
     });
     console.log(req.body);
-    
+
 
     res.status(201).json({
       success: true,
@@ -19,7 +19,7 @@ export const createItem = async (req, res) => {
     });
 
   } catch (error) {
-    
+
 
     res.status(500).json({
       success: false,
@@ -47,7 +47,7 @@ export const getItems = async (req, res) => {
 }
 
 
-export const updateItem = async (req, res) => {  
+export const updateItem = async (req, res) => {
   try {
     const item = await Item.findOneAndUpdate(
       { _id: req.params.id, userId: req.user._id }, // only logged-in user's item
@@ -71,6 +71,39 @@ export const updateItem = async (req, res) => {
       success: false,
       message: error.message
     });
+  }
+};
+
+
+export const deleteItem = async (req, res) => {
+  try {
+
+    const item = await Item.findOneAndDelete({
+      _id: req.params.id,
+      userId: req.user._id
+    });
+
+    if (!item) {
+      return res.status(404).json({
+        success: false,
+        message: "Item not found or not authorized"
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Item deleted successfully"
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Server error while deleting item"
+    });
+
   }
 };
 
