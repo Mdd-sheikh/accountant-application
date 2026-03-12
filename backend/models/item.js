@@ -10,7 +10,6 @@ const ItemSchema = new Schema({
   // BASIC
   name: {
     type: String,
-    
     trim: true
   },
 

@@ -9,6 +9,8 @@ export const createItem = async (req, res) => {
       ...req.body,
       userId: req.user._id   // only logged-in user can create item
     });
+    console.log(req.body);
+    
 
     res.status(201).json({
       success: true,
@@ -17,6 +19,7 @@ export const createItem = async (req, res) => {
     });
 
   } catch (error) {
+    
 
     res.status(500).json({
       success: false,
