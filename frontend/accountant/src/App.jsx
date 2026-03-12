@@ -23,6 +23,8 @@ import Quotation from './account-pages/Sales/sales-option/quotation/Quotation';
 import DeliveryChallan from './account-pages/Sales/sales-option/delivery_challan/DeliveryChallan';
 import SaleReturn from './account-pages/Sales/sales-option/salesReturn/SaleReturn';
 import Account_navbar from './account-pages/account-navbar/Account_navbar';
+import Customer from './account-pages/customers/Customer';
+import Item from './account-pages/items/Item';
 
 
 
@@ -69,6 +71,8 @@ const App = () => {
                   <Route path='quotation' element={<Quotation/>}/>
                   <Route path='/deliverychallan' element={<DeliveryChallan/>}/>
                   <Route path='salesreturn' element={<SaleReturn/>}/>
+                  <Route path='customer' element={<Customer/>}/>
+                  <Route path='item' element={<Item/>}/>
 
 
                 </Routes>

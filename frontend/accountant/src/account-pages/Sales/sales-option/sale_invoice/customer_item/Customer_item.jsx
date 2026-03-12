@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 const Customer_item = () => {
   const [showItemPopup, setShowItemPopup] = useState(false);
   const [customerItems, setCustomerItems] = useState([]);
+  console.log(customerItems);
+  
   const [selectedItems, setSelectedItems] = useState([]);
   const { API_URL } = useContext(Context);
 
@@ -39,10 +41,10 @@ const Customer_item = () => {
   // ---------------- FETCH ITEMS ----------------
   const fetchItems = async () => {
     try {
-      const res = await axios.get("/api/item/get/item", {
+      const res = await axios.get(`${API_URL}/items/get/item`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setCustomerItems(res.data.data || []);
+      setCustomerItems(res.data.items || []);
     } catch (err) {
       console.error(err);
       setCustomerItems([]);
@@ -51,7 +53,24 @@ const Customer_item = () => {
 
   useEffect(() => {
     fetchItems();
-  }, []);
+   
+  // Handler for keydown
+  const handleKeyDown = (e) => {
+    // Check for Alt + N
+    if (e.altKey && e.key.toLowerCase() === "n") {
+      e.preventDefault(); // prevent default behavior
+      PostItem(); // call your function
+    }
+  };
+
+  // Attach listener
+  window.addEventListener("keydown", handleKeyDown);
+
+  // Cleanup on unmount
+  return () => {
+    window.removeEventListener("keydown", handleKeyDown);
+  };
+}, []);
 
   // ----------------post item into database
   const PostItem = async () => {
@@ -97,9 +116,9 @@ const Customer_item = () => {
     const item = customerItems.find((i) => i._id === itemId);
 
     if (item && !selectedItems.find((i) => i._id === item._id)) {
-      const qty = 1;
+      const qty = item.quantity || 0;
       const price = item.price || 0;
-      const discount = 0;
+      const discount = item.discount || 0;
       const gstRate = item.gstRate || 0;
 
       const taxable = qty * price - discount;
