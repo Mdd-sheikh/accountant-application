@@ -15,8 +15,8 @@ const Customer_item = () => {
     type: "Goods",
     name: "",
     unit: "BAL",
-    hsn: "",
-    cess: "",
+    hsnCode: "",
+    cessRate: "",
     category: "",
     quantity: "",
     price: "",
@@ -57,8 +57,8 @@ const Customer_item = () => {
   const PostItem = async () => {
     try {
       const res = await axios.post(
-        `${API_URL}/item/create/item`,
-        { ...newItem },
+        `${API_URL}/items/create/item`,
+        newItem ,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -295,7 +295,7 @@ const Customer_item = () => {
             <option>0.4</option>
             <option>0.5</option>
           </select>
-          <button>+ Add</button>
+          <button onClick={PostItem}>+ Add</button>
         </div>
       </div>
 
@@ -370,7 +370,7 @@ const Customer_item = () => {
 
             <div className="popup-footer">
               <button onClick={() => setShowItemPopup(false)}>Cancel</button>
-              <button onClick={PostItem}>Save</button>
+              <button >Save</button>
             </div>
           </div>
         </div>
