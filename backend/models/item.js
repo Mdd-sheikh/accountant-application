@@ -10,13 +10,13 @@ const ItemSchema = new Schema({
   // BASIC
   name: {
     type: String,
-    required: true,
+    
     trim: true
   },
 
   unit: {
     type: String, // PCS, KG, BAG
-    required: true
+    
   },
 
   // TAX
@@ -26,7 +26,7 @@ const ItemSchema = new Schema({
 
   gstRate: {
     type: Number,
-    required: true
+    
   },
 
   cessRate: {
@@ -57,4 +57,4 @@ const ItemSchema = new Schema({
 
 }, { timestamps: true });
 
-export  const Item = mongoose.model("item",ItemSchema);
+export const Item = mongoose.model("item", ItemSchema);
