@@ -11,6 +11,10 @@ const Customer = () => {
   const [search, setSearch] = useState("");
   const [openMenu, setOpenMenu] = useState(null);
 
+  // NEW STATE
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+
   const { API_URL } = useContext(Context);
 
   const toggleMenu = (id) => {
@@ -39,17 +43,20 @@ const Customer = () => {
 
   };
 
-  const deleteCustomer = async (id) => {
+  // OPEN DELETE CONFIRM
+  const deleteCustomer = (id) => {
+    setDeleteId(id);
+    setShowConfirm(true);
+  };
 
-    const confirmDelete = window.confirm("Are you sure you want to delete this customer?");
-
-    if (!confirmDelete) return;
+  // CONFIRM DELETE
+  const confirmDeleteCustomer = async () => {
 
     try {
 
       const token = localStorage.getItem("token");
 
-      await axios.delete(`${API_URL}/customer/delete/${id}`, {
+      await axios.delete(`${API_URL}/customer/delete/${deleteId}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -57,7 +64,7 @@ const Customer = () => {
 
       toast.success("Customer deleted successfully");
 
-      fetchCustomers(); // refresh list
+      fetchCustomers();
 
     } catch (error) {
 
@@ -65,6 +72,7 @@ const Customer = () => {
 
     }
 
+    setShowConfirm(false);
   };
 
   useEffect(() => {
@@ -101,7 +109,7 @@ const Customer = () => {
             <button className="create-ledger-btn">
               Create Ledger
             </button>
-          </NavLink>  
+          </NavLink>
 
         </div>
 
@@ -149,7 +157,6 @@ const Customer = () => {
 
                   <i className="fa-solid fa-share icon"></i>
 
-                  {/* Three Dot Menu */}
                   <div className="menu-container">
 
                     <i
@@ -163,13 +170,16 @@ const Customer = () => {
 
                         <div className="menu-item">Edit</div>
 
-                        <div className="menu-item delete" onClick={() => deleteCustomer(customer._id)}>
+                        <div
+                          className="menu-item delete"
+                          onClick={() => deleteCustomer(customer._id)}
+                        >
                           Delete
                         </div>
 
-                       <NavLink to="/503/invoice/create" >
-                         <div className="menu-item">Add Invoice</div>
-                       </NavLink>
+                        <NavLink to="/503/invoice/create">
+                          <div className="menu-item">Add Invoice</div>
+                        </NavLink>
 
                         <div className="menu-item">Create Quotation</div>
 
@@ -196,6 +206,37 @@ const Customer = () => {
         </table>
 
       </div>
+
+      {/* DELETE CONFIRM MODAL */}
+      {showConfirm && (
+        <div className="confirm-overlay">
+          <div className="confirm-box">
+
+            <h3>Delete Customer</h3>
+
+            <p>Are you sure you want to delete this customer?</p>
+
+            <div className="confirm-buttons">
+
+              <button
+                className="yes-btn"
+                onClick={confirmDeleteCustomer}
+              >
+                Yes Delete
+              </button>
+
+              <button
+                className="no-btn"
+                onClick={() => setShowConfirm(false)}
+              >
+                Cancel
+              </button>
+
+            </div>
+
+          </div>
+        </div>
+      )}
 
     </div>
   );

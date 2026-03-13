@@ -223,6 +223,9 @@ font-weight:500;
   flex-direction:column;
   align-items:flex-start;
 }
+.parties-container{
+    margin: 0;
+}
 
 .header-actions{
   width:100%;
@@ -247,6 +250,51 @@ th, td{
   font-size:14px;
 }
 
+}
+.confirm-overlay{
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.4);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:1000;
+}
+
+.confirm-box{
+  background:white;
+  padding:25px;
+  border-radius:8px;
+  width:320px;
+  text-align:center;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.confirm-buttons{
+  display:flex;
+  justify-content:space-between;
+  margin-top:20px;
+}
+
+.yes-btn{
+  background:#e53935;
+  color:white;
+  border:none;
+  padding:8px 18px;
+  cursor:pointer;
+  border-radius:5px;
+}
+
+.no-btn{
+  background:#777;
+  color:white;
+  border:none;
+  padding:8px 18px;
+  cursor:pointer;
+  border-radius:5px;
 }
 
 /* ----------------------- */

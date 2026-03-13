@@ -166,6 +166,11 @@ color:white;
 
 /* RESPONSIVE */
 
+@media (max-width:550px) {
+    .creditnote-page{
+        margin: 0;
+    }
+}
 @media(max-width:768px){
 
 .creditnote-header{
@@ -185,6 +190,9 @@ justify-content:flex-start;
 .creditnote-table-footer{
 flex-direction:column;
 align-items:flex-start;
+}
+.creditnote-page{
+    margin: 0;
 }
 
 }
