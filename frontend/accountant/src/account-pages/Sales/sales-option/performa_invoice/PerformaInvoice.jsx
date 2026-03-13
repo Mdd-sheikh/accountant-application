@@ -1,5 +1,6 @@
 import React from "react";
 import "./PerformaInvoice.css";
+import { NavLink } from "react-router-dom";
 
 const PerformaInvoice = () => {
     return (
@@ -31,9 +32,11 @@ const PerformaInvoice = () => {
                         </div>
 
                         {/* Add Button */}
-                        <button className="create-btn">
-                            + Add Proforma Invoice
-                        </button>
+                        <NavLink to="/503/invoice/create">
+                            <button className="create-btn">
+                                + Add Proforma Invoice
+                            </button>
+                        </NavLink>
 
                         {/* 3 Dot Menu */}
                         <button className="menu-btn">

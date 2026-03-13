@@ -1,5 +1,6 @@
 import React from "react";
 import "./SaleReturn.css";
+import { NavLink } from "react-router-dom";
 
 const SaleReturn = () => {
   return (
@@ -31,9 +32,11 @@ const SaleReturn = () => {
             </div>
 
             {/* Button */}
-            <button className="create-btn">
-              + Create Sales Return
-            </button>
+            <NavLink to="/503/invoice/create">
+              <button className="create-btn">
+                + Create Sales Return
+              </button>
+            </NavLink>
 
           </div>
         </div>

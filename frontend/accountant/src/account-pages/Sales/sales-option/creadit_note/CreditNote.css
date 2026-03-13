@@ -1,0 +1,190 @@
+.creditnote-page{
+padding:20px;
+background:#f5f7fa;
+margin-left: 250px;
+}
+
+.creditnote-wrapper{
+background:white;
+border-radius:8px;
+padding:20px;
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* HEADER */
+
+.creditnote-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+gap:15px;
+}
+
+.creditnote-header h2{
+font-size:20px;
+font-weight:600;
+}
+
+.creditnote-header-right{
+display:flex;
+align-items:center;
+gap:15px;
+flex-wrap:wrap;
+}
+
+/* SEARCH */
+
+.creditnote-search-wrapper{
+position:relative;
+}
+
+.creditnote-search-box{
+padding:8px 35px 8px 10px;
+border:1px solid #ccc;
+border-radius:5px;
+outline:none;
+}
+
+.creditnote-search-icon{
+position:absolute;
+right:10px;
+top:50%;
+transform:translateY(-50%);
+color:#777;
+}
+
+/* DATE */
+
+.creditnote-date-wrapper{
+display:flex;
+align-items:center;
+gap:6px;
+border:1px solid #ccc;
+padding:5px 10px;
+border-radius:5px;
+}
+
+.creditnote-date-input{
+border:none;
+outline:none;
+}
+
+.creditnote-calendar-icon{
+color:#777;
+}
+
+.creditnote-date-separator{
+font-size:14px;
+}
+
+/* BUTTON */
+
+.creditnote-create-btn{
+background: #4a82a8;
+color:white;
+border:none;
+padding:8px 14px;
+border-radius:5px;
+cursor:pointer;
+}
+
+/* TOP ACTIONS */
+
+.creditnote-top-actions{
+display:flex;
+justify-content:flex-end;
+gap:15px;
+margin-top:15px;
+font-size:18px;
+color:#555;
+}
+
+/* TABLE */
+
+.creditnote-table-container{
+margin-top:10px;
+overflow-x:auto;
+}
+
+.creditnote-table{
+width:100%;
+border-collapse:collapse;
+}
+
+.creditnote-table th,
+.creditnote-table td{
+padding:12px;
+border-bottom:1px solid #eee;
+text-align:left;
+}
+
+.creditnote-table th{
+background: #4a82a8;
+color:white;
+font-weight:500;
+}
+
+.creditnote-icon{
+margin-left:5px;
+font-size:12px;
+cursor:pointer;
+}
+
+.creditnote-no-record{
+text-align:center;
+padding:25px;
+color:#777;
+}
+
+/* FOOTER */
+
+.creditnote-table-footer{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-top:15px;
+flex-wrap:wrap;
+gap:10px;
+}
+
+.creditnote-left-info select{
+margin:0 5px;
+}
+
+.creditnote-pagination button{
+border:1px solid #ccc;
+background:white;
+padding:5px 10px;
+cursor:pointer;
+}
+
+.creditnote-pagination .active{
+background:#3b82f6;
+color:white;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+.creditnote-header{
+flex-direction:column;
+align-items:flex-start;
+}
+
+.creditnote-header-right{
+width:100%;
+justify-content:space-between;
+}
+
+.creditnote-top-actions{
+justify-content:flex-start;
+}
+
+.creditnote-table-footer{
+flex-direction:column;
+align-items:flex-start;
+}
+
+}

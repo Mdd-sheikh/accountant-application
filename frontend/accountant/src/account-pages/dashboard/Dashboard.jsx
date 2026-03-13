@@ -106,7 +106,7 @@ const Dashboard = () => {
                         </div>
 
                         <div className="dropdown-row">
-                            <NavLink to="/503/proforma">Proforma Invoice</NavLink>
+                            <NavLink to="/503/performainvoice">Proforma Invoice</NavLink>
                             <NavLink to="/503/invoice/create">
                                 <button className="plus-btn">+</button>
                             </NavLink>

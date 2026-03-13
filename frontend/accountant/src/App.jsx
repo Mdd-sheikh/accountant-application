@@ -25,6 +25,7 @@ import SaleReturn from './account-pages/Sales/sales-option/salesReturn/SaleRetur
 import Account_navbar from './account-pages/account-navbar/Account_navbar';
 import Customer from './account-pages/customers/Customer';
 import Item from './account-pages/items/Item';
+import CreditNote from './account-pages/Sales/sales-option/creadit_note/CreditNote';
 
 
 
@@ -73,6 +74,7 @@ const App = () => {
                   <Route path='salesreturn' element={<SaleReturn/>}/>
                   <Route path='customer' element={<Customer/>}/>
                   <Route path='item' element={<Item/>}/>
+                  <Route path='creditnote' element={<CreditNote/>}/>
 
 
                 </Routes>

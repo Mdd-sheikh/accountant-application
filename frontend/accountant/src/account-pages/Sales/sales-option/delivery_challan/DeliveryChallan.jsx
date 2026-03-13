@@ -1,5 +1,6 @@
 import React from "react";
 import "./DeliveryChallan.css";
+import { NavLink } from "react-router-dom";
 
 const DeliveryChallan = () => {
   return (
@@ -31,9 +32,11 @@ const DeliveryChallan = () => {
             </div>
 
             {/* Button */}
-            <button className="create-btn">
-              + Create Delivery Challan
-            </button>
+            <NavLink to="/503/invoice/create">
+              <button className="create-btn">
+                + Create Delivery Challan
+              </button>
+            </NavLink>
 
           </div>
         </div>

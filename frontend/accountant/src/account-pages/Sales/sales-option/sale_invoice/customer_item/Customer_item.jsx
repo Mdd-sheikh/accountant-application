@@ -200,7 +200,7 @@ const Customer_item = () => {
                   <td>{item.name}</td>
 
                   <td>
-                    <input
+                    <input id="item"
                       type="number"
                       value={item.quantity}
                       onChange={(e) =>

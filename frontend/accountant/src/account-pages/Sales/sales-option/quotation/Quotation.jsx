@@ -1,5 +1,6 @@
 import React from "react";
 import "./Quotation.css";
+import { NavLink } from "react-router-dom";
 
 const Quotation = () => {
   return (
@@ -31,9 +32,11 @@ const Quotation = () => {
             </div>
 
             {/* Button */}
-            <button className="create-btn">
-              + Create Quotation
-            </button>
+            <NavLink to="/503/invoice/create">
+              <button className="create-btn">
+                + Create Quotation
+              </button>
+            </NavLink>
 
           </div>
         </div>

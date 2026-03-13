@@ -3,6 +3,7 @@ import axios from "axios";
 import "./Item.css";
 import { toast } from "react-toastify";
 import { Context } from "../../context/Context";
+import { NavLink } from "react-router-dom";
 
 const Item = () => {
     const [items, setItems] = useState([]);
@@ -77,7 +78,9 @@ const Item = () => {
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
-                    <button className="create-btn">+ Create Item</button>
+                   <NavLink to="/503/invoice/create#item">
+                      <button className="create-btn">+ Create Item</button>
+                    </NavLink>
                 </div>
             </div>
 
