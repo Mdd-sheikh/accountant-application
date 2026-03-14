@@ -28,7 +28,7 @@ const LandingPage = () => {
                             <li>Secured cloud backup & multi device access</li>
 
                         </ul>
-                        <p>start with free</p>
+                        <p onClick={()=>setShowLoginPopUp(true)}>start with free</p>
 
                     </div>
                     <div className="right-lanspage-container">

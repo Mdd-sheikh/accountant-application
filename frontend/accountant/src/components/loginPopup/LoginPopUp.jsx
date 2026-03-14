@@ -1,120 +1,100 @@
-import React, { useState, useEffect, useContext } from 'react'
-import './LoginPopUp.css'
-import axios from 'axios'
-import { Context } from '../../context/Context'
-import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useContext } from 'react';
+import './LoginPopUp.css';
+import axios from 'axios';
+import { Context } from '../../context/Context';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPopUp = ({ setShowLoginPopUp }) => {
-    const navigate = useNavigate()
-    const { Userdata, setUserdata } = useContext(Context)
-    const [loading, setLoading] = useState(false)
-    const [currentdata, setCurrentData] = useState(false)
+  const navigate = useNavigate();
+  const { Userdata, setUserdata, API_URL } = useContext(Context);
 
+  const [loading, setLoading] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
-    const { API_URL } = useContext(Context)
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    companyName: '',
+    gstNumber: ''
+  });
 
-    const [UserData, setUserData] = useState({
-        name: "",
-        email: "",
-        password: "",
-        companyName: "",
-        gstNumber: ""
-    })
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
+    try {
+      const endpoint = isLogin ? `${API_URL}/user/login` : `${API_URL}/user/register`;
+      const { data } = await axios.post(endpoint, formData);
 
-    const UserData_Handler = (event) => {
-        setUserData({ ...UserData, [event.target.name]: event.target.value })
+      toast.success(data?.message || 'Success');
+      if (data?.token) localStorage.setItem('token', data.token);
+
+      setTimeout(() => {
+        setShowLoginPopUp(false);
+        navigate('/503/home');
+      }, 1000);
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Something went wrong!');
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
+  };
 
-    const submitHandler = async (e) => {
-        e.preventDefault();
-        setLoading(true);   // start loading
-
-        try {
-            const endpoint = currentdata
-                ? `${API_URL}/user/login`
-                : `${API_URL}/user/register`;
-
-            const { data } = await axios.post(endpoint, UserData);
-
-            toast.success(data?.message || "Success");
-
-            if (data?.token) {
-                localStorage.setItem("token", data.token);
-            }
-
-            setTimeout(() => {
-                setShowLoginPopUp(false);
-                navigate("/503/home");
-            }, 1000);
-
-        } catch (error) {
-
-            const errorMessage =
-                error.response?.data?.message ||
-                "Something went wrong. Please try again.";
-
-            toast.error(errorMessage);
-            console.error("Auth Error:", error);
-
-        } finally {
-            setLoading(false);   // stop loading
-        }
-    };
-
-
-
-
-    const popUpScroll_Handler = () => {
-        if (window.scrollY > 100) {
-            setShowLoginPopUp(false)
-
-        }
-    }
-
-    useEffect(() => {
-        window.addEventListener("scroll", popUpScroll_Handler);
-
-        return () => removeEventListener("scroll", popUpScroll_Handler);
-    }, [])
-    return (
-
-        <div className='loginpopUp'>
-            <form action="" onSubmit={submitHandler}>
-                <div className="loginpopup-container">
-                    <div className="heading">
-                        <h1>Welcome to Bookwise  - Lets's Create Account</h1>
-                        <span onClick={() => setShowLoginPopUp(false)}>X</span>
-
-                    </div>
-                    <div className="inputs">
-                        {!currentdata ? <label htmlFor="">Name</label> : ""}
-                        {!currentdata ? <p><i class="fa-solid fa-circle-user"></i><input type="text" onChange={UserData_Handler} name='name' required placeholder='Enter Name' /></p> : <></>}
-                        <label htmlFor="">Email</label>
-                        <p><i class="fa-solid fa-envelope"></i><input type="email" name='email' onChange={UserData_Handler} required placeholder='Enter Email' /></p>
-                        <label htmlFor="">Password</label>
-                        <p><i class="fa-solid fa-lock"></i><input type="password" name='password' onChange={UserData_Handler} required placeholder='Enter  Password' /></p>
-                        {!currentdata ? <label htmlFor="">Company Name</label> : ""}
-                        {!currentdata ? <p><i class="fa-regular fa-building"></i> <input type="text" name="companyName" onChange={UserData_Handler} placeholder='Company Name' id="" /></p> : ""}
-                        {!currentdata ? <label htmlFor="">Gst Number</label> : ""}
-                        {!currentdata ? <p><i class="fa-solid fa-feather"></i><input type="text" name="gstNumber" id="" onChange={UserData_Handler} placeholder='Enter GST Number' /></p> : ""}
-                    </div>
-                    <div className="button">
-                        <button type='submit' disabled={loading}>
-                            {loading ? <span className="loader"></span> : (currentdata ? "Login" : "Signup")}
-                        </button>
-                    </div>
-                    <div className="bottom">
-                        <span>create account {currentdata ? <i onClick={() => setCurrentData(false)}>sign Up</i> : <i onClick={() => setCurrentData(true)}>Login</i>}</span>
-
-                    </div>
+  return (
+    <div className="login-popup">
+      <div className="popup-container">
+        <div className="form-panel">
+          <h2>{isLogin ? 'Agent Login' : 'Create Account'}</h2>
+          <form onSubmit={handleSubmit}>
+            {!isLogin && (
+              <>
+                <div className="input-icon">
+                  <i className="fa-solid fa-circle-user"></i>
+                  <input type="text" name="name" placeholder="Name" onChange={handleChange} required />
                 </div>
-            </form>
-        </div>
+                <div className="input-icon">
+                  <i className="fa-regular fa-building"></i>
+                  <input type="text" name="companyName" placeholder="Company Name" onChange={handleChange} />
+                </div>
+                <div className="input-icon">
+                  <i className="fa-solid fa-feather"></i>
+                  <input type="text" name="gstNumber" placeholder="GST Number" onChange={handleChange} />
+                </div>
+              </>
+            )}
+            <div className="input-icon">
+              <i className="fa-solid fa-envelope"></i>
+              <input type="email" name="email" placeholder="Email Address" onChange={handleChange} required />
+            </div>
+            <div className="input-icon">
+              <i className="fa-solid fa-lock"></i>
+              <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+            </div>
 
-    )
-}
+            <button type="submit" disabled={loading} className="submit-btn">
+              {loading ? <span className="loader"></span> : isLogin ? 'Login' : 'Signup'}
+            </button>
+          </form>
+          <p className="toggle">
+            {isLogin ? "Don't have an account?" : 'Already have an account?'}{' '}
+            <span onClick={() => setIsLogin(!isLogin)}>{isLogin ? 'Sign Up' : 'Login'}</span>
+          </p>
+        </div>
+        <div className="welcome-panel">
+          <h2>Welcome</h2>
+          <p>{isLogin ? 'Login to continue with Bookwise' : 'Create your account, it takes less than a minute'}</p>
+          {!isLogin && <button onClick={() => setIsLogin(true)} className="register-btn">Login Now</button>}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default LoginPopUp;

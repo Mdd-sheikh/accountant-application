@@ -1,118 +1,148 @@
-.loginpopUp {
+.login-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 100vh;
-    position: absolute;
-    z-index: 1;
-    background-color: #00000090;
-   
-}
-
-.loginpopup-container {
-    place-self: center;
-    transform: translate(-30px, 100px);
-    background-color: white;
-    padding: 10px 10px 10px 10px;
-    display: grid;
-    gap: 20px;
-    border-radius: 5px;
-    padding: 50px;
-
-}
-
-.heading {
+    height: 100%;
     display: flex;
-    gap: 10px;
-}
-
-
-.heading h1{
-    font-family: "Inter",sans-serif;
-    font-size: max(1.1vw,13px);
-}
-
-.heading span{
-    width: 30px;
-    height: 30px;
-    background-color: rgba(20, 84, 187, 0.927);
-    text-align: center;
-    align-content: center;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.loginpopup-container p {
-    display: flex;
-    gap: 20px;
-    width: 100%;
-    border: 1px solid rgb(255, 255, 255);
-    padding: 10px;
-    background-color: rgb(235, 228, 228);
-    border-radius: 5px;
     align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1000;
 }
 
-.loginpopup-container input {
+.popup-container {
+    display: flex;
+    width: 90%;
+    max-width: 900px;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.form-panel,
+.welcome-panel {
+    padding: 40px;
+    flex: 1;
+}
+
+.form-panel {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-panel h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+.input-icon {
+    position: relative;
+    margin: 10px 0;
+}
+
+.input-icon i {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+.input-icon input {
     width: 100%;
+    padding: 12px 12px 12px 40px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.submit-btn {
+    margin-top: 20px;
+    padding: 12px;
+    background: #6a3bff;
+    color: #fff;
     border: none;
-    outline: none;
-    background-color: transparent;
-
-}
-
-.loginpopup-container input::placeholder {
-    color: black;
-}
-
-.bottom{
-    justify-content: space-between;
-}
-
-.button{
-    text-align: center;
-}
-
-.button button {
-    width: 30%;
-    padding: 7px;
-    background-color: rgba(20, 84, 187, 0.927);
-    border: none;
-    border: none;
-    color: white;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
-   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
 }
 
-.bottom span i{
-   color: red;
-   cursor: pointer;
+.submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
 }
 
 .loader {
+    border: 3px solid #fff;
+    border-top: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
     width: 18px;
     height: 18px;
-    border: 3px solid white;
-    border-top: 3px solid transparent;
-    border-radius: 50%;
-    display: inline-block;
-    animation: spin 0.8s linear infinite;
+    animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
 }
 
+.welcome-panel {
+    background: linear-gradient(135deg, #8a5bff, #b788ff);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
 
+.welcome-panel h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
 
-@media (max-width:450px) {
-    .loginpopup-container {
-        transform: translate(0px, 200px);
-        padding: 10px;
+.welcome-panel p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.register-btn {
+    padding: 12px 20px;
+    background: #ff7a45;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggle {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.toggle span {
+    color: #6a3bff;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .popup-container {
+        flex-direction: column;
+    }
+
+    .welcome-panel,
+    .form-panel {
+        padding: 30px;
     }
 }
+
+ 
