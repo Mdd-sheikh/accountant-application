@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./Customer_item.css";
-import { useContext } from "react";
 import { Context } from "../../../../../context/Context";
 import { toast } from "react-toastify";
 
 const Customer_item = () => {
   const [showItemPopup, setShowItemPopup] = useState(false);
   const [customerItems, setCustomerItems] = useState([]);
-  console.log(customerItems);
-  
   const [selectedItems, setSelectedItems] = useState([]);
+  const [editingItemId, setEditingItemId] = useState(null); // Track item being updated
+
   const { API_URL } = useContext(Context);
+  const token = localStorage.getItem("token");
 
   const [newItem, setNewItem] = useState({
     type: "Goods",
@@ -25,17 +25,11 @@ const Customer_item = () => {
     gstRate: "",
     discount: "",
   });
- console.log(newItem);
- 
-  const token = localStorage.getItem("token");
 
-  // ---------------- HANDLE NEW ITEM INPUT ----------------
+  // ---------------- HANDLE INPUT ----------------
   const handleNewItemChange = (e) => {
     const { name, value } = e.target;
-    setNewItem((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setNewItem((prev) => ({ ...prev, [name]: value }));
   };
 
   // ---------------- FETCH ITEMS ----------------
@@ -53,45 +47,47 @@ const Customer_item = () => {
 
   useEffect(() => {
     fetchItems();
-   
-  // Handler for keydown
-  const handleKeyDown = (e) => {
-    // Check for Alt + N
-    if (e.altKey && e.key.toLowerCase() === "n") {
-      e.preventDefault(); // prevent default behavior
-      PostItem(); // call your function
+
+    const handleKeyDown = (e) => {
+      if (e.altKey && e.key.toLowerCase() === "n") {
+        e.preventDefault();
+        PostItem();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  // ---------------- CREATE ITEM FROM POPUP ----------------
+  const savePopupItem = async () => {
+    if (!newItem.name) {
+      toast.error("Item name is required");
+      return;
     }
-  };
-
-  // Attach listener
-  window.addEventListener("keydown", handleKeyDown);
-
-  // Cleanup on unmount
-  return () => {
-    window.removeEventListener("keydown", handleKeyDown);
-  };
-}, []);
-
-  // ----------------post item into database
-  const PostItem = async () => {
     try {
       const res = await axios.post(
         `${API_URL}/items/create/item`,
-        newItem ,
+        {
+          type: newItem.type,
+          name: newItem.name,
+          unit: newItem.unit,
+          hsnCode: newItem.hsnCode,
+          category: newItem.category,
+        },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      setCustomerItems((prev) => [...prev, res.data.item]);
+      toast.success(res.data.message || "Item created");
       setShowItemPopup(false);
-
-      toast.success(res?.data?.message || "Item added successfully");
+      fetchItems(); // refresh dropdown
 
       setNewItem({
         type: "Goods",
         name: "",
         unit: "BAL",
-        hsn: "",
-        cess: "",
+        hsnCode: "",
+        cessRate: "",
         category: "",
         quantity: "",
         price: "",
@@ -99,8 +95,8 @@ const Customer_item = () => {
         discount: "",
       });
     } catch (err) {
-      console.error(err);
-      toast.error(err?.response?.data?.message || "Failed to add item");
+      console.log(err);
+      toast.error("Failed to create item");
     }
   };
 
@@ -114,34 +110,120 @@ const Customer_item = () => {
     }
 
     const item = customerItems.find((i) => i._id === itemId);
+    if (!item) return;
 
-    if (item && !selectedItems.find((i) => i._id === item._id)) {
-      const qty = item.quantity || 0;
-      const price = item.price || 0;
-      const discount = item.discount || 0;
-      const gstRate = item.gstRate || 0;
+    setEditingItemId(item._id);
 
-      const taxable = qty * price - discount;
-      const gstAmt = (taxable * gstRate) / 100;
-      const total = taxable + gstAmt;
+    setNewItem({
+      name: item.name,
+      unit: item.unit,
+      hsnCode: item.hsnCode,
+      category: item.category,
+      price: item.price || "",
+      discount: item.discount || "",
+      gstRate: item.gstRate || "",
+      quantity: item.quantity || "",
+      type: item.type,
+    });
 
-      setSelectedItems((prev) => [
-        ...prev,
-        {
-          ...item,
+    // Auto-add row if item already has full data
+    if (item.price && item.discount != null && item.gstRate) {
+      const exists = selectedItems.some(
+        (i) =>
+          i.name === item.name &&
+          i.price === parseFloat(item.price) &&
+          i.discount === parseFloat(item.discount) &&
+          i.gstRate === parseFloat(item.gstRate)
+      );
+      if (!exists) {
+        const qty = parseFloat(item.quantity) || 0;
+        const price = parseFloat(item.price);
+        const discount = parseFloat(item.discount);
+        const gstRate = parseFloat(item.gstRate);
+        const taxable = qty * price - discount;
+        const gstAmt = (taxable * gstRate) / 100;
+        const total = taxable + gstAmt;
+
+        const itemData = {
+          name: item.name,
           quantity: qty,
           price,
           discount,
           gstRate,
           taxable: taxable.toFixed(2),
           total: total.toFixed(2),
-        },
-      ]);
+        };
+        setSelectedItems((prev) => [...prev, itemData]);
+      }
     }
   };
 
+  // ---------------- UPDATE ITEM ----------------
+  const updateItem = async () => {
+    if (!editingItemId) return;
+    try {
+      const res = await axios.put(
+        `${API_URL}/items/update/item/${editingItemId}`,
+        {
+          price: parseFloat(newItem.price) || 0,
+          discount: parseFloat(newItem.discount) || 0,
+          gstRate: parseFloat(newItem.gstRate) || 0,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      toast.success(res.data.message || "Item updated");
+      fetchItems();
+      setEditingItemId(null);
+      setNewItem((prev) => ({
+        ...prev,
+        quantity: "",
+        price: "",
+        discount: "",
+        gstRate: "",
+      }));
+    } catch (err) {
+      console.log(err);
+      toast.error("Failed to update item");
+    }
+  };
 
-  // ---------------- ITEM CHANGE ----------------
+  // ---------------- ADD ITEM TO TABLE ----------------
+  const PostItem = () => {
+    if (!newItem.name) {
+      toast.error("Select item first");
+      return;
+    }
+
+    const qty = parseFloat(newItem.quantity) || 0;
+    const price = parseFloat(newItem.price) || 0;
+    const discount = parseFloat(newItem.discount) || 0;
+    const gstRate = parseFloat(newItem.gstRate) || 0;
+
+    const taxable = qty * price - discount;
+    const gstAmt = (taxable * gstRate) / 100;
+    const total = taxable + gstAmt;
+
+    const itemData = {
+      name: newItem.name,
+      quantity: qty,
+      price,
+      discount,
+      gstRate,
+      taxable: taxable.toFixed(2),
+      total: total.toFixed(2),
+    };
+
+    setSelectedItems((prev) => [...prev, itemData]);
+    setNewItem((prev) => ({
+      ...prev,
+      quantity: "",
+      price: "",
+      discount: "",
+      gstRate: "",
+    }));
+  };
+
+  // ---------------- UPDATE ITEM IN TABLE ----------------
   const handleItemChange = (index, field, value) => {
     const items = [...selectedItems];
     items[index][field] = value;
@@ -168,14 +250,15 @@ const Customer_item = () => {
     setSelectedItems(items);
   };
 
-  // ---------------- INVOICE TOTAL ----------------
-  const invoiceTotal = selectedItems.reduce((acc, item) => {
-    return acc + (parseFloat(item.total) || 0);
-  }, 0);
+  // ---------------- TOTAL ----------------
+  const invoiceTotal = selectedItems.reduce(
+    (acc, item) => acc + (parseFloat(item.total) || 0),
+    0
+  );
 
   return (
     <div className="customer_item">
-      {/* SELECTED ITEMS TABLE */}
+      {/* TABLE */}
       {selectedItems.length > 0 && (
         <div className="table-container">
           <table className="invoice-table">
@@ -192,15 +275,14 @@ const Customer_item = () => {
                 <th>Action</th>
               </tr>
             </thead>
-
             <tbody>
               {selectedItems.map((item, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{item.name}</td>
-
                   <td>
-                    <input id="item"
+                    <input
+                      id="item"
                       type="number"
                       value={item.quantity}
                       onChange={(e) =>
@@ -208,7 +290,6 @@ const Customer_item = () => {
                       }
                     />
                   </td>
-
                   <td>
                     <input
                       type="number"
@@ -218,7 +299,6 @@ const Customer_item = () => {
                       }
                     />
                   </td>
-
                   <td>
                     <input
                       type="number"
@@ -228,9 +308,7 @@ const Customer_item = () => {
                       }
                     />
                   </td>
-
                   <td>{item.taxable}</td>
-
                   <td>
                     <input
                       type="number"
@@ -240,11 +318,11 @@ const Customer_item = () => {
                       }
                     />
                   </td>
-
                   <td>{item.total}</td>
-
                   <td>
-                    <button onClick={() => handleRemoveItem(index)}>Remove</button>
+                    <button onClick={() => handleRemoveItem(index)}>
+                      Remove
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -253,51 +331,62 @@ const Customer_item = () => {
         </div>
       )}
 
-
       {/* TOTAL */}
       <div className="invoice-total">
         <h3>Total Invoice Amount : ₹ {invoiceTotal.toFixed(2)}</h3>
       </div>
 
-      {/* ITEM SELECT AREA (UNCHANGED) */}
+      {/* SELECT ITEM */}
       <div className="invoice-select-item">
         <div className="select-item">
           <p>Select Item *</p>
-
           <select onChange={handleSelectItem} defaultValue="">
             <option value="">Select Item</option>
-
             {customerItems.map((item) => (
               <option key={item._id} value={item._id}>
                 {item.name}
               </option>
             ))}
-
             <option value="add_item">+ Add Item</option>
           </select>
         </div>
 
-        {/* Quantity */}
         <div className="item-quantity">
           <p>Quantity *</p>
-          <input type="number" name="quantity" value={newItem.quantity} onChange={handleNewItemChange} placeholder="Enter Quantity" />
+          <input
+            type="number"
+            name="quantity"
+            value={newItem.quantity}
+            onChange={handleNewItemChange}
+            placeholder="Enter Quantity"
+          />
           <button>UQC</button>
         </div>
 
-        {/* Price */}
         <div className="item-price">
           <p>Price *</p>
-          <input type="number" name="price" value={newItem.price} onChange={handleNewItemChange} placeholder="Enter Price" />
+          <input
+            type="number"
+            name="price"
+            value={newItem.price}
+            onChange={handleNewItemChange}
+            placeholder="Enter Price"
+          />
           <select>
             <option>Inc. Tax</option>
             <option>Exc. Tax</option>
           </select>
         </div>
 
-        {/* Discount */}
         <div className="item-discount">
           <p>Discount *</p>
-          <input type="number" name="discount" value={newItem.discount} onChange={handleNewItemChange} placeholder="Enter Discount" />
+          <input
+            type="number"
+            name="discount"
+            value={newItem.discount}
+            onChange={handleNewItemChange}
+            placeholder="Enter Discount"
+          />
           <select>
             <option>0%</option>
             <option>1%</option>
@@ -305,16 +394,24 @@ const Customer_item = () => {
           </select>
         </div>
 
-        {/* GST */}
         <div className="item-gst-rate">
           <p>GST Rate *</p>
-          <select name="gstRate" value={newItem.gstRate} onChange={handleNewItemChange}>
-            <option>0.1</option>
-            <option>0.2</option>
-            <option>0.4</option>
-            <option>0.5</option>
+          <select
+            name="gstRate"
+            value={newItem.gstRate}
+            onChange={handleNewItemChange}
+          >
+            <option value="">Select</option>
+            <option value="5">5%</option>
+            <option value="12">12%</option>
+            <option value="18">18%</option>
+            <option value="28">28%</option>
           </select>
-          <button onClick={PostItem}>+ Add</button>
+          {editingItemId ? (
+            <button onClick={updateItem}>Update Item</button>
+          ) : (
+            <button onClick={PostItem}>+ Add</button>
+          )}
         </div>
       </div>
 
@@ -331,65 +428,45 @@ const Customer_item = () => {
                 ×
               </button>
             </div>
-
             <div className="popup-body">
               <div className="item-type">
                 <label>Type</label>
-
                 <input
                   type="radio"
                   name="type"
                   value="Goods"
                   checked={newItem.type === "Goods"}
                   onChange={handleNewItemChange}
-                />{" "}
+                />
                 Goods
-
                 <input
                   type="radio"
                   name="type"
                   value="Service"
                   checked={newItem.type === "Service"}
                   onChange={handleNewItemChange}
-                />{" "}
+                />
                 Service
               </div>
-
               <label>Item Name *</label>
-              <input
-                name="name"
-                value={newItem.name}
-                onChange={handleNewItemChange}
-              />
-
+              <input name="name" value={newItem.name} onChange={handleNewItemChange} />
               <label>Unit *</label>
-              <select
-                name="unit"
-                value={newItem.unit}
-                onChange={handleNewItemChange}
-              >
+              <select name="unit" value={newItem.unit} onChange={handleNewItemChange}>
                 <option>BAL</option>
                 <option>PCS</option>
               </select>
-
               <label>HSN</label>
-              <input
-                name="hsn"
-                value={newItem.hsn}
-                onChange={handleNewItemChange}
-              />
-
+              <input name="hsnCode" value={newItem.hsnCode} onChange={handleNewItemChange} />
               <label>Category</label>
-              <input
-                name="category"
-                value={newItem.category}
-                onChange={handleNewItemChange}
-              />
+              <input name="category" value={newItem.category} onChange={handleNewItemChange} />
             </div>
-
             <div className="popup-footer">
-              <button onClick={() => setShowItemPopup(false)}>Cancel</button>
-              <button >Save</button>
+              <button className="cancel-btn" onClick={() => setShowItemPopup(false)}>
+                Cancel
+              </button>
+              <button onClick={savePopupItem} className="save-btn">
+                Save
+              </button>
             </div>
           </div>
         </div>
