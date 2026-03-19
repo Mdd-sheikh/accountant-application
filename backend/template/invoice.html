@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Invoice</title>
+
+<link rel="stylesheet" href="invoice.css">
+
+</head>
+
+<body>
+
+<div class="invoice-container">
+
+<!-- HEADER -->
+
+<div class="header">
+
+<div class="logo-section">
+<img src="{{logo}}" class="logo"/>
+</div>
+
+<div class="company-info">
+<h2>BOOKWISE</h2>
+<p>Kolkata, India</p>
+<p>Email: support@bookwise.com</p>
+<p>GSTIN: 19XXXXXXXXXX</p>
+</div>
+
+</div>
+
+<div class="invoice-title">
+INVOICE
+</div>
+
+<!-- CUSTOMER + META -->
+
+<div class="invoice-meta">
+
+<div class="customer-box">
+<h4>Bill To</h4>
+<p>{{customerName}}</p>
+<p>{{customerAddress}}</p>
+<p>{{customerEmail}}</p>
+</div>
+
+<div class="meta-box">
+<h4>Invoice Details</h4>
+<p><strong>Invoice #:</strong> {{invoiceNumber}}</p>
+<p><strong>Date:</strong> {{invoiceDate}}</p>
+<p><strong>Status:</strong> {{status}}</p>
+</div>
+
+</div>
+
+<!-- ITEMS TABLE -->
+
+<table class="items-table">
+
+<thead>
+<tr>
+<th>Item</th>
+<th>Quantity</th>
+<th>Unit</th>
+<th>Rate</th>
+<th>GST %</th>
+<th>Total</th>
+</tr>
+</thead>
+
+<tbody>
+
+{{#each items}}
+
+<tr>
+<td>{{itemName}}</td>
+<td>{{quantity}}</td>
+<td>{{unit}}</td>
+<td>₹{{rate}}</td>
+<td>{{gstRate}}%</td>
+<td>₹{{total}}</td>
+</tr>
+
+{{/each}}
+
+</tbody>
+
+</table>
+
+<!-- TOTAL SECTION -->
+
+<div class="totals">
+
+<div class="total-row">
+<span>Subtotal</span>
+<span>₹{{subTotal}}</span>
+</div>
+
+<div class="total-row">
+<span>GST Total</span>
+<span>₹{{gstTotal}}</span>
+</div>
+
+<div class="total-row">
+<span>Discount</span>
+<span>₹{{additionalDiscount}}</span>
+</div>
+
+<div class="total-row">
+<span>Round Off</span>
+<span>₹{{roundOff}}</span>
+</div>
+
+<div class="total-row grand-total">
+<span>Total</span>
+<span>₹{{billAmount}}</span>
+</div>
+
+</div>
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+<div class="terms">
+<h4>Terms & Conditions</h4>
+<p>Goods once sold will not be taken back or exchanged.</p>
+<p>Thank you for your business.</p>
+</div>
+
+<div class="signature">
+<p>Authorized Signature</p>
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

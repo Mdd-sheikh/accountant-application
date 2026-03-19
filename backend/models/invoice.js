@@ -3,15 +3,15 @@ import ItemSchema from "./item";
 
 // Invoice Item Schema
 export const invoiceItem = {
-  itemId: item._id,
-  itemName: item.name,
-  quantity: 10,
-  unit: item.unit,
-  rate: item.price,
-  gstRate: item.gstRate,
-  taxableAmount: item.price * 10,
-  gstAmount: (item.gstRate / 100) * (item.price * 10),
-  total: (item.price * 10) + ((item.gstRate / 100) * (item.price * 10))
+    itemId: item._id,
+    itemName: item.name,
+    quantity: item.quantity,
+    unit: item.unit,
+    rate: item.price,
+    gstRate: item.gstRate,
+    taxableAmount: item.price * item.quantity,
+    gstAmount: (item.gstRate / 100) * (item.price * item.quantity),
+    total: (item.price * item.quantity) + ((item.gstRate / 100) * (item.price * item.quantity))
 };
 
 // Main Invoice Schema

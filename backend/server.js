@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/user", router)
 app.use("/api/customer", customerRouter);
-app.use("/api/items",itemrouter);
+app.use("/api/items",itemrouter); 
 
 // mongo db cnnection
 DbConeection()
