@@ -1,4 +1,7 @@
 import axios from "axios";
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 export const fetchGST = async (req, res) => {
   try {
@@ -14,7 +17,7 @@ export const fetchGST = async (req, res) => {
         }
       }
     );
-
+ 
     const token = tokenRes.data.access_token;
 
     // STEP 2: Fetch GST Details
