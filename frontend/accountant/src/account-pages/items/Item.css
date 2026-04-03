@@ -36,7 +36,7 @@
 }
 
 .create-btn {
-  background-color: #3b82f6;
+  background-color: #3c7fa6;
   color: white;
   border: none;
   padding: 8px 16px;
@@ -71,7 +71,7 @@
 }
 
 .item-table th {
-  background-color: #3b82f6;
+  background-color: #3c7fa6;;
   color: white;
   font-weight: 600;
 }
@@ -153,6 +153,24 @@
   padding: 8px 18px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+
+.add-popup {
+  width: 500px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.form-grid input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
 /* Responsive */

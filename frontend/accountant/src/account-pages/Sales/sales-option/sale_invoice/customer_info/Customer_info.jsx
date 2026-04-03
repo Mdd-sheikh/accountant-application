@@ -89,6 +89,34 @@ const CustomerInfo = () => {
         }
     };
 
+    // fetch GST details using GST number
+
+
+    const FetchGSTDetails = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const options = {
+                method: 'GET',
+                url: `https://api.gstverify.com/gstin/${gstin}/details`,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            };
+
+            const response = await axios.request(options);
+            if (response.data.status === 'Active') {
+                console.log(`GSTIN is valid. Legal Name: ${response.data.legal_name}`);
+            } else {
+                console.log('GSTIN is invalid or inactive.');
+            }
+        } catch (error) {
+            console.error('Verification failed:', error);
+        }
+    }
+
+
+
+
     // create customer
     const customerData = async () => {
 
@@ -109,6 +137,25 @@ const CustomerInfo = () => {
             toast.success("Customer Created");
 
             setShowLedgerPopup(false);
+            setClientsData({
+                name: "",
+                email: "",
+                phone: "",
+                address: {
+                    line1: "",
+                    city: "",
+                    state: "",
+                    pincode: ""
+                },
+                gstNumber: "",
+                bankDetails: {
+                    bankName: "",
+                    accountNumber: "",
+                    ifscCode: ""
+                },
+                notes: ""
+            });
+            GetCustomerData();
 
         } catch (error) {
 
@@ -240,9 +287,10 @@ const CustomerInfo = () => {
                                         <input type="text" name='name' value={clientsData.name} onChange={clientsData_handler} placeholder="Enter Ledger Name" />
                                     </div>
 
-                                    <div>
+                                    <div className="gstNumberFetch">
                                         <label>GST Number</label>
                                         <input type="text" name='gstNumber' value={clientsData.gstNumber} onChange={clientsData_handler} placeholder="Enter GST Number" />
+                                        <button onClick={FetchGSTDetails}>Fetch</button>
                                     </div>
                                 </div>
                             </div>

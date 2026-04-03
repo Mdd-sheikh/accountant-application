@@ -388,9 +388,8 @@ const Customer_item = () => {
             placeholder="Enter Discount"
           />
           <select>
-            <option>0%</option>
-            <option>1%</option>
-            <option>1.2%</option>
+            <option>%</option>
+            
           </select>
         </div>
 

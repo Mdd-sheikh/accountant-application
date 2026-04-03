@@ -1,14 +1,11 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import './SaleInvoice.css'
-import { FaChevronDown, FaTimes, FaPen } from "react-icons/fa";
-import axios from 'axios';
-import { Context } from '../../../../context/Context';
 import CustomerInfo from './customer_info/Customer_info';
 import Customer_item from './customer_item/Customer_item';
 
 
 const SaleInvoice = () => {
-    const { API_URL } = useContext(Context)
+
     const [TermDropDown, setTermDropDown] = useState(false)
     const [additionchargers, setAdditionaCharges] = useState(false)
 
@@ -21,7 +18,7 @@ const SaleInvoice = () => {
                 <CustomerInfo />
                 <br />
                 <div className="customer_items">
-                    <Customer_item/>
+                    <Customer_item />
                 </div>
                 <main>
                     {/* ----------------------------for add addition chargees like shipping charges and delivery like------------------*/}

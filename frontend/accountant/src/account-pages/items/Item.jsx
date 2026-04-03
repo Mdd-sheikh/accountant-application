@@ -9,6 +9,7 @@ const Item = () => {
 
     const [items, setItems] = useState([]);
     const [search, setSearch] = useState("");
+    const [animation, setAnimation] = useState(false);
 
     const [showConfirm, setShowConfirm] = useState(false);
     const [deleteId, setDeleteId] = useState(null);
@@ -17,10 +18,63 @@ const Item = () => {
 
     const token = localStorage.getItem("token");
 
+
+    const [showAddPopup, setShowAddPopup] = useState(false);
+
+    const [formData, setFormData] = useState({
+        name: "",
+        hsnCode: "",
+        gstRate: "",
+        quantity: "",
+        unit: "",
+        category: "",
+        price: "",
+        discount: ""
+    });
+
+    // handle input change
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+
+    // post item data const addItem = async () => {
+    const addItem = async () => {
+        try {
+            await axios.post(
+                `${API_URL}/items/create/item`,
+                formData,
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            toast.success("Item added successfully");
+
+            setShowAddPopup(false);
+
+            setFormData({
+                name: "",
+                hsnCode: "",
+                gstRate: "",
+                quantity: "",
+                unit: "",
+                category: "",
+                price: "",
+                discount: ""
+            });
+
+            fetchItems();
+
+        } catch (err) {
+            toast.error("Failed to add item");
+        }
+    };
     // Fetch items
     const fetchItems = async () => {
         try {
-
+            setAnimation(true);
             const res = await axios.get(`${API_URL}/items/get/item`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
@@ -32,6 +86,8 @@ const Item = () => {
             console.error(err);
             toast.error("Failed to fetch items");
 
+        } finally {
+            setAnimation(false);
         }
     };
 
@@ -113,9 +169,9 @@ const Item = () => {
                         onChange={(e) => setSearch(e.target.value)}
                     />
 
-                    <NavLink to="/503/invoice/create#item">
-                        <button className="create-btn">+ Create Item</button>
-                    </NavLink>
+                    <button className="create-btn" onClick={() => setShowAddPopup(true)}>
+                        + Create Item
+                    </button>
 
                 </div>
 
@@ -176,17 +232,15 @@ const Item = () => {
 
                                 </tr>
 
-                            ))
-
-                        ) : (
-
-                            <tr>
-                                <td colSpan="9" className="no-data">
-                                    No items found
-                                </td>
-                            </tr>
-
-                        )}
+                            ))) : animation ? (
+                                <tr>
+                                    <td colSpan="9">
+                                        <div className="loding-animation">
+                                            <div className="load"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ) : null}
 
                     </tbody>
 
@@ -228,6 +282,50 @@ const Item = () => {
 
                 </div>
 
+            )}
+            {showAddPopup && (
+                <div className="confirm-overlay">
+                    <div className="confirm-box add-popup">
+
+                        <h3>Add Item</h3>
+
+                        <div className="form-grid">
+
+                            <input name="name" placeholder="Item Name" value={formData.name} onChange={handleChange} />
+
+                            <input name="hsnCode" placeholder="HSN Code" value={formData.hsnCode} onChange={handleChange} />
+
+                            <input name="gstRate" placeholder="GST Rate (%)" value={formData.gstRate} onChange={handleChange} />
+
+                            <input name="quantity" placeholder="Quantity" value={formData.quantity} onChange={handleChange} />
+
+                            <input name="unit" placeholder="Unit (kg, pcs...)" value={formData.unit} onChange={handleChange} />
+
+                            <input name="category" placeholder="Category" value={formData.category} onChange={handleChange} />
+
+                            <input name="price" placeholder="Price" value={formData.price} onChange={handleChange} />
+
+                            <input name="discount" placeholder="Discount" value={formData.discount} onChange={handleChange} />
+
+                        </div>
+
+                        <div className="confirm-buttons">
+
+                            <button className="yes-btn" onClick={addItem}>
+                                Add Item
+                            </button>
+
+                            <button
+                                className="no-btn"
+                                onClick={() => setShowAddPopup(false)}
+                            >
+                                Cancel
+                            </button>
+
+                        </div>
+
+                    </div>
+                </div>
             )}
 
         </div>

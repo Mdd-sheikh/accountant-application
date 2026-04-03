@@ -171,7 +171,7 @@ const Dashboard = () => {
                         }
                     >
                         <i className="fa-solid fa-users"></i>
-                        <span>Customer</span>
+                        <span>Party</span>
                     </NavLink>
 
 
