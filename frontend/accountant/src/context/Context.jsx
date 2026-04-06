@@ -8,6 +8,8 @@ export const Context = createContext(null);
 
 
 const ContextProvider = ({ children }) => {
+
+    const [totalAmount, setTotalAmount] = useState(0);
     // for sidebar open and close
     const [IssidebarOpen, setIsSidebarOpen] = useState(true);
     //------------------------------------------------------

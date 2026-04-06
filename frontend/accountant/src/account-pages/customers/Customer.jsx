@@ -225,7 +225,7 @@ const Customer = () => {
 
 
           <button onClick={() => setShowLedgerPopup(true)} className="create-ledger-btn">
-            Create Ledger
+            Create Ledger 
           </button>
 
 

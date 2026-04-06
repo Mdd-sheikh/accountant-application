@@ -10,7 +10,8 @@ const Customer_item = () => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [editingItemId, setEditingItemId] = useState(null); // Track item being updated
 
-  const { API_URL } = useContext(Context);
+
+  const { API_URL, setTotalAmount } = useContext(Context);
   const token = localStorage.getItem("token");
 
   const [newItem, setNewItem] = useState({
@@ -333,7 +334,7 @@ const Customer_item = () => {
 
       {/* TOTAL */}
       <div className="invoice-total">
-        <h3>Total Invoice Amount : ₹ {invoiceTotal.toFixed(2)}</h3>
+        <h3>Total Invoice Amount : ₹ {()=>setTotalAmount(invoiceTotal)}</h3>
       </div>
 
       {/* SELECT ITEM */}
@@ -389,7 +390,7 @@ const Customer_item = () => {
           />
           <select>
             <option>%</option>
-            
+
           </select>
         </div>
 

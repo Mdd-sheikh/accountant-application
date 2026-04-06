@@ -11,6 +11,20 @@
     justify-content: space-between;
 }
 
+.left-lanspage-container{
+  animation: opacity 2s ease-out;
+}
+
+@keyframes opacity {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+
 .left-lanspage-container h2 {
     font-family: "Inter", sans-serif;
     padding: 10px;
@@ -88,6 +102,20 @@
 
 .right-lanspage-container img {
     width: 100%;
+    height: auto;
+    animation: lefttoRight 1s ease-out;
+}
+
+@keyframes lefttoRight {
+    0% {
+        opacity: 0;
+        transform: translateX(-250px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .landing-container-two {
@@ -99,21 +127,21 @@
 
 }
 
-.payment-record-statement h1{
-   font-size: max(3vw,19px);
-   font-family: "Inter",sans-serif;
+.payment-record-statement h1 {
+    font-size: max(3vw, 19px);
+    font-family: "Inter", sans-serif;
 }
 
-.payment-record-statement p{
+.payment-record-statement p {
     color: grey;
 }
 
-.payment-record-statement span{
+.payment-record-statement span {
     width: 170px;
     background-color: blue;
     color: white;
     border: 1px solid black;
-    
+
 }
 
 .payment-record-image img {
