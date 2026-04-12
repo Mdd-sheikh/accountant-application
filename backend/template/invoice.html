@@ -2,10 +2,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Invoice</title>
-
+<title>Tax Invoice</title>
 <link rel="stylesheet" href="invoice.css">
-
 </head>
 
 <body>
@@ -16,42 +14,49 @@
 
 <div class="header">
 
-<div class="logo-section">
-<img src="{{logo}}" class="logo"/>
-</div>
-
 <div class="company-info">
-<h2>BOOKWISE</h2>
-<p>Kolkata, India</p>
-<p>Email: support@bookwise.com</p>
-<p>GSTIN: 19XXXXXXXXXX</p>
+<h2>{{companyName}}</h2>
+<p>GSTIN: {{companyGST}}</p>
+<p>{{companyAddress}}</p>
+<p>Mobile: {{companyPhone}}</p>
+<p>Email: {{companyEmail}}</p>
 </div>
 
-</div>
-
-<div class="invoice-title">
-INVOICE
-</div>
-
-<!-- CUSTOMER + META -->
-
-<div class="invoice-meta">
-
-<div class="customer-box">
-<h4>Bill To</h4>
-<p>{{customerName}}</p>
-<p>{{customerAddress}}</p>
-<p>{{customerEmail}}</p>
-</div>
-
-<div class="meta-box">
-<h4>Invoice Details</h4>
+<div class="invoice-info">
 <p><strong>Invoice #:</strong> {{invoiceNumber}}</p>
-<p><strong>Date:</strong> {{invoiceDate}}</p>
-<p><strong>Status:</strong> {{status}}</p>
+<p><strong>Invoice Date:</strong> {{invoiceDate}}</p>
+<p><strong>Due Date:</strong> {{dueDate}}</p>
 </div>
 
 </div>
+
+<h2 class="invoice-title">TAX INVOICE</h2>
+
+<!-- CUSTOMER DETAILS -->
+
+<div class="customer-section">
+
+<div>
+<h4>Customer Details</h4>
+<p>{{customerName}}</p>
+<p>{{customerCompany}}</p>
+<p>GSTIN: {{customerGST}}</p>
+<p>Ph: {{customerPhone}}</p>
+</div>
+
+<div>
+<h4>Billing Address</h4>
+<p>{{billingAddress}}</p>
+</div>
+
+<div>
+<h4>Shipping Address</h4>
+<p>{{shippingAddress}}</p>
+</div>
+
+</div>
+
+<p><strong>Place of Supply:</strong> {{placeOfSupply}}</p>
 
 <!-- ITEMS TABLE -->
 
@@ -59,11 +64,13 @@ INVOICE
 
 <thead>
 <tr>
+<th>#</th>
 <th>Item</th>
-<th>Quantity</th>
-<th>Unit</th>
+<th>HSN</th>
 <th>Rate</th>
-<th>GST %</th>
+<th>Qty</th>
+<th>Taxable Value</th>
+<th>Tax</th>
 <th>Total</th>
 </tr>
 </thead>
@@ -73,11 +80,13 @@ INVOICE
 {{#each items}}
 
 <tr>
+<td>{{@index}}</td>
 <td>{{itemName}}</td>
-<td>{{quantity}}</td>
-<td>{{unit}}</td>
+<td>{{hsn}}</td>
 <td>₹{{rate}}</td>
-<td>{{gstRate}}%</td>
+<td>{{quantity}}</td>
+<td>₹{{taxableValue}}</td>
+<td>{{taxRate}}% (₹{{taxAmount}})</td>
 <td>₹{{total}}</td>
 </tr>
 
@@ -87,49 +96,67 @@ INVOICE
 
 </table>
 
-<!-- TOTAL SECTION -->
+<!-- TOTALS -->
 
 <div class="totals">
 
-<div class="total-row">
-<span>Subtotal</span>
-<span>₹{{subTotal}}</span>
-</div>
+<p><strong>Taxable Amount:</strong> ₹{{subTotal}}</p>
+<p><strong>IGST {{gstRate}}%:</strong> ₹{{gstTotal}}</p>
 
-<div class="total-row">
-<span>GST Total</span>
-<span>₹{{gstTotal}}</span>
-</div>
+<h3>Total: ₹{{billAmount}}</h3>
+<p><strong>Amount in Words:</strong> {{amountInWords}}</p>
 
-<div class="total-row">
-<span>Discount</span>
-<span>₹{{additionalDiscount}}</span>
-</div>
-
-<div class="total-row">
-<span>Round Off</span>
-<span>₹{{roundOff}}</span>
-</div>
-
-<div class="total-row grand-total">
-<span>Total</span>
-<span>₹{{billAmount}}</span>
-</div>
+<h3>Amount Payable: ₹{{billAmount}}</h3>
 
 </div>
 
-<!-- FOOTER -->
+<!-- PAYMENT DETAILS -->
+
+<div class="payment">
+
+<h4>Bank Details</h4>
+<p>Bank: {{bankName}}</p>
+<p>Account #: {{accountNumber}}</p>
+<p>IFSC Code: {{ifsc}}</p>
+<p>Branch: {{branch}}</p>
+
+</div>
+
+<!-- NOTES -->
+
+<div class="notes">
+
+<h4>Notes</h4>
+<ul>
+<li>GST is mandatory on product price.</li>
+<li>Price may vary if MOQ is not maintained.</li>
+<li>Transport charges are not included.</li>
+</ul>
+
+</div>
+
+<!-- TERMS -->
+
+<div class="terms">
+
+<h4>Terms & Conditions</h4>
+<ul>
+<li>Payment once received is non-refundable.</li>
+<li>We are not responsible for damage outside premises.</li>
+<li>Corrections after delivery are chargeable.</li>
+<li>50% advance required to start work.</li>
+</ul>
+
+</div>
+
+<!-- SIGNATURE -->
 
 <div class="footer">
 
-<div class="terms">
-<h4>Terms & Conditions</h4>
-<p>Goods once sold will not be taken back or exchanged.</p>
-<p>Thank you for your business.</p>
-</div>
-
 <div class="signature">
-<p>Authorized Signature</p>
+<p>For {{companyName}}</p>
+<br><br>
+<p>Authorized Signatory</p>
 </div>
 
 </div>

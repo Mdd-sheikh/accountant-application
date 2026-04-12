@@ -17,7 +17,7 @@ export const fetchGST = async (req, res) => {
         }
       }
     );
- 
+
     const token = tokenRes.data.access_token;
 
     // STEP 2: Fetch GST Details

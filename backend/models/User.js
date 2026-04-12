@@ -7,9 +7,6 @@ const SignatureSchema = new Schema({
     required: true
   },
 
-  signatureText: {
-    type: String
-  },
 
   font: {
     type: String
@@ -33,6 +30,7 @@ const User_Register_Schema = new Schema({
     trim: true
   },
 
+
   email: {
     type: String,
     required: true,
@@ -45,21 +43,9 @@ const User_Register_Schema = new Schema({
     required: true
   },
 
-  profile: {
-    type: String
-  },
 
-  companyName: {
-    type: String
-  },
-
-  gstNumber: {
-    type: String
-  },
-
-  signatures: [SignatureSchema]
 
 }, { timestamps: true });
 
 export const UserRegister =
-mongoose.model("User_Registration", User_Register_Schema);
+  mongoose.model("User_Registration", User_Register_Schema);
