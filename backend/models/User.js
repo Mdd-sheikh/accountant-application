@@ -1,27 +1,5 @@
 import mongoose, { Schema } from "mongoose";
 
-const SignatureSchema = new Schema({
-
-  signatureName: {
-    type: String,
-    required: true
-  },
-
-
-  font: {
-    type: String
-  },
-
-  fontSize: {
-    type: String
-  },
-
-  signatureImage: {
-    type: String
-  }
-
-}, { timestamps: true });
-
 const User_Register_Schema = new Schema({
 
   name: {

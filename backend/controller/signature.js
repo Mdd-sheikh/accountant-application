@@ -2,7 +2,7 @@ import Signature from "../models/signature.js";
 
 export const createSignature = async (req, res) => {
     try {
-        const { signatureName, Font, fontsize } = req.body;
+        const { signatureName, font, fontSize } = req.body;
 
         // safe user access (prevents crash)
         const userId = req.user?._id;
@@ -21,8 +21,8 @@ export const createSignature = async (req, res) => {
         let signatureData = {
             user: userId,
             signatureName: signatureName || null,
-            Font: Font || null,
-            fontsize: fontsize || null,
+            Font: font || null,
+            fontsize: fontSize || null,
             signatureImage: null
         };
 

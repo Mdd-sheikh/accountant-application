@@ -23,7 +23,7 @@ app.use("/api/customer", customerRouter);
 app.use("/api/items", itemrouter);
 app.use("/api/gst", Gstrouter);
 app.use("/api/customer", SignatureRouter);
-app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static("uploads")); 
 
 // mongo db cnnection
 DbConeection()
