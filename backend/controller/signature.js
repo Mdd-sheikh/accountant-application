@@ -1,88 +1,60 @@
-import multer from "multer";
 import Signature from "../models/signature.js";
-
-// storage config
-const signatureImages = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, "uploads/");
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + "-" + file.originalname);
-    }
-});
-
-// ✅ added security improvements
- const upload = multer({
-    storage: signatureImages,
-    limits: {
-        fileSize: 5 * 1024 * 1024 // 5MB limit
-    },
-    fileFilter: function (req, file, cb) {
-        if (file.mimetype.startsWith("image/")) {
-            cb(null, true);
-        } else {
-            cb(new Error("Only image files are allowed"), false);
-        }
-    }
-}).single("signatureImage");
 
 export const createSignature = async (req, res) => {
     try {
-        upload(req, res, async function (err) {
-            if (err) {
+        const { signatureName, Font, fontsize } = req.body;
+
+        // safe user access (prevents crash)
+        const userId = req.user?._id;
+
+        if (!userId) {
+            return res.status(401).json({
+                success: false,
+                message: "Unauthorized user"
+            });
+        }
+
+        // debug (optional, remove in production)
+        console.log("BODY:", req.body);
+        console.log("FILE:", req.file);
+
+        let signatureData = {
+            user: userId,
+            signatureName: signatureName || null,
+            Font: Font || null,
+            fontsize: fontsize || null,
+            signatureImage: null
+        };
+
+        // if file uploaded
+        if (req.file) {
+            signatureData.signatureImage = req.file.path;
+        } else {
+            // if no image, validate required fields
+            if (!signatureName || !Font || !fontsize) {
                 return res.status(400).json({
                     success: false,
-                    message: err.message
+                    message: "signatureName, Font and fontsize are required when no image is uploaded"
                 });
             }
+        }
 
-            const { signatureName, Font, fontsize } = req.body;
-            const userId = req.user._id;
+        const newSignature = new Signature(signatureData);
+        const savedSignature = await newSignature.save();
 
-            let newSignature;
-
-            // CASE 1: Image uploaded
-            if (req.file) {
-                newSignature = new Signature({
-                    user: userId,
-                    signatureImage: req.file.path,
-                    signatureName: signatureName || null,
-                    Font: Font || null,
-                    fontsize: fontsize || null
-                });
-            }
-
-            // CASE 2: Text signature
-            else {
-                if (!signatureName || !Font || !fontsize) {
-                    return res.status(400).json({
-                        success: false,
-                        message: "signatureName, Font and fontsize are required if no image is uploaded"
-                    });
-                }
-
-                newSignature = new Signature({
-                    user: userId,
-                    signatureName,
-                    Font,
-                    fontsize,
-                    signatureImage: null
-                });
-            }
-
-            const saved = await newSignature.save();
-
-            return res.status(201).json({
-                success: true,
-                message: "Signature created successfully",
-                data: saved
-            });
+        return res.status(201).json({
+            success: true,
+            message: "Signature created successfully",
+            data: savedSignature
         });
 
     } catch (error) {
+        console.error("Create Signature Error:", error);
+
         return res.status(500).json({
             success: false,
-            message: error.message
+            message: "Internal Server Error",
+            error: error.message
         });
     }
 };
