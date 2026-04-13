@@ -1,5 +1,5 @@
 import express from 'express';
-import { createSignature } from '../controller/signature.js';
+import { createSignature, DeleteSignature, GetSignatures } from '../controller/signature.js';
 import auth from '../middleware/auth.js';
 import multer from 'multer';
 
@@ -14,6 +14,8 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage })
 
-SignatureRouter.post("/signature", auth,upload.single("signatureImage"), createSignature);
+SignatureRouter.post("/signature", auth, upload.single("signatureImage"), createSignature);
+SignatureRouter.get("/signature/get", auth, GetSignatures);
+SignatureRouter.delete("/signature/delete/:id", auth, DeleteSignature);
 
 export default SignatureRouter;
