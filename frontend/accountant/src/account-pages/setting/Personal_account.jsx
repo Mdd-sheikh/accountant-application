@@ -98,6 +98,7 @@ const Personal_account = () => {
           fontSize: "60px"
         });
         setSignatureFile(null);
+        showSignatureForm(false);
       }
 
 
@@ -174,7 +175,6 @@ const Personal_account = () => {
 
       setGetSignature(response.data.data);
 
-      toast.success("Signatures added successfully");
 
     } catch (error) {
       console.error("Error fetching signatures:", error);
@@ -431,7 +431,7 @@ const Personal_account = () => {
                           <td><img src={sig.signatureImage} alt="" /></td>
                           <td>
                             <button class="icon-btn">✏️</button>
-                            <button  class="icon-btn" onClick={() => deleteSignature(sig._id)}>
+                            <button class="icon-btn" onClick={() => deleteSignature(sig._id)}>
                               <i class="fa-solid fa-trash"></i>
                             </button>
                           </td>
