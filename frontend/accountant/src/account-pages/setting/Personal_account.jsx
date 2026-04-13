@@ -182,6 +182,26 @@ const Personal_account = () => {
     }
   };
 
+  const deleteSignature = async (signatureId) => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    const confirmDelete = window.confirm("Are you sure you want to delete this signature?");
+    if (!confirmDelete) return;
+
+    try {
+      await axios.delete(`${API_URL}/customer/signature/delete/${signatureId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      GetSignatures();
+      toast.success("Signature deleted successfully");
+    } catch (error) {
+      console.error("Error deleting signature:", error);
+      toast.error(error?.response?.data?.message || "Failed to delete signature");
+    }
+  };
+
   useEffect(() => {
     GetSignatures();
     GetUserInfo();
@@ -411,7 +431,9 @@ const Personal_account = () => {
                           <td><img src={sig.signatureImage} alt="" /></td>
                           <td>
                             <button class="icon-btn">✏️</button>
-                            <button class="icon-btn"><i class="fa-solid fa-trash"></i></button>
+                            <button  class="icon-btn" onClick={() => deleteSignature(sig._id)}>
+                              <i class="fa-solid fa-trash"></i>
+                            </button>
                           </td>
                         </tr>
                       ))
