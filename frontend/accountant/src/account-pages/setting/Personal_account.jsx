@@ -134,6 +134,7 @@ const Personal_account = () => {
           fontSize: "60px"
         });
       }
+      GetSignature();
 
       toast.success("Signature added successfully");
       setShowSignatureForm(false);
@@ -173,11 +174,11 @@ const Personal_account = () => {
 
       setGetSignature(response.data.data);
 
-      toast.success( "Signatures fetched successfully");
+      toast.success("Signatures fetched successfully");
 
     } catch (error) {
       console.error("Error fetching signatures:", error);
-      toast.error(res?.data?.message || "Failed to fetch signatures"); 
+      toast.error(res?.data?.message || "Failed to fetch signatures");
     }
   };
 
@@ -402,23 +403,23 @@ const Personal_account = () => {
                   </thead>
 
                   <tbody>
-                   {GetSignature.length > 0 ? (
-                    GetSignature.map((sig, index) => (
-                      <tr key={sig._id}>
-                        <td>{index + 1}</td>
-                        <td>{sig.signatureName || "N/A"}</td>
-                        <td><img src={sig.signatureImage} alt="" /></td>
-                        <td>
-                          <button class="icon-btn">✏️</button>
-                          <button class="icon-btn">🗑️</button>
-                        </td>
+                    {GetSignature.length > 0 ? (
+                      GetSignature.map((sig, index) => (
+                        <tr key={sig._id}>
+                          <td>{index + 1}</td>
+                          <td>{sig.signatureName || "N/A"}</td>
+                          <td><img src={sig.signatureImage} alt="" /></td>
+                          <td>
+                            <button class="icon-btn">✏️</button>
+                            <button class="icon-btn"><i class="fa-solid fa-trash"></i></button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colspan="4">No signatures found</td>
                       </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colspan="4">No signatures found</td>
-                    </tr>
-                  )}
+                    )}
                   </tbody>
                 </table>
 
