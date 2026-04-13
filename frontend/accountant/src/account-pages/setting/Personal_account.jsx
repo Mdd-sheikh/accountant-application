@@ -13,29 +13,41 @@ const Personal_account = () => {
   const [showEdit, setShowEdit] = useState(false);
   const [image, setImage] = useState(null);
 
+  // for signature file
+  const [signature, setSignature] = useState("");
+  const [signatureFile, setSignatureFile] = useState(null);
+  console.log(signatureFile);
+  
   const { API_URL } = useContext(Context);
   const navigate = useNavigate();
 
   // NEW STATES FOR USER SETTINGS
   const [activeTab, setActiveTab] = useState("profile");
   const [showSignatureForm, setShowSignatureForm] = useState(false);
-
+  // for password fields
   const [passwordData, setPasswordData] = useState({
     newPassword: "",
     confirmPassword: ""
   });
-
+  // for password visibility toggle
   const [showPassword, setShowPassword] = useState(false);
 
+  // show signature preview
+  const showsignature = (e) => {
+    const file = e.target.files[0];
+    setSignatureFile(file);
+    setSignature(URL.createObjectURL(file));
+  }
   const [signatureData, setSignatureData] = useState({
     signatureName: "",
-    name: "",
-    font: "Carette",
-    fontSize: "60px"
+    font: "",
+    fontSize: ""
   });
+  console.log(signatureData);
+  
 
   const [showCancelPopup, setShowCancelPopup] = useState(false);
-
+  // get user info on component mount
   const GetUserInfo = async () => {
     const token = localStorage.getItem("token");
     if (!token) return;
@@ -58,6 +70,83 @@ const Personal_account = () => {
     GetUserInfo();
   }, []);
 
+  // post signature data to backend
+  const postSignature = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    try {
+      let response;
+
+      // CASE 1: Text Signature
+      if (!signature) {
+        response = await axios.post(
+          `${API_URL}/customer/signature`,
+          signatureData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json"
+            }
+          }
+        );
+        setSignatureData({
+          signatureName: "",
+          font: "Carette",
+          fontSize: "60px"
+        });
+        setSignatureFile(null);
+      }
+
+
+
+      // CASE 2: Image Signature
+      else {
+        const formData = new FormData();
+       
+        
+
+        // image file
+        formData.append("signatureImage", signatureFile);
+
+        // IMPORTANT: also send text fields (optional but recommended)
+        formData.append("signatureName", signatureData.signatureName || "");
+        formData.append("Font", signatureData.font || "");
+        formData.append("fontsize", signatureData.fontSize || "");
+
+        response = await axios.post(
+          `${API_URL}/customer/signature`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "multipart/form-data"
+            }
+          }
+        );
+        setSignature("");
+        setSignatureFile(null);
+        setSignatureData({
+          signatureName: "",
+          font: "Carette",
+          fontSize: "60px"
+        });
+      }
+
+      toast.success("Signature added successfully");
+      setShowSignatureForm(false);
+
+      return response.data;
+
+    } catch (error) {
+      console.error(error?.response?.data?.message || "Failed to add signature");
+      toast.error(
+        error?.response?.data?.message || "Failed to add signature"
+      );
+    }
+  };
+
+  // Logout handler
   const Logout_handler = () => {
     toast.success("Logout successful");
 
@@ -250,18 +339,74 @@ const Personal_account = () => {
 
           {!showSignatureForm && (
 
-            <button
-              className="add-signature-btn"
-              onClick={() => setShowSignatureForm(true)}
-            >
-              Add Signature
-            </button>
+            <>
+              <button
+                className="add-signature-btn"
+                onClick={() => setShowSignatureForm(true)}
+              >
+                Add Signature
+              </button>
+              <div class="signature-container">
+
+                <table class="signature-table">
+                  <thead>
+                    <tr>
+                      <th>S.No</th>
+                      <th>Signature Name</th>
+                      <th>Signature Image</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>md aadil</td>
+                      <td class="signature-text">md aadil</td>
+                      <td>
+                        <button class="icon-btn">✏️</button>
+                        <button class="icon-btn">🗑️</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="bottom-section">
+
+                  <div class="left-side">
+                    <span>Showing</span>
+
+                    <select>
+                      <option>10</option>
+                      <option>25</option>
+                      <option>50</option>
+                    </select>
+
+                    <span>records of records</span>
+                  </div>
+
+                  <div class="right-side">
+                    <button class="page-btn">Previous</button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">Next</button>
+                  </div>
+
+                </div>
+
+              </div>
+            </>
+
+
+
 
           )}
+
 
           {showSignatureForm && (
 
             <div className="signature-form">
+              <label htmlFor="image">Upload Signature</label>
+              <input type="file" name="file" id="image" hidden onChange={showsignature} />
 
               <input
                 type="text"
@@ -273,21 +418,10 @@ const Personal_account = () => {
                     signatureName: e.target.value
                   })
                 }
-              />
+              /> : 
 
-              <input
-                type="text"
-                placeholder="Name"
-                value={signatureData.name}
-                onChange={(e) =>
-                  setSignatureData({
-                    ...signatureData,
-                    name: e.target.value
-                  })
-                }
-              />
 
-              <select
+              {!signature ? <select
                 onChange={(e) =>
                   setSignatureData({
                     ...signatureData,
@@ -298,9 +432,9 @@ const Personal_account = () => {
                 <option>Carette</option>
                 <option>Poppins</option>
                 <option>Pacifico</option>
-              </select>
+              </select> : ""}
 
-              <select
+              {!signature ? <select
                 onChange={(e) =>
                   setSignatureData({
                     ...signatureData,
@@ -311,7 +445,7 @@ const Personal_account = () => {
                 <option>40px</option>
                 <option>60px</option>
                 <option>80px</option>
-              </select>
+              </select> : ""}
 
               <div
                 className="signature-preview"
@@ -320,7 +454,7 @@ const Personal_account = () => {
                   fontSize: signatureData.fontSize
                 }}
               >
-                {signatureData.name}
+                {signature ? <img className="signatureImage" src={signature} alt="" /> : signatureData.signatureName}
               </div>
 
               <div className="signature-buttons">
@@ -332,7 +466,7 @@ const Personal_account = () => {
                   Cancel
                 </button>
 
-                <button className="save-btn">
+                <button onClick={postSignature} className="save-btn">
                   Create
                 </button>
 

@@ -1,10 +1,39 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './LandingPageTwo.css'
 import { assests } from '../../assets/assests'
 
 const LandingPageTwo = () => {
+
+    const landingPageTwoRef = document.getElementById('landing-container-two')
+
+
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible')
+                } else {
+                    entry.target.classList.remove('visible')
+                }
+            })
+        }, { threshold: 0.5 })
+
+        const element = landingPageTwoRef
+
+        if (element) {
+            observer.observe(element)
+        }
+
+        return () => {
+            if (element) {
+                observer.unobserve(element)
+            }
+        }
+    }, [])
+
+
     return (
-        <div className="landing-container-two">
+        <div className="landing-container-two" id='landing-container-two'>
             <div className="payment-record-statement">
                 <h1>Record payments effortlessly</h1>
                 <p>Track every payment, every time — without <br /> lifting a finger. While others make it <br /> complicated, we make it simple.</p>

@@ -323,6 +323,180 @@
     color: white;
 }
 
+.signature-form label {
+    color: #555;
+    border: 1px solid rgb(222, 210, 210);
+    height: 37px;
+    border-radius: 5px;
+    width: 30%;
+    text-align: center;
+    background-color: #3f7ea4;
+    color: white;
+    align-content: center;
+    font-size: max(12px, 0.8vw);
+    cursor: pointer;
+    
+}
+.signatureImage{
+    width: 100px;
+}
+
+
+/* signature getting ui*/
+
+.signature-container {
+    background: #f5f5f5;
+    padding: clamp(12px, 2vw, 20px);
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+}
+
+/* Button */
+.add-btn {
+    background: #3b82b6;
+    color: white;
+    border: none;
+    padding: clamp(8px, 1.5vw, 12px) clamp(14px, 2vw, 22px);
+    border-radius: 6px;
+    font-size: clamp(14px, 1.5vw, 16px);
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+/* Table Wrapper for mobile scroll */
+.signature-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    min-width: 600px;
+}
+
+/* Make table responsive */
+.signature-container {
+    overflow-x: auto;
+}
+
+/* Header */
+.signature-table thead tr {
+    background: #3b82b6;
+    color: white;
+}
+
+/* Cells */
+.signature-table th,
+.signature-table td {
+    padding: clamp(8px, 1.5vw, 12px);
+    text-align: center;
+    font-size: clamp(12px, 1.5vw, 15px);
+}
+
+/* Row */
+.signature-table tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+/* Signature text */
+.signature-text {
+    font-family: cursive;
+    font-size: clamp(18px, 3vw, 34px);
+}
+
+/* Icons */
+.icon-btn {
+    border: none;
+    background: none;
+    font-size: clamp(18px, 2vw, 22px);
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+/* Bottom section */
+.bottom-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Left side */
+.left-side {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: clamp(12px, 1.5vw, 14px);
+}
+
+.left-side select {
+    padding: 8px 12px;
+    border: 1px solid #3b82b6;
+    border-radius: 6px;
+    font-size: clamp(12px, 1.5vw, 14px);
+}
+
+/* Right side pagination */
+.right-side {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.page-btn {
+    padding: 8px 14px;
+    border: 1px solid #3b82b6;
+    background: white;
+    color: #3b82b6;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: clamp(12px, 1.5vw, 14px);
+}
+
+/* Active page */
+.page-btn.active {
+    background: #3b82b6;
+    color: white;
+    border: none;
+}
+
+/* 🔥 Mobile optimization */
+@media (max-width: 768px) {
+    .bottom-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .right-side {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .left-side {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .signature-text {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    .add-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .page-btn {
+        padding: 6px 10px;
+    }
+
+    .icon-btn {
+        font-size: 18px;
+    }
+}
+
 /* RESPONSIVE */
 
 @media(max-width:768px) {

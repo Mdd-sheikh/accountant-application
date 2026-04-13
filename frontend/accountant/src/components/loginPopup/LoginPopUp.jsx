@@ -61,7 +61,7 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
                    </div>
                 </div>
                 <div className="form-panel">
-                    <h2>{isLogin ? 'Agent Login' : 'Create Account'}</h2>
+                    <h2>{isLogin ? ' Login to Bookwise' : 'Create Account'}</h2>
                     <form onSubmit={handleSubmit}>
                         {!isLogin && (
                             <>
