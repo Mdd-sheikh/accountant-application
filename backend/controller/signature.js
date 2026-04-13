@@ -1,41 +1,42 @@
 import Signature from "../models/signature.js";
 import fs from "fs";
 
+
 export const createSignature = async (req, res) => {
     try {
-        let image_file = `${req.file.filename}`
+        const image_file = req.file?.filename || "";
+
         const { signatureName, Font, fontsize } = req.body;
 
-        if (!signatureName || !Font || !fontsize || !image_file) {
+        if (!image_file && (!signatureName || !Font || !fontsize)) {
             return res.status(400).json({
-                message: "All fields are required",
-                success: false
+                success: false,
+                message: "Provide image or text signature"
             });
         }
-        if (image_file) {
-            const newSignature = new Signature({
-                user: req.userId,
-                signatureName,
-                signatureImage: image_file,
-                Font,
-                fontsize
-            });
-            await newSignature.save();
-        }
-        res.status(201).json({
-            message: "Signature created successfully",
+
+        const newSignature = new Signature({
+            user: req.user._id, // IMPORTANT
+            signatureName: signatureName || "",
+            signatureImage: image_file,
+            font: Font || "",
+            fontsize: fontsize || ""
+        });
+
+        await newSignature.save();
+
+        return res.status(201).json({
             success: true,
-            data: {
-                signature: newSignature
-            }
+            message: "Signature created successfully",
+            data: newSignature
         });
 
     } catch (error) {
-        console.error("Create Signature Error:", error);
+        console.log("REAL ERROR:", error);
+
         return res.status(500).json({
             success: false,
-            message: "Internal Server Error",
-            error: error.message
+            message: error.message
         });
     }
-}
+};

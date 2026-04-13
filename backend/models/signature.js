@@ -14,7 +14,7 @@ const signatureSchema = new mongoose.Schema({
         type: String
         
     },
-    Font: {
+    font: {
         type: String
         
     },
