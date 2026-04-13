@@ -78,7 +78,7 @@ const Landing_navbar = ({ setShowLoginPopUp }) => {
                 <div className="mobile-navbar">
                     <div className="mobile-navbar-container">
                         <ul>
-                            <NavLink to="/home"><li onClick={() => setIsMobile(false)}>Home</li></NavLink>
+                            <NavLink to="/"><li onClick={() => setIsMobile(false)}>Home</li></NavLink>
                             <NavLink to="/gst_billing"><li onClick={() => setIsMobile(false)}>GST Billing</li></NavLink>
                             <NavLink to="/accounting"><li onClick={() => setIsMobile(false)}>Accounting</li></NavLink>
                             <NavLink to="/billing"><li onClick={() => setIsMobile(false)}>Billing</li></NavLink>

@@ -144,7 +144,7 @@ const Personal_account = () => {
 
     } catch (error) {
       toast.error(
-        error?.response?.data?.message 
+        error?.response?.data?.message
       );
     }
   };
