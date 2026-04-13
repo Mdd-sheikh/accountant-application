@@ -7,7 +7,7 @@ import multer from 'multer';
 const SignatureRouter = express.Router();
 
 const storage = multer.diskStorage({
-    destination: "uploads",
+    destination: "uploads/",
     filename: (req, file, cb) => {
         return cb(null, `${Date.now()}-${file.originalname}`)
     }
