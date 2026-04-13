@@ -5,6 +5,8 @@ import fs from "fs";
 export const createSignature = async (req, res) => {
     try {
         const image_file = req.file?.filename || "";
+        console.log(req.file);
+        
 
         const { signatureName, Font, fontsize } = req.body;
 

@@ -19,9 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // automatic create folder for store images
 
-if (!fs.existsSync("uploads")) {
-    fs.mkdirSync("uploads");
-}
+
 // api endpoint
 
 app.use("/api/user", router)
