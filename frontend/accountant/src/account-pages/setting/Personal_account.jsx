@@ -16,8 +16,10 @@ const Personal_account = () => {
   // for signature file
   const [signature, setSignature] = useState("");
   const [signatureFile, setSignatureFile] = useState(null);
-  console.log(signatureFile);
-  
+  const [GetSignature, setGetSignature] = useState([]);
+  console.log(GetSignature);
+
+
   const { API_URL } = useContext(Context);
   const navigate = useNavigate();
 
@@ -32,7 +34,7 @@ const Personal_account = () => {
   // for password visibility toggle
   const [showPassword, setShowPassword] = useState(false);
 
-  // show signature preview
+  // show signature preview--------------------------------------------------------------
   const showsignature = (e) => {
     const file = e.target.files[0];
     setSignatureFile(file);
@@ -44,9 +46,11 @@ const Personal_account = () => {
     fontSize: ""
   });
   console.log(signatureData);
-  
+
 
   const [showCancelPopup, setShowCancelPopup] = useState(false);
+
+  //-----------------------------------------------------------------------------------------
   // get user info on component mount
   const GetUserInfo = async () => {
     const token = localStorage.getItem("token");
@@ -66,9 +70,7 @@ const Personal_account = () => {
     }
   };
 
-  useEffect(() => {
-    GetUserInfo();
-  }, []);
+  //------------------------------------------------------------------------------------------------------------
 
   // post signature data to backend
   const postSignature = async () => {
@@ -103,8 +105,8 @@ const Personal_account = () => {
       // CASE 2: Image Signature
       else {
         const formData = new FormData();
-       
-        
+
+
 
         // image file
         formData.append("signatureImage", signatureFile);
@@ -145,6 +147,47 @@ const Personal_account = () => {
       );
     }
   };
+
+
+
+
+
+
+
+
+  //------------------------------------------------------------------------------------------------------------------------------
+  // get signatures from backend (for display in table)
+  const GetSignatures = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    try {
+      const response = await axios.get(
+        `${API_URL}/customer/signature/get`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+
+      setGetSignature(response.data.data);
+
+      toast.success( "Signatures fetched successfully");
+
+    } catch (error) {
+      console.error("Error fetching signatures:", error);
+      toast.error(res?.data?.message || "Failed to fetch signatures"); 
+    }
+  };
+
+  useEffect(() => {
+    GetSignatures();
+    GetUserInfo();
+  }, []);
+
+
+
 
   // Logout handler
   const Logout_handler = () => {
@@ -359,15 +402,23 @@ const Personal_account = () => {
                   </thead>
 
                   <tbody>
+                   {GetSignature.length > 0 ? (
+                    GetSignature.map((sig, index) => (
+                      <tr key={sig._id}>
+                        <td>{index + 1}</td>
+                        <td>{sig.signatureName || "N/A"}</td>
+                        <td><img src={sig.signatureImage} alt="" /></td>
+                        <td>
+                          <button class="icon-btn">✏️</button>
+                          <button class="icon-btn">🗑️</button>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
                     <tr>
-                      <td>1</td>
-                      <td>md aadil</td>
-                      <td class="signature-text">md aadil</td>
-                      <td>
-                        <button class="icon-btn">✏️</button>
-                        <button class="icon-btn">🗑️</button>
-                      </td>
+                      <td colspan="4">No signatures found</td>
                     </tr>
+                  )}
                   </tbody>
                 </table>
 
@@ -411,6 +462,7 @@ const Personal_account = () => {
               <input
                 type="text"
                 placeholder="Signature Name"
+                required
                 value={signatureData.signatureName}
                 onChange={(e) =>
                   setSignatureData({
@@ -418,7 +470,7 @@ const Personal_account = () => {
                     signatureName: e.target.value
                   })
                 }
-              /> : 
+              />
 
 
               {!signature ? <select
