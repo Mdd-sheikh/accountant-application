@@ -174,11 +174,11 @@ const Personal_account = () => {
 
       setGetSignature(response.data.data);
 
-      toast.success("Signatures fetched successfully");
+      toast.success("Signatures added successfully");
 
     } catch (error) {
       console.error("Error fetching signatures:", error);
-      toast.error(res?.data?.message || "Failed to fetch signatures");
+      toast.error(error?.response?.data?.message || "Failed to fetch signatures");
     }
   };
 
