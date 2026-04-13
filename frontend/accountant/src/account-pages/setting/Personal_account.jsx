@@ -143,9 +143,8 @@ const Personal_account = () => {
       return response.data;
 
     } catch (error) {
-      console.error(error?.response?.data?.message || "Failed to add signature");
       toast.error(
-        error?.response?.data?.message || "Failed to add signature"
+        error?.response?.data?.message 
       );
     }
   };
