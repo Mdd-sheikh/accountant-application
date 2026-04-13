@@ -32,7 +32,6 @@ export const createSignature = async (req, res) => {
         });
 
     } catch (error) {
-        console.log("REAL ERROR:", error);
 
         return res.status(500).json({
             success: false,

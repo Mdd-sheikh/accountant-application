@@ -36,7 +36,7 @@ DbConeection()
 
 
 app.get("/", (req, res) => {
-    res.send("server is busy");
+    res.send("server is running");
 })
 
 app.listen(port, () => {
