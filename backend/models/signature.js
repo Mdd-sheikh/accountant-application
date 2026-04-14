@@ -18,7 +18,7 @@ const signatureSchema = new mongoose.Schema({
         type: String
 
     },
-    fontsize: {
+    fontSize: {
         type: String
     },
     cloudinary_id: {

@@ -5,18 +5,27 @@ import cloudinary from "../config/cloudary.js";
 
 export const createSignature = async (req, res) => {
     try {
-        const image_file = req.file?.path || "";
-        const public_id = req.file?.filename || "";
+        console.log("BODY:", req.body);
+        console.log("FILE:", req.file);
 
-        const { signatureName, font, fontsize } = req.body;
+        const { signatureName, font, fontSize } = req.body;
+
+        let imageUrl = "";
+        let publicId = "";
+
+        // multer-cloudinary already uploaded file
+        if (req.file) {
+            imageUrl = req.file.path;        // Cloudinary URL
+            publicId = req.file.filename;    // Cloudinary public_id
+        }
 
         const newSignature = new Signature({
             user: req.user._id,
             signatureName: signatureName || "",
-            signatureImage: image_file,
-            cloudinary_id: public_id,
+            signatureImage: imageUrl,
+            cloudinary_id: publicId,
             font: font || "",
-            fontsize: fontsize || ""
+            fontSize: fontSize || ""
         });
 
         await newSignature.save();
@@ -28,6 +37,8 @@ export const createSignature = async (req, res) => {
         });
 
     } catch (error) {
+        console.error("CREATE SIGNATURE ERROR:", error);
+
         res.status(500).json({
             success: false,
             message: error.message

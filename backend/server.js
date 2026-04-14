@@ -8,10 +8,10 @@ import itemrouter from './routes/item.js'
 import Gstrouter from './routes/gstfetchRoute.js'
 import SignatureRouter from './routes/signatureRouter.js'
 
+dotenv.config()
 
 const app = express()
 const port = (process.env.PORT || 5000)
-dotenv.config()
 
 app.use(cors())
 app.use(express.json())
@@ -27,7 +27,7 @@ app.use("/api/customer", customerRouter);
 app.use("/api/items", itemrouter);
 app.use("/api/gst", Gstrouter);
 app.use("/api/customer", SignatureRouter);
-app.use("/uploads", express.static("uploads"));
+
 
 // mongo db cnnection
 DbConeection()
