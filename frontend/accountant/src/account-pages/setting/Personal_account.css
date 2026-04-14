@@ -460,6 +460,11 @@
     border: none;
 }
 
+/*------------------------------------signature image-------------*/
+.signature-image{
+    width: 50px;
+}
+
 /* 🔥 Mobile optimization */
 @media (max-width: 768px) {
     .bottom-section {

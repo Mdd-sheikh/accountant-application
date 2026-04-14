@@ -17,8 +17,9 @@ const Personal_account = () => {
   const [signature, setSignature] = useState("");
   const [signatureFile, setSignatureFile] = useState(null);
   const [GetSignature, setGetSignature] = useState([]);
-  console.log("this is signature file:", signatureFile);
-  
+  console.log(GetSignature);
+
+
 
 
   const { API_URL } = useContext(Context);
@@ -46,7 +47,7 @@ const Personal_account = () => {
     font: "",
     fontSize: ""
   });
- 
+
 
 
   const [showCancelPopup, setShowCancelPopup] = useState(false);
@@ -423,7 +424,25 @@ const Personal_account = () => {
                         <tr key={sig._id}>
                           <td>{index + 1}</td>
                           <td>{sig.signatureName || "N/A"}</td>
-                          <td><img src={`https://yourdomain.com${sig.signatureImage}`} alt="" /></td>
+                          <td>
+                            {sig.signatureImage ? (
+                              <img 
+                               
+                                src={sig.signatureImage}
+                                alt="signature"
+                                className="signature-image"
+                              />
+                            ) : (
+                              <span
+                                style={{
+                                  fontFamily: sig.font,
+                                  fontSize: sig.fontSize
+                                }}
+                              >
+                                {sig.signatureName}
+                              </span>
+                            )}
+                          </td>
                           <td>
                             <button class="icon-btn">✏️</button>
                             <button class="icon-btn" onClick={() => deleteSignature(sig._id)}>
