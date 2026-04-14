@@ -114,7 +114,7 @@ const Personal_account = () => {
 
         // IMPORTANT: also send text fields (optional but recommended)
         formData.append("signatureName", signatureData.signatureName || "");
-        formData.append("Font", signatureData.font || "");
+        formData.append("font", signatureData.font || "");
         formData.append("fontsize", signatureData.fontSize || "");
 
         response = await axios.post(
