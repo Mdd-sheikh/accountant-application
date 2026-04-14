@@ -7,7 +7,7 @@ import customerRouter from './routes/customerRouter.js'
 import itemrouter from './routes/item.js'
 import Gstrouter from './routes/gstfetchRoute.js'
 import SignatureRouter from './routes/signatureRouter.js'
-import fs from 'fs'
+
 
 const app = express()
 const port = (process.env.PORT || 5000)
