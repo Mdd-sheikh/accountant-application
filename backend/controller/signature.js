@@ -8,9 +8,9 @@ export const createSignature = async (req, res) => {
         console.log(req.file);
         
 
-        const { signatureName, Font, fontsize } = req.body;
+        const { signatureName, font, fontsize } = req.body;
 
-        if (!image_file && (!signatureName || !Font || !fontsize)) {
+        if (!image_file && (!signatureName || !font || !fontsize)) {
             return res.status(400).json({
                 success: false,
                 message: "Provide image or text signature"
@@ -21,7 +21,7 @@ export const createSignature = async (req, res) => {
             user: req.user._id, // IMPORTANT
             signatureName: signatureName || "",
             signatureImage: image_file,
-            font: Font || "",
+            font: font || "",
             fontsize: fontsize || ""
         });
 
