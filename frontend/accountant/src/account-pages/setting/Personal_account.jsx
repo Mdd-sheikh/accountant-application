@@ -17,7 +17,8 @@ const Personal_account = () => {
   const [signature, setSignature] = useState("");
   const [signatureFile, setSignatureFile] = useState(null);
   const [GetSignature, setGetSignature] = useState([]);
-  console.log(GetSignature);
+  console.log("this is signature file:", signatureFile);
+  
 
 
   const { API_URL } = useContext(Context);
@@ -45,7 +46,7 @@ const Personal_account = () => {
     font: "",
     fontSize: ""
   });
-  console.log(signatureData);
+ 
 
 
   const [showCancelPopup, setShowCancelPopup] = useState(false);
@@ -75,13 +76,18 @@ const Personal_account = () => {
   // post signature data to backend
   const postSignature = async () => {
     const token = localStorage.getItem("token");
-    if (!token) return;
+    if (!token) {
+      toast.error("Please login again");
+      return;
+    }
 
     try {
       let response;
 
+      const isImageSignature = !!signatureFile;
+
       // CASE 1: Text Signature
-      if (!signature) {
+      if (!isImageSignature) {
         response = await axios.post(
           `${API_URL}/customer/signature`,
           signatureData,
@@ -92,30 +98,16 @@ const Personal_account = () => {
             }
           }
         );
-        setSignatureData({
-          signatureName: "",
-          font: "Carette",
-          fontSize: "60px"
-        });
-        setSignatureFile(null);
-        showSignatureForm(false);
       }
-
-
 
       // CASE 2: Image Signature
       else {
         const formData = new FormData();
 
-
-
-        // image file
         formData.append("signatureImage", signatureFile);
-
-        // IMPORTANT: also send text fields (optional but recommended)
         formData.append("signatureName", signatureData.signatureName || "");
         formData.append("font", signatureData.font || "");
-        formData.append("fontsize", signatureData.fontSize || "");
+        formData.append("fontSize", signatureData.fontSize || "");
 
         response = await axios.post(
           `${API_URL}/customer/signature`,
@@ -127,25 +119,29 @@ const Personal_account = () => {
             }
           }
         );
-        setSignature("");
-        setSignatureFile(null);
-        setSignatureData({
-          signatureName: "",
-          font: "Carette",
-          fontSize: "60px"
-        });
       }
-      GetSignature();
 
+      // RESET STATE
+      setSignatureData({
+        signatureName: "",
+        font: "",
+        fontSize: ""
+      });
+
+      setSignatureFile(null);
+      setSignature("");
+
+      await GetSignatures();
       toast.success("Signature added successfully");
       setShowSignatureForm(false);
 
       return response.data;
 
     } catch (error) {
-      toast.error(
-        error?.response?.data?.message
-      );
+      console.log("FULL ERROR:", error);
+      console.log("RESPONSE ERROR:", error?.response?.data);
+
+      toast.error(error?.response?.data?.message || "Something went wrong");
     }
   };
 
@@ -204,7 +200,7 @@ const Personal_account = () => {
   useEffect(() => {
     GetSignatures();
     GetUserInfo();
-  }, []);
+  }, [API_URL]);
 
 
 
@@ -427,7 +423,7 @@ const Personal_account = () => {
                         <tr key={sig._id}>
                           <td>{index + 1}</td>
                           <td>{sig.signatureName || "N/A"}</td>
-                          <td><img src={sig.signatureImage} alt="" /></td>
+                          <td><img src={`https://yourdomain.com${sig.signatureImage}`} alt="" /></td>
                           <td>
                             <button class="icon-btn">✏️</button>
                             <button class="icon-btn" onClick={() => deleteSignature(sig._id)}>
@@ -503,6 +499,7 @@ const Personal_account = () => {
                   })
                 }
               >
+                <option >select</option>
                 <option>Carette</option>
                 <option>Poppins</option>
                 <option>Pacifico</option>
@@ -516,6 +513,7 @@ const Personal_account = () => {
                   })
                 }
               >
+                <option>select</option>
                 <option>40px</option>
                 <option>60px</option>
                 <option>80px</option>
