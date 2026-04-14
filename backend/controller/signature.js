@@ -13,10 +13,17 @@ export const createSignature = async (req, res) => {
         let imageUrl = "";
         let publicId = "";
 
-        // multer-cloudinary already uploaded file
+        // Cloudinary (multer-storage-cloudinary)
         if (req.file) {
-            imageUrl = req.file.path;        // Cloudinary URL
-            publicId = req.file.filename;    // Cloudinary public_id
+            imageUrl =
+                req.file.path ||
+                req.file.location ||
+                "";
+
+            publicId =
+                req.file.filename ||
+                req.file.public_id ||
+                "";
         }
 
         const newSignature = new Signature({
@@ -30,7 +37,7 @@ export const createSignature = async (req, res) => {
 
         await newSignature.save();
 
-        res.status(201).json({
+        return res.status(201).json({
             success: true,
             message: "Signature created successfully",
             data: newSignature
@@ -39,7 +46,7 @@ export const createSignature = async (req, res) => {
     } catch (error) {
         console.error("CREATE SIGNATURE ERROR:", error);
 
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: error.message
         });
