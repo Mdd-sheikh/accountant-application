@@ -8,20 +8,23 @@ const signatureSchema = new mongoose.Schema({
     },
     signatureName: {
         type: String
-        
+
     },
     signatureImage: {
         type: String
-        
+
     },
     font: {
         type: String
-        
+
     },
-    fontsize:{
+    fontsize: {
+        type: String
+    },
+    cloudinary_id: {
         type: String
     }
-    
+
 }, { timestamps: true });
 
 const Signature = mongoose.model("Signature", signatureSchema);

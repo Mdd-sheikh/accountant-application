@@ -2,22 +2,23 @@ import express from 'express';
 import { createSignature, DeleteSignature, GetSignatures } from '../controller/signature.js';
 import auth from '../middleware/auth.js';
 import multer from 'multer';
-import fs from 'fs'
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import cloudinary from '../config/cloudary.js'; 
 
 
 
 const SignatureRouter = express.Router();
 
-if (!fs.existsSync("uploads")) {
-    fs.mkdirSync("uploads", { recursive: true });
-}
-
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, "uploads/"),
-    filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: "signatures",
+        allowed_formats: ["jpg", "jpeg", "png", "webp"]
+    }
 });
 
 const upload = multer({ storage });
+
 
 SignatureRouter.post("/signature", auth, upload.single("signatureImage"), createSignature);
 SignatureRouter.get("/signature/get", auth, GetSignatures);
