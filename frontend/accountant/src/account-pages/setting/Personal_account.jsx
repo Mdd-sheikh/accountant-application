@@ -17,11 +17,20 @@ const Personal_account = () => {
   const [signature, setSignature] = useState("");
   const [signatureFile, setSignatureFile] = useState(null);
   const [GetSignature, setGetSignature] = useState([]);
-  console.log(GetSignature);
 
 
 
+  // user or for profile 
 
+  const [profileImage, setprofileImage] = useState(null)
+
+
+
+  const handleProfile = (e) => {
+    const file = e.target.files[0]
+    setprofileImage(file)
+    setImage(URL.createObjectURL(file))
+  }
   const { API_URL } = useContext(Context);
   const navigate = useNavigate();
 
@@ -178,6 +187,8 @@ const Personal_account = () => {
     }
   };
 
+
+  // delete signature--------------------------------------------------------------------
   const deleteSignature = async (signatureId) => {
     const token = localStorage.getItem("token");
     if (!token) return;
@@ -198,20 +209,26 @@ const Personal_account = () => {
     }
   };
 
+  // ✅ only upload when image changes
+  
+
+  // ✅ load data once
   useEffect(() => {
     GetSignatures();
     GetUserInfo();
-  }, [API_URL]);
+  }, []);
 
 
 
+
+  //------------------------------------------ updates profile pichture or user like ,name,email,password -----------------------------  
 
   // Logout handler
   const Logout_handler = () => {
     toast.success("Logout successful");
 
     setTimeout(() => {
-      localStorage.removeItem("token");
+      localStorage.removeItem("token"); 
       navigate("/");
     }, 1500);
   };
@@ -261,7 +278,7 @@ const Personal_account = () => {
             <label htmlFor="image" className="avatar-click">
 
               {image ? (
-                <img src={URL.createObjectURL(image)} alt="profile" />
+                <img src={image} alt="profile" />
               ) : (
                 <div className="profile-avatar">
                   {userinformation?.name?.charAt(0)?.toUpperCase()}
@@ -275,7 +292,7 @@ const Personal_account = () => {
               id="image"
               accept="image/*"
               hidden
-              onChange={(e) => setImage(e.target.files[0])}
+              onChange={handleProfile}
             />
 
           </div>
@@ -426,8 +443,8 @@ const Personal_account = () => {
                           <td>{sig.signatureName || "N/A"}</td>
                           <td>
                             {sig.signatureImage ? (
-                              <img 
-                               
+                              <img
+
                                 src={sig.signatureImage}
                                 alt="signature"
                                 className="signature-image"
@@ -444,7 +461,7 @@ const Personal_account = () => {
                             )}
                           </td>
                           <td>
-                            <button class="icon-btn">✏️</button>
+
                             <button class="icon-btn" onClick={() => deleteSignature(sig._id)}>
                               <i class="fa-solid fa-trash"></i>
                             </button>
@@ -533,9 +550,10 @@ const Personal_account = () => {
                 }
               >
                 <option>select</option>
-                <option>40px</option>
-                <option>60px</option>
-                <option>80px</option>
+                <option >5px</option>
+                <option>10px</option>
+                <option>20px</option>
+                <option>25px</option>
               </select> : ""}
 
               <div

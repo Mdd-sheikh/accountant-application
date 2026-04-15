@@ -335,9 +335,10 @@
     align-content: center;
     font-size: max(12px, 0.8vw);
     cursor: pointer;
-    
+
 }
-.signatureImage{
+
+.signatureImage {
     width: 100px;
 }
 
@@ -461,8 +462,13 @@
 }
 
 /*------------------------------------signature image-------------*/
-.signature-image{
+.signature-image {
     width: 50px;
+}
+
+.signature-image:hover {
+    transform: scale(1.5);
+    cursor: pointer;
 }
 
 /* 🔥 Mobile optimization */
@@ -539,7 +545,7 @@
 
     .logout-btn {
         display: flex;
-       align-self: center;
+        align-self: center;
     }
 
 }

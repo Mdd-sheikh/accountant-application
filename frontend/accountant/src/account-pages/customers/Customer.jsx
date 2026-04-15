@@ -190,7 +190,25 @@ const Customer = () => {
       );
 
       toast.success("Customer Created");
-
+      fetchCustomers()
+      setClientsData({
+        name: "",
+        email: "",
+        phone: "",
+        address: {
+          line1: "",
+          city: "",
+          state: "",
+          pincode: ""
+        },
+        gstNumber: "",
+        bankDetails: {
+          bankName: "",
+          accountNumber: "",
+          ifscCode: ""
+        },
+        notes: ""
+      })
       setShowLedgerPopup(false);
 
     } catch (error) {
@@ -225,7 +243,7 @@ const Customer = () => {
 
 
           <button onClick={() => setShowLedgerPopup(true)} className="create-ledger-btn">
-            Create Ledger 
+            Create Ledger
           </button>
 
 
