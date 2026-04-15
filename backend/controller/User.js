@@ -162,6 +162,7 @@ export const UpdateUser = async (req, res) => {
                 success: false
             });
         }
+        console.log(req.file);
 
         const imageUrl = req.file.path;
         const publicId = req.file.filename;
