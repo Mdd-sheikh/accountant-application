@@ -8,6 +8,24 @@ const SaleInvoice = () => {
 
     const [TermDropDown, setTermDropDown] = useState(false)
     const [additionchargers, setAdditionaCharges] = useState(false)
+    const [itemData, setItemData] = useState({})
+
+
+    const [customerData, setCustomerData] = useState({})
+
+    // total amout,taxable amout and gst amout in bill 
+    // ✅ Total Taxable Value
+    const taxableValue = itemData?.items?.reduce(
+        (acc, item) => acc + (parseFloat(item.taxable) || 0),
+        0
+    ) || 0;
+
+    // ✅ Total Amount (already calculated in child)
+    const totalAmount = itemData?.totalAmount || 0;
+
+    // ✅ GST Amount
+    const gstAmount = (totalAmount - taxableValue) || 0;
+
 
     {/**--------------------------------------------------------------------------------------------------------------------- */ }
     return (
@@ -15,10 +33,10 @@ const SaleInvoice = () => {
             <div className="createinvoice-container">
 
                 {/* headet like page heading and address of customer */}
-                <CustomerInfo />
+                <CustomerInfo setCustomerData={setCustomerData} />
                 <br />
                 <div className="customer_items">
-                    <Customer_item />
+                    <Customer_item setItemData={setItemData} />
                 </div>
                 <main>
                     {/* ----------------------------for add addition chargees like shipping charges and delivery like------------------*/}
@@ -106,12 +124,12 @@ const SaleInvoice = () => {
                     <div className="bill-right">
                         <div className="bill-row">
                             <span>Taxable Value</span>
-                            <span>₹0.00</span>
+                            <span>{Number(taxableValue).toFixed(2)}</span>
                         </div>
 
                         <div className="bill-row">
                             <span>GST (IGST)</span>
-                            <span>₹0.00</span>
+                            <span>{Number(gstAmount).toFixed(2)}</span>
                         </div>
 
                         <div className="bill-row">
@@ -137,7 +155,7 @@ const SaleInvoice = () => {
 
                         <div className="bill-amount-box">
                             <span>Bill Amount</span>
-                            <span>₹0.00</span>
+                            <span>{Number(totalAmount).toFixed(2)}</span>
                         </div>
 
                         <div className="bill-row toggle-row">

@@ -5,7 +5,7 @@ import { Context } from "../../../../../context/Context";
 import "./Customer_info.css";
 import { toast } from "react-toastify";
 
-const CustomerInfo = () => {
+const CustomerInfo = ({setCustomerData}) => {
 
     const { API_URL } = useContext(Context);
     const { UserCustomerData, setUserCustomerData } = useContext(Context);
@@ -211,6 +211,25 @@ const CustomerInfo = () => {
         GetCustomerData();
     }, []);
 
+
+
+    //---------------------for invoice selected customer
+
+    useEffect(() => {
+    if (!setCustomerData) return;
+
+    if (!selectedCustomer) return;
+
+    setCustomerData({
+        customerId: selectedCustomer._id, // ✅ IMPORTANT
+        name: selectedCustomer.name,
+        phone: selectedCustomer.phone,
+        email: selectedCustomer.email,
+        gstNumber: selectedCustomer.gstNumber,
+        address: selectedCustomer.address,
+    });
+
+}, [selectedCustomer]);
     return (
         <>
             {/* Invoice Inputs */}

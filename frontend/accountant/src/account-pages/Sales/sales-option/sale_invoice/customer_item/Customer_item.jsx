@@ -4,7 +4,7 @@ import "./Customer_item.css";
 import { Context } from "../../../../../context/Context";
 import { toast } from "react-toastify";
 
-const Customer_item = () => {
+const Customer_item = ({ setItemData }) => {
   const [showItemPopup, setShowItemPopup] = useState(false);
   const [customerItems, setCustomerItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -27,6 +27,18 @@ const Customer_item = () => {
     discount: "",
   });
 
+
+  //-------------------------------------------for invoice making-----------------
+  
+useEffect(() => {
+  if (!setItemData) return;
+
+  setItemData({
+    items: selectedItems,
+    totalAmount: invoiceTotal,
+  });
+
+}, [selectedItems]); // ✅ ONLY selectedItems
   // ---------------- HANDLE INPUT ----------------
   const handleNewItemChange = (e) => {
     const { name, value } = e.target;
@@ -144,6 +156,8 @@ const Customer_item = () => {
         const taxable = qty * price - discount;
         const gstAmt = (taxable * gstRate) / 100;
         const total = taxable + gstAmt;
+
+
 
         const itemData = {
           name: item.name,
@@ -332,10 +346,8 @@ const Customer_item = () => {
         </div>
       )}
 
-      {/* TOTAL */}
-      <div className="invoice-total">
-        <h3>Total Invoice Amount : ₹ {()=>setTotalAmount(invoiceTotal)}</h3>
-      </div>
+
+
 
       {/* SELECT ITEM */}
       <div className="invoice-select-item">
