@@ -20,7 +20,7 @@ const User_Register_Schema = new Schema({
     type: String,
     required: true
   },
-  profilePicture: {
+  profileImage: {
     type: String,
   }
 

@@ -22,6 +22,6 @@ const upload = multer({ storage });
 router.post("/register", Registration);
 router.post("/login", Login)
 router.get("/profile", auth, GetUser)
-router.put("/profile", auth, upload.single("profilePicture"), UpdateUser);
+router.put("/update/user/:id", auth, upload.single("profilePicture"), UpdateUser);
 
 export default router;

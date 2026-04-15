@@ -177,11 +177,11 @@ export const UpdateUser = async (req, res) => {
         }
 
         if (imageUrl) {
-            updatedData.profilePicture = imageUrl;
+            updatedData.profileImage = imageUrl;
         }
 
         // ✅ update user (IMPORTANT)
-        const user = await User.findByIdAndUpdate(
+        const user = await UserRegister.findByIdAndUpdate(
             req.user.id,   // or req.params.id
             updatedData,
             { new: true }
