@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 import { UserRegister } from "../models/User.js";
 import jwt from "jsonwebtoken";
 import validator from 'validator'
-import multer from "multer";
+
 
 
 
@@ -154,47 +154,50 @@ export const GetUser = async (req, res) => {
 };
 
 export const UpdateUser = async (req, res) => {
-  try {
-    const { name, companyName, gstNumber,password,signature,profile } = req.body;
+    try {
+        const { name, email, password } = req.body;
 
-    const signatureData = multer.diskStorage({
-      destination: function (req, file, cb) {
-        cb(null, 'uploads/signatures/');}
-    });
+        let imageUrl;
+        let publicId;
 
-    const profilePictureData = multer.diskStorage({
-      destination: function (req, file, cb) {
-        cb(null, 'uploads/profiles/');}
-    });
+        // ✅ handle image upload
+        if (req.file) {
+            imageUrl = req.file.path;
+            publicId = req.file.filename;
+        }
 
+        // ✅ prepare update object
+        const updatedData = {};
 
-    const updatedData = {
-      name,
-      companyName,
-      gstNumber,
-      password: password ? await bcrypt.hash(password, 10) : undefined,
-        signature: signature ? signatureData : undefined,
-        profile: profile ? profilePictureData : undefined
-    };
-    const user = await UserRegister.findByIdAndUpdate(req.userId, updatedData, { new: true }).select("-password");
+        if (name) updatedData.name = name;
+        if (email) updatedData.email = email;
 
-    if (!user) {
-      return res.status(404).json({
-        message: "User not found",
-        success: false
-      });
+        if (password) {
+            updatedData.password = await bcrypt.hash(password, 10);
+        }
+
+        if (imageUrl) {
+            updatedData.profilePicture = imageUrl;
+        }
+
+        // ✅ update user (IMPORTANT)
+        const user = await User.findByIdAndUpdate(
+            req.user.id,   // or req.params.id
+            updatedData,
+            { new: true }
+        );
+
+        res.status(200).json({
+            message: "User updated successfully",
+            success: true,
+            user
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Something went wrong",
+            success: false
+        });
     }
-
-    res.status(200).json({
-      message: "User updated successfully",
-      success: true,
-      data: user
-    });
-  } catch (error) {
-    res.status(500).json({
-      message: "Something went wrong",
-      success: false
-    });
-  }
 };
 
