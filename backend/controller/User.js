@@ -155,47 +155,47 @@ export const GetUser = async (req, res) => {
 
 export const UpdateUser = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
-
-        let imageUrl;
-        let publicId;
-
-        // ✅ handle image upload
-        if (req.file) {
-            imageUrl = req.file.path;
-            publicId = req.file.filename;
+        // ❌ no file
+        if (!req.file) {
+            return res.status(400).json({
+                message: "Image is required",
+                success: false
+            });
         }
 
-        // ✅ prepare update object
-        const updatedData = {};
+        const imageUrl = req.file.path;
+        const publicId = req.file.filename;
 
-        if (name) updatedData.name = name;
-        if (email) updatedData.email = email;
+        // ✅ find existing user
+        const user = await UserRegister.findById(req.user.id);
 
-        if (password) {
-            updatedData.password = await bcrypt.hash(password, 10);
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found",
+                success: false
+            });
         }
 
-        if (imageUrl) {
-            updatedData.profileImage = imageUrl;
+        // 🔥 delete old image from Cloudinary (IMPORTANT)
+        if (user.publicId) {
+            await cloudinary.uploader.destroy(user.publicId);
         }
 
-        // ✅ update user (IMPORTANT)
-        const user = await UserRegister.findByIdAndUpdate(
-            req.user.id,   // or req.params.id
-            updatedData,
-            { new: true }
-        );
+        // ✅ update only image
+        user.profileImage = imageUrl;
+        user.publicId = publicId;
+
+        await user.save();
 
         res.status(200).json({
-            message: "User updated successfully",
+            message: "Profile image updated successfully",
             success: true,
             user
         });
 
     } catch (error) {
         res.status(500).json({
-            message: "Something went wrong",
+            message: error.message,
             success: false
         });
     }

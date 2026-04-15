@@ -22,6 +22,9 @@ const User_Register_Schema = new Schema({
   },
   profileImage: {
     type: String,
+  },
+  publicId: {
+    type: String
   }
 
 
