@@ -3,13 +3,14 @@ import './Company.css'
 import { assests } from '../../assets/assests'
 import axios from 'axios'
 import { Context } from '../../context/Context'
+import { toast } from 'react-toastify'
 
 const Company = () => {
 
   const [isgst, setIsGst] = useState(false)// gst input 
 
-//----------------------api url fron context------//
-const {API_URL} = useContext(Context)
+  //----------------------api url fron context------//
+  const { API_URL } = useContext(Context)
 
   // for company data to send backend
   const [companyData, setCompnayData] = useState({
@@ -27,20 +28,40 @@ const {API_URL} = useContext(Context)
 
 
 
-// handle company data 
+  // handle company data 
   const handleCompanyData = (e) => {
     setCompnayData({ ...companyData, [e.target.name]: e.target.value })
   }
 
-  //-----------------send compnay data into backend ------------//
 
-  const PostCompanyData = () =>{
-    try {
-      axios.post(`${API_URL}/`)
-    } catch (error) {
-      
+
+  // check gst number with format
+  const PostCompanyData = async () => {
+    const token = localStorage.getItem("token");
+
+    // ✅ Validate GST before API call
+    if (!validateGSTFormat(companyData.companyGST)) {
+      toast.error("Invalid GST number format");
+      return;
     }
-  }
+
+    try {
+      const response = await axios.post(
+        `${API_URL}/create/company`,
+        companyData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      toast.success(response?.data.message);
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message);
+      console.log(error.response?.data || error.message);
+    }
+  };
 
   return (
     <div className='company'>
@@ -93,7 +114,7 @@ const {API_URL} = useContext(Context)
           </div>
         </div>
         <div className="create-btn">
-          <button>Create</button>
+          <button onClick={PostCompanyData}>Create</button>
         </div>
       </div>
       <div className="right-company-images">

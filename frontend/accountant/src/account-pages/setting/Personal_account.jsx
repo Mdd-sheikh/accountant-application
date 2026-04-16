@@ -252,13 +252,6 @@ const Personal_account = () => {
         </button>
 
         <button
-          className={activeTab === "password" ? "active-tab" : ""}
-          onClick={() => setActiveTab("password")}
-        >
-          Set/Reset Password
-        </button>
-
-        <button
           className={activeTab === "signature" ? "active-tab" : ""}
           onClick={() => setActiveTab("signature")}
         >
@@ -345,72 +338,6 @@ const Personal_account = () => {
             </button>
 
           </div>
-
-        </div>
-      )}
-
-
-      {/* PASSWORD SECTION */}
-
-      {activeTab === "password" && (
-
-        <div className="settings-card">
-
-          <div className="password-field">
-
-            <label>New Password *</label>
-
-            <div className="password-input">
-
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter new password"
-                value={passwordData.newPassword}
-                onChange={(e) =>
-                  setPasswordData({
-                    ...passwordData,
-                    newPassword: e.target.value
-                  })
-                }
-              />
-
-              <span onClick={() => setShowPassword(!showPassword)}>
-                👁
-              </span>
-
-            </div>
-
-          </div>
-
-          <div className="password-field">
-
-            <label>Confirm Password *</label>
-
-            <div className="password-input">
-
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter confirm password"
-                value={passwordData.confirmPassword}
-                onChange={(e) =>
-                  setPasswordData({
-                    ...passwordData,
-                    confirmPassword: e.target.value
-                  })
-                }
-              />
-
-              <span onClick={() => setShowPassword(!showPassword)}>
-                👁
-              </span>
-
-            </div>
-
-          </div>
-
-          <button className="submit-btn">
-            Submit
-          </button>
 
         </div>
       )}
