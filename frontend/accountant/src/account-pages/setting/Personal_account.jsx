@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Context } from "../../context/Context";
 import axios from "axios";
+import Company from "../company/Company";
 
 const Personal_account = () => {
   const { UserCustomerData } = useContext(Context);
@@ -262,6 +263,13 @@ const Personal_account = () => {
           onClick={() => setActiveTab("signature")}
         >
           Signatures
+        </button>
+
+        <button
+        className={activeTab === "company" ? "active-tab" : ""}
+        onClick={()=>setActiveTab("company")}
+        >
+         Company 
         </button>
 
       </div>
@@ -587,54 +595,13 @@ const Personal_account = () => {
         </div>
       )}
 
+         {/*---------------------------------------- company tab*/}
 
-      {/* EDIT PROFILE MODAL */}
+         {activeTab ==="company"? <div>
+          <Company/>
+         </div>:""}
 
-      {showEdit && (
-
-        <div className="edit-modal">
-
-          <div className="edit-container">
-
-            <h3>Edit Profile</h3>
-
-            <input
-              type="text"
-              placeholder="Name"
-              defaultValue={userinformation?.name}
-            />
-
-            <input
-              type="email"
-              placeholder="Email"
-              defaultValue={userinformation?.email}
-            />
-
-            <div className="modal-buttons">
-
-              <button
-                className="save-btn"
-                onClick={() => {
-                  toast.success("Profile updated");
-                  setShowEdit(false);
-                }}
-              >
-                Save
-              </button>
-
-              <button
-                className="cancel-btn"
-                onClick={() => setShowEdit(false)}
-              >
-                Cancel
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-      )}
+      
 
 
       {/* CANCEL POPUP */}

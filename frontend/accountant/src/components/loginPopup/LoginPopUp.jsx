@@ -37,7 +37,7 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
 
             setTimeout(() => {
                 setShowLoginPopUp(false);
-                navigate('/503/home');
+                navigate('/503/company');
             }, 1000);
         } catch (error) {
             toast.error(error.response?.data?.message || 'Something went wrong!');
@@ -52,13 +52,13 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
             <div className="popup-container">
                 <div className="welcome-panel">
                     <div className="close-popup">
-                        {loading?"":<button onClick={() => setShowLoginPopUp(false)}>×</button>}
+                        {loading ? "" : <button onClick={() => setShowLoginPopUp(false)}>×</button>}
                     </div>
-                   <div className="welcome-messege">
-                     <h2>Welcome</h2>
-                    <p>{isLogin ? 'Login to continue with Bookwise' : 'Create your account, it takes less than a minute'}</p>
-                    {!isLogin && <button onClick={() => setIsLogin(true)} className="register-btn">Login Now</button>}
-                   </div>
+                    <div className="welcome-messege">
+                        <h2>Welcome</h2>
+                        <p>{isLogin ? 'Login to continue with Bookwise' : 'Create your account, it takes less than a minute'}</p>
+                        {!isLogin && <button onClick={() => setIsLogin(true)} className="register-btn">Login Now</button>}
+                    </div>
                 </div>
                 <div className="form-panel">
                     <h2>{isLogin ? ' Login to Bookwise' : 'Create Account'}</h2>

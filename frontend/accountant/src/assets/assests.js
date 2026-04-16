@@ -14,6 +14,8 @@ import landing_image from '../assets/landing_image.png'
 import landing_image_two from '../assets/landing_image_two.webp'
 import arrow from '../assets/arrow.svg'
 import clock_video from '../assets/clock.mp4'
+import companyImage_one from '../assets/auth-2.svg'
+import compnayImage_two from '../assets/auth-5.svg'
 
 
 
@@ -32,5 +34,7 @@ export const assests = {
     landing_image,
     landing_image_two,
     arrow,
-    clock_video
+    clock_video,
+    companyImage_one,
+    compnayImage_two
 }

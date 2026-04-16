@@ -1,0 +1,105 @@
+.company {
+    width: 100%;
+    display: flex;
+    gap: 100px;
+
+}
+
+
+.left-company-input {
+    width: 60%;
+    padding: 5px;
+    transition: all 5s ease-in-out;
+}
+
+
+.left-company-input p{
+    font-size: max(1vw,14px);
+    font-weight: 500;
+}
+
+
+.unregistered-gst {
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+
+}
+
+.unregistered-gst input {
+    outline: none;
+}
+
+.company-contacts {
+    display: flex;
+    justify-content: space-between;
+
+
+}
+
+.company-address-details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.create-btn {
+    text-align: center;
+    margin-top: 20px;
+
+}
+
+.create-btn button {
+    background-color: transparent;
+    color: white;
+    border: none;
+
+}
+
+
+
+.right-company-images img {
+    width: 80%;
+    position: relative;
+    left: 180px;
+}
+sup{
+    color: red;
+}
+
+
+@media (max-width:550px) {
+    .company{
+        justify-content: center;
+    }
+    .left-company-input {
+        justify-self: center;
+    }
+
+    .right-company-images img {
+        display: none;
+    }
+
+    .left-company-input {
+        width: 100%;
+    }
+    .company-address-details{
+        display: block;
+    }
+    .company-contacts{
+        display: block;
+    }
+
+}
+
+
+
+@media (max-width:850px) {
+    .left-company-input {
+        width: 70%;
+        justify-self: center
+    }
+
+    .right-company-images img {
+        display: none;
+    }
+}
