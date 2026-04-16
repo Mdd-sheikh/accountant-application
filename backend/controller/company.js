@@ -18,12 +18,6 @@ export const CtreateCompany = async (req, res) => {
             });
         }
 
-        if (!validateGSTFormat(companyGST)) {
-            return res.status(400).json({
-                success: false,
-                message: "Invalid GST format"
-            });
-        }
         const createcompny = new companymodel({
             compnayName,
             companyGST,
