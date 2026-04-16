@@ -6,8 +6,6 @@ const companySchema = mongoose.Schema({
     },
     companyGST: {
         type: String,
-        required: true,
-        unique: true
     },
     companyMobileNo: {
         type: String
@@ -27,8 +25,8 @@ const companySchema = mongoose.Schema({
     companyProfile: {
         type: String
     },
-    publicId:{
-        type:String
+    publicId: {
+        type: String
     },
 }, { timestamps: true })
 
