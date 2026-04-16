@@ -102,7 +102,7 @@ export const Login = async (req, res) => {
         const token = jwt.sign(
             { userId: user._id },
             process.env.JWT_SECRET,
-            { expiresIn: "1d" }
+            { expiresIn: "7h" }
         );
 
         res.status(200).json({
@@ -153,52 +153,5 @@ export const GetUser = async (req, res) => {
     }
 };
 
-export const UpdateUser = async (req, res) => {
-    try {
-        // ❌ no file
-        if (!req.file) {
-            return res.status(400).json({
-                message: "Image is required",
-                success: false
-            });
-        }
-        console.log(req.file);
 
-        const imageUrl = req.file.path;
-        const publicId = req.file.filename;
-
-        // ✅ find existing user
-        const user = await UserRegister.findById(req.user.id);
-
-        if (!user) {
-            return res.status(404).json({
-                message: "User not found",
-                success: false
-            });
-        }
-
-        // 🔥 delete old image from Cloudinary (IMPORTANT)
-        if (user.publicId) {
-            await cloudinary.uploader.destroy(user.publicId);
-        }
-
-        // ✅ update only image
-        user.profileImage = imageUrl;
-        user.publicId = publicId;
-
-        await user.save();
-
-        res.status(200).json({
-            message: "Profile image updated successfully",
-            success: true,
-            user
-        });
-
-    } catch (error) {
-        res.status(500).json({
-            message: error.message,
-            success: false
-        });
-    }
-};
 

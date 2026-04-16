@@ -7,6 +7,7 @@ import customerRouter from './routes/customerRouter.js'
 import itemrouter from './routes/item.js'
 import Gstrouter from './routes/gstfetchRoute.js'
 import SignatureRouter from './routes/signatureRouter.js'
+import companyRouter from './routes/company.js'
 
 dotenv.config()
 
@@ -27,6 +28,7 @@ app.use("/api/customer", customerRouter);
 app.use("/api/items", itemrouter);
 app.use("/api/gst", Gstrouter);
 app.use("/api/customer", SignatureRouter);
+app.use("/api/create",companyRouter)
 
 
 // mongo db cnnection
