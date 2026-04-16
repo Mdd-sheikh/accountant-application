@@ -28,7 +28,7 @@ app.use("/api/customer", customerRouter);
 app.use("/api/items", itemrouter);
 app.use("/api/gst", Gstrouter);
 app.use("/api/customer", SignatureRouter);
-app.use("/api/create",companyRouter)
+app.use("/api/company",companyRouter)
 
 
 // mongo db cnnection
