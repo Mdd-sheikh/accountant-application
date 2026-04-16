@@ -40,17 +40,19 @@ export const CtreateCompany = async (req, res) => {
 }
 
 
-export const GetCompanyData = async (req,res) => {
+export const GetCompanyData = async (req, res) => {
     try {
-        const companydata = await companymodel.findOne({ user: req.user._id })
+        const companydata = await companymodel.find({ user: req.user._id });
+
         return res.status(200).json({
             success: true,
             data: companydata
         });
+
     } catch (error) {
-        res.json({
+        return res.status(500).json({
             message: "something went wrong",
             success: false
-        })
+        });
     }
-}
+};
