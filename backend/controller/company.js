@@ -5,8 +5,25 @@ import companymodel from "../models/company.js";
 export const CtreateCompany = async (req, res) => {
     try {
 
-        const { compnayName, companyGST, companyMobileNo, companyEmail, companyAddress, companyPincode, companyCity } = req.body;
+        // ✅ auth check
+        if (!req.user || !req.user._id) {
+            return res.status(401).json({
+                success: false,
+                message: "Unauthorized"
+            });
+        }
 
+        const {
+            compnayName,
+            companyGST,
+            companyMobileNo,
+            companyEmail,
+            companyAddress,
+            companyPincode,
+            companyCity
+        } = req.body;
+
+        // ✅ duplicate GST check
         const existing = await companymodel.findOne({ companyGST });
         if (existing) {
             return res.status(400).json({
@@ -15,7 +32,8 @@ export const CtreateCompany = async (req, res) => {
             });
         }
 
-        const createcompny = new companymodel({
+        // ✅ clean create (like your customer function)
+        const company = await companymodel.create({
             compnayName,
             companyGST,
             companyMobileNo,
@@ -23,26 +41,37 @@ export const CtreateCompany = async (req, res) => {
             companyAddress,
             companyPincode,
             companyCity,
-        })
-
-        await createcompny.save()
+            user: req.user._id   // 🔥 important
+        });
 
         return res.status(201).json({
             success: true,
             message: "Company created successfully",
+            data: company
         });
-    } catch (error) {
-        res.status(401).json({
-            message: error.message,
-            success: false
-        })
-    }
-}
 
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
 
 export const GetCompanyData = async (req, res) => {
     try {
-        const companydata = await companymodel.find({ user: req.user._id });
+
+        // ✅ extra safety (optional but good)
+        if (!req.user || !req.user._id) {
+            return res.status(401).json({
+                success: false,
+                message: "Unauthorized"
+            });
+        }
+
+        const companydata = await companymodel.find({
+            user: req.user._id
+        });
 
         return res.status(200).json({
             success: true,
@@ -51,8 +80,8 @@ export const GetCompanyData = async (req, res) => {
 
     } catch (error) {
         return res.status(500).json({
-            message: "something went wrong",
-            success: false
+            success: false,
+            message: error.message
         });
     }
 };
