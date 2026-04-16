@@ -210,13 +210,35 @@ const Personal_account = () => {
     }
   };
 
-  // ✅ only upload when image changes
-  
+  //--------------------------------------------- get company detail
+  const [companyList, setCompanyList] = useState([])
+  const [showCreateCompany, setShowCreateCompany] = useState(false);
+
+  const fetchCompanyData = async () => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await axios.get(`${API_URL}/company/get`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // ✅ IMPORTANT FIX
+      const data = response.data.companydata;
+      console.log(data);
+      
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // ✅ load data once
   useEffect(() => {
     GetSignatures();
     GetUserInfo();
+    fetchCompanyData()
   }, []);
 
 
@@ -229,7 +251,7 @@ const Personal_account = () => {
     toast.success("Logout successful");
 
     setTimeout(() => {
-      localStorage.removeItem("token"); 
+      localStorage.removeItem("token");
       navigate("/");
     }, 1500);
   };
@@ -259,10 +281,10 @@ const Personal_account = () => {
         </button>
 
         <button
-        className={activeTab === "company" ? "active-tab" : ""}
-        onClick={()=>setActiveTab("company")}
+          className={activeTab === "company" ? "active-tab" : ""}
+          onClick={() => setActiveTab("company")}
         >
-         Company 
+          Company
         </button>
 
       </div>
@@ -522,13 +544,67 @@ const Personal_account = () => {
         </div>
       )}
 
-         {/*---------------------------------------- company tab*/}
+      {/*---------------------------------------- company tab*/}
 
-         {activeTab ==="company"? <div>
-          <Company/>
-         </div>:""}
+      {activeTab === "company" && (
 
-      
+        <div className="settings-card">
+
+          {!showCreateCompany && (
+            <>
+              <h2>Choose Your Company</h2>
+
+              <div className="company-container">
+
+                {companyList && companyList.length > 0 ? (
+                  companyList.map((comp, index) => (
+                    <div key={comp._id} className="company-card">
+
+                      <div className="company-left">
+                        <div className="company-avatar">
+                          {comp.compnayName?.charAt(0)?.toUpperCase()}
+                        </div>
+
+                        <div>
+                          <h3>{comp.compnayName}</h3>
+                          <p>Plan : Free</p>
+                        </div>
+                      </div>
+
+                      <div className="company-arrow">
+                        ➤
+                      </div>
+
+                    </div>
+                  ))
+                ) : (
+                  <p>No companies found</p>
+                )}
+
+              </div>
+
+              <div className="divider">
+                <span>Or</span>
+              </div>
+
+              <button
+                className="create-company-btn"
+                onClick={() => setShowCreateCompany(true)}
+              >
+                Create New Company
+              </button>
+            </>
+          )}
+
+          {/* 👉 SHOW COMPANY COMPONENT */}
+          {showCreateCompany && (
+            <Company setShowCreateCompany={setShowCreateCompany} />
+          )}
+
+        </div>
+      )}
+
+
 
 
       {/* CANCEL POPUP */}

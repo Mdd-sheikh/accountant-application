@@ -5,9 +5,15 @@ import axios from 'axios'
 import { Context } from '../../context/Context'
 import { toast } from 'react-toastify'
 
-const Company = () => {
+const Company = ({setShowCreateCompany }) => {
 
   const [isgst, setIsGst] = useState(false)// gst input 
+
+  //-----------------------------------vaidate a gst//
+  const validateGSTFormat = (gst) => {
+    const gstRegex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
+    return gstRegex.test(gst);
+  };
 
   //----------------------api url fron context------//
   const { API_URL } = useContext(Context)
@@ -47,7 +53,7 @@ const Company = () => {
 
     try {
       const response = await axios.post(
-        `${API_URL}/create/company`,
+        `${API_URL}/company/create`,
         companyData,
         {
           headers: {
@@ -57,6 +63,18 @@ const Company = () => {
       );
 
       toast.success(response?.data.message);
+      setCompnayData({
+        compnayName: "",
+        companyGST: "",
+        companyMobileNo: "",
+        companyEmail: "",
+        companyAddress: "",
+        companyPincode: "",
+        companyCity: "",
+
+
+      })
+      setShowCreateCompany(false)
     } catch (error) {
       toast.error(error.response?.data?.message || error.message);
       console.log(error.response?.data || error.message);
@@ -115,6 +133,9 @@ const Company = () => {
         </div>
         <div className="create-btn">
           <button onClick={PostCompanyData}>Create</button>
+        </div>
+        <div className="create-btn">
+          <button onClick={()=>setShowCreateCompany(false)}>Cancel</button>
         </div>
       </div>
       <div className="right-company-images">

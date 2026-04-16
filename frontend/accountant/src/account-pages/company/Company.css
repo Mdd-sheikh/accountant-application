@@ -13,8 +13,8 @@
 }
 
 
-.left-company-input p{
-    font-size: max(1vw,14px);
+.left-company-input p {
+    font-size: max(1vw, 14px);
     font-weight: 500;
 }
 
@@ -45,6 +45,7 @@
 .create-btn {
     text-align: center;
     margin-top: 20px;
+    cursor: pointer;
 
 }
 
@@ -62,15 +63,21 @@
     position: relative;
     left: 180px;
 }
-sup{
+
+sup {
     color: red;
+}
+
+.cancel-btn{
+    background-color: blue;
 }
 
 
 @media (max-width:550px) {
-    .company{
+    .company {
         justify-content: center;
     }
+
     .left-company-input {
         justify-self: center;
     }
@@ -82,10 +89,12 @@ sup{
     .left-company-input {
         width: 100%;
     }
-    .company-address-details{
+
+    .company-address-details {
         display: block;
     }
-    .company-contacts{
+
+    .company-contacts {
         display: block;
     }
 
