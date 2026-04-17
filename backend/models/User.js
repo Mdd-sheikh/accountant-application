@@ -20,15 +20,9 @@ const User_Register_Schema = new Schema({
     type: String,
     required: true
   },
-  profileImage: {
-    type: String,
-  },
-  publicId: {
-    type: String
-  }
+  
 
 
 }, { timestamps: true });
 
-export const UserRegister =
-  mongoose.model("User_Registration", User_Register_Schema);
+export const UserRegister = mongoose.model("User_Registration", User_Register_Schema);

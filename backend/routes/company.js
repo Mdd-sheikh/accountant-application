@@ -1,5 +1,5 @@
 import express from 'express'
-import { CtreateCompany, GetCompanyData } from '../controller/company.js'
+import { CtreateCompany, GetCompanyData, updateCompanydata } from '../controller/company.js'
 import cloudinary from '../config/cloudary.js'
 import { CloudinaryStorage } from 'multer-storage-cloudinary'
 import multer from 'multer'
@@ -21,5 +21,6 @@ const upload = multer({storage})
 
 companyRouter.post("/create",auth, CtreateCompany);
 companyRouter.get("/get",auth,GetCompanyData)
+companyRouter.put("/update",auth,upload.single("companyProfile"),updateCompanydata)
 
 export default companyRouter;

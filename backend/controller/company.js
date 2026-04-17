@@ -1,4 +1,6 @@
 import companymodel from "../models/company.js";
+import cloudinary from "../config/cloudary.js";
+
 // validate gst number
 
 
@@ -69,6 +71,68 @@ export const GetCompanyData = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: error.message
+        });
+    }
+};
+
+
+
+
+export const updateCompanydata = async (req, res) => {
+    try {
+        const userId = req.user._id;
+
+        // ✅ Find existing company
+        const existingCompany = await companymodel.findOne({ userId });
+
+        if (!existingCompany) {
+            return res.status(404).json({
+                success: false,
+                message: "Company not found",
+            });
+        }
+
+        let imageUrl = existingCompany.companyProfile;
+        let cloudinaryId = existingCompany.cloudinary_id;
+
+        // ✅ If new image uploaded
+        if (req.file) {
+            // 🔥 Delete old image (important)
+            if (existingCompany.cloudinary_id) {
+                await cloudinary.uploader.destroy(existingCompany.cloudinary_id);
+            }
+
+            // ✅ Upload new image
+            const result = await cloudinary.uploader.upload(req.file.path, {
+                folder: "company_profile",
+            });
+
+            imageUrl = result.secure_url;
+            cloudinaryId = result.public_id;
+        }
+
+        // ✅ Update data
+        const updatedCompany = await companymodel.findOneAndUpdate(
+            { userId },
+            {
+                ...req.body,
+                companyProfile: imageUrl,
+                cloudinary_id: cloudinaryId,
+            },
+            { new: true }
+        );
+
+        return res.status(200).json({
+            success: true,
+            message: "Company updated successfully",
+            
+        });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: "Something went wrong",
         });
     }
 };

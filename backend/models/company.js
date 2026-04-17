@@ -30,9 +30,9 @@ const companySchema = mongoose.Schema({
     companyProfile: {
         type: String
     },
-    publicId: {
+    cloudinary_id: {
         type: String
-    },
+    }
 }, { timestamps: true })
 
 const companymodel = mongoose.model("company", companySchema)
