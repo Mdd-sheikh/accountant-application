@@ -9,6 +9,8 @@ const Customer_item = ({ setItemData }) => {
   const [customerItems, setCustomerItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [editingItemId, setEditingItemId] = useState(null); // Track item being updated
+  console.log(selectedItems);
+  
 
 
   const { API_URL, setTotalAmount } = useContext(Context);

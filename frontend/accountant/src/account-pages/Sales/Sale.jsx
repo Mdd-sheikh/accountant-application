@@ -9,7 +9,7 @@ const Sale = () => {
 
         {/* Top Header */}
         <div className="purchase-header">
-          <h2>Purchases</h2>
+          <h2>Invoice</h2>
 
           <div className="header-right">
             <input
@@ -27,7 +27,7 @@ const Sale = () => {
             </div>
 
            <NavLink to="/503/invoice/create"> <button className="create-btn">
-              + Create Purchase
+              + Create Invoice
             </button></NavLink>
           </div>
         </div>

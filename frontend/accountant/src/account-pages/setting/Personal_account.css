@@ -235,6 +235,7 @@
     padding: 10px 20px;
     border-radius: 6px;
     cursor: pointer;
+    
 }
 
 .cancel-btn {
@@ -533,6 +534,7 @@
 }
 
 .divider {
+    width: 100%;
     display: flex;
     align-items: center;
     margin: 20px 0;
@@ -550,6 +552,16 @@
     height: 1px;
     background: #ccc;
 }
+
+.company-card{
+    width: 100%;
+}
+
+.plan p{
+    color: rgb(237, 16, 16);
+}
+
+
 
 /* 🔥 Mobile optimization */
 @media (max-width: 768px) {

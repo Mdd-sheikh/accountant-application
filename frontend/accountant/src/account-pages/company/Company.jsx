@@ -5,7 +5,7 @@ import axios from 'axios'
 import { Context } from '../../context/Context'
 import { toast } from 'react-toastify'
 
-const Company = ({setShowCreateCompany }) => {
+const Company = ({ setShowCreateCompany ,getcompany}) => {
 
   const [isgst, setIsGst] = useState(false)// gst input 
 
@@ -45,16 +45,30 @@ const Company = ({setShowCreateCompany }) => {
   const PostCompanyData = async () => {
     const token = localStorage.getItem("token");
 
-    // ✅ Validate GST before API call
-    if (!validateGSTFormat(companyData.companyGST)) {
-      toast.error("Invalid GST number format");
-      return;
+    // ✅ Validate GST ONLY if GST is enabled
+    if (isgst) {
+      if (!companyData.companyGST) {
+        toast.error("GST number is required");
+        return;
+      }
+
+      if (!validateGSTFormat(companyData.companyGST)) {
+        toast.error("Invalid GST number format");
+        return;
+      }
     }
+
+    // ✅ Prepare final data (important)
+    const finalData = {
+      ...companyData,
+      companyGST: isgst ? companyData.companyGST : "", // remove GST if not registered
+      isGSTRegistered: isgst, // optional but recommended
+    };
 
     try {
       const response = await axios.post(
         `${API_URL}/company/create`,
-        companyData,
+        finalData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -63,6 +77,10 @@ const Company = ({setShowCreateCompany }) => {
       );
 
       toast.success(response?.data.message);
+      getcompany()
+
+
+      // ✅ Reset form
       setCompnayData({
         compnayName: "",
         companyGST: "",
@@ -71,13 +89,13 @@ const Company = ({setShowCreateCompany }) => {
         companyAddress: "",
         companyPincode: "",
         companyCity: "",
+      });
 
+      setIsGst(false); // reset toggle
+      setShowCreateCompany(false);
 
-      })
-      setShowCreateCompany(false)
     } catch (error) {
       toast.error(error.response?.data?.message || error.message);
-      console.log(error.response?.data || error.message);
     }
   };
 
@@ -130,11 +148,11 @@ const Company = ({setShowCreateCompany }) => {
             <input type="text" placeholder='Enter City' value={companyData.companyCity} name='companyCity' onChange={handleCompanyData} />
           </div>
         </div>
-        <div className="create-btn">
-          <button onClick={PostCompanyData}>Create</button>
+        <div onClick={PostCompanyData} className="create-btn">
+          <button >Create</button>
         </div>
-        <div className="create-btn">
-          <button onClick={()=>setShowCreateCompany(false)}>Cancel</button>
+        <div onClick={() => setShowCreateCompany(false)} className="create-btn">
+          <button >Cancel</button>
         </div>
       </div>
       <div className="right-company-images">

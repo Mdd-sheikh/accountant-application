@@ -8,10 +8,11 @@ const SaleInvoice = () => {
 
     const [TermDropDown, setTermDropDown] = useState(false)
     const [additionchargers, setAdditionaCharges] = useState(false)
-    const [itemData, setItemData] = useState({})
+    const [itemData, setItemData] = useState(null)
+     console.log(itemData);
+     
 
-
-    const [customerData, setCustomerData] = useState({})
+    const [customerData, setCustomerData] = useState(null)
 
     // total amout,taxable amout and gst amout in bill 
     // ✅ Total Taxable Value

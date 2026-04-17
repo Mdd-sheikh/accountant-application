@@ -16,7 +16,8 @@ const CustomerInfo = ({setCustomerData}) => {
 
     const [selectedState, setSelectedState] = useState("24 - Gujarat");
     const [showDropdown, setShowDropdown] = useState(false);
-
+     console.log(selectedCustomer);
+     
     const [activeAccordion, setActiveAccordion] = useState(null);
 
     const toggleAccordion = (section) => {

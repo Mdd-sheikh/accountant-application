@@ -16,6 +16,7 @@ import arrow from '../assets/arrow.svg'
 import clock_video from '../assets/clock.mp4'
 import companyImage_one from '../assets/auth-2.svg'
 import compnayImage_two from '../assets/auth-5.svg'
+import companyImage_three from '../assets/auth-4.svg'
 
 
 
@@ -36,5 +37,6 @@ export const assests = {
     arrow,
     clock_video,
     companyImage_one,
-    compnayImage_two
+    compnayImage_two,
+    companyImage_three
 }

@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { Context } from "../../context/Context";
 import axios from "axios";
 import Company from "../company/Company";
+import { assests } from "../../assets/assests";
 
 const Personal_account = () => {
   const { UserCustomerData } = useContext(Context);
@@ -29,7 +30,7 @@ const Personal_account = () => {
 
   const handleProfile = (e) => {
     const file = e.target.files[0]
-    setprofileImage(file)
+    setCompanyProfile(file)
     setImage(URL.createObjectURL(file))
   }
   const { API_URL } = useContext(Context);
@@ -210,9 +211,11 @@ const Personal_account = () => {
     }
   };
 
+
   //--------------------------------------------- get company detail
   const [companyList, setCompanyList] = useState([])
   const [showCreateCompany, setShowCreateCompany] = useState(false);
+
 
   const fetchCompanyData = async () => {
     const token = localStorage.getItem("token");
@@ -224,15 +227,46 @@ const Personal_account = () => {
         },
       });
 
-      // ✅ IMPORTANT FIX
       const data = response.data.companydata;
-      console.log(data);
-      
+
+      console.log("Company Data:", data);
+
+      // ✅ THIS LINE IS MISSING
+      setCompanyList(data);
 
     } catch (error) {
-      console.log(error);
+      console.log("Error fetching company:", error);
     }
   };
+
+
+  // -------------------------------upload profile picture in company logo----
+  const [companyProfile, setCompanyProfile] = useState(null)
+  console.log(companyProfile);
+
+  const updateCompany = async () => {
+    const token = localStorage.getItem("token")
+    try {
+      const formData = new FormData();
+      formData.append("companyProfile", companyProfile);
+
+      const response = await axios.put(`${API_URL}/company/update`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      toast.success(response?.data.message || "failed to update")
+    } catch (error) {
+      toast.error(error.response?.data.error)
+    }
+  }
+
+  useEffect(() => {
+    if (companyProfile) {
+      updateCompany();
+    }
+  }, [companyProfile]); // ✅ dependency added
 
   // ✅ load data once
   useEffect(() => {
@@ -300,8 +334,12 @@ const Personal_account = () => {
 
             <label htmlFor="image" className="avatar-click">
 
-              {image ? (
-                <img src={image} alt="profile" />
+              {companyList[0]?.companyProfile ? (
+                <img
+                  src={companyList[0].companyProfile}
+                  alt="profile"
+                  className="profile-image"
+                />
               ) : (
                 <div className="profile-avatar">
                   {userinformation?.name?.charAt(0)?.toUpperCase()}
@@ -464,6 +502,10 @@ const Personal_account = () => {
           )}
 
 
+
+
+
+          {/**-------------------------------------Display signature of user */}
           {showSignatureForm && (
 
             <div className="signature-form">
@@ -550,56 +592,59 @@ const Personal_account = () => {
 
         <div className="settings-card">
 
-          {!showCreateCompany && (
-            <>
-              <h2>Choose Your Company</h2>
+          <div className="setting-card-one">
+            {!showCreateCompany && (
+              <>
+                <h2>Choose Your Company</h2>
 
-              <div className="company-container">
+                <div className="company-container">
 
-                {companyList && companyList.length > 0 ? (
-                  companyList.map((comp, index) => (
-                    <div key={comp._id} className="company-card">
+                  {companyList && companyList.length > 0 ? (
+                    companyList.map((comp, index) => (
+                      <div key={comp._id} className="company-card">
 
-                      <div className="company-left">
-                        <div className="company-avatar">
-                          {comp.compnayName?.charAt(0)?.toUpperCase()}
+                        <div className="company-left">
+                          <div className="company-avatar">
+                            {comp.compnayName?.charAt(0)?.toUpperCase()}
+                          </div>
+
+                          <div className="plan">
+                            <h3>{comp.compnayName}</h3>
+                            <p>Plan : Free</p>
+                          </div>
                         </div>
 
-                        <div>
-                          <h3>{comp.compnayName}</h3>
-                          <p>Plan : Free</p>
+                        <div className="company-arrow">
+                          ➤
                         </div>
+
                       </div>
+                    ))
+                  ) : (
+                    <p>No companies found</p>
+                  )}
 
-                      <div className="company-arrow">
-                        ➤
-                      </div>
+                </div>
 
-                    </div>
-                  ))
-                ) : (
-                  <p>No companies found</p>
-                )}
+                <div className="divider">
+                  <span>Or</span>
+                </div>
 
-              </div>
+                <button
+                  className="create-company-btn"
+                  onClick={() => setShowCreateCompany(true)}
+                >
+                  Create New Company
+                </button>
+              </>
+            )}
 
-              <div className="divider">
-                <span>Or</span>
-              </div>
+            {/* 👉 SHOW COMPANY COMPONENT */}
+            {showCreateCompany && (
+              <Company setShowCreateCompany={setShowCreateCompany} getcompany={fetchCompanyData} />
+            )}
+          </div>
 
-              <button
-                className="create-company-btn"
-                onClick={() => setShowCreateCompany(true)}
-              >
-                Create New Company
-              </button>
-            </>
-          )}
-
-          {/* 👉 SHOW COMPANY COMPONENT */}
-          {showCreateCompany && (
-            <Company setShowCreateCompany={setShowCreateCompany} />
-          )}
 
         </div>
       )}
