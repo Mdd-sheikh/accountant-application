@@ -12,6 +12,11 @@
     transition: all 5s ease-in-out;
 }
 
+.inputs-heading h3 {
+    font-size: max(1vw, 15px);
+}
+
+
 
 .left-company-input p {
     font-size: max(1vw, 14px);
@@ -68,27 +73,31 @@ sup {
     color: red;
 }
 
-.cancel-btn{
+.cancel-btn {
     background-color: blue;
 }
 
 
 @media (max-width:550px) {
     .company {
+        width: 100%;
         justify-content: center;
     }
 
-    .left-company-input {
-        justify-self: center;
+    .left-company-input input {
+        width: 250px;
     }
+
 
     .right-company-images img {
         display: none;
     }
 
     .left-company-input {
-        width: 100%;
+        max-width: 100%;
+        justify-content: center;
     }
+
 
     .company-address-details {
         display: block;

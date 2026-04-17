@@ -99,7 +99,6 @@ const Company = ({setShowCreateCompany }) => {
           {isgst ? <div className="gst-input">
             <label htmlFor="">GST Number</label>
             <input type="text" name='companyGST' placeholder='Enter GST Number' value={companyData.companyGST} onChange={handleCompanyData} />
-            <button>Fetch Details</button>
           </div> : ""}
 
         </div>
