@@ -6,7 +6,7 @@ export const CtreateCompany = async (req, res) => {
     try {
 
         // ✅ auth check
-       
+
 
         const {
             compnayName,
@@ -36,7 +36,7 @@ export const CtreateCompany = async (req, res) => {
             companyAddress,
             companyPincode,
             companyCity,
-            userId: req.userId   // 🔥 important
+            userId: req.userId   // 🔥 important 
         });
 
         return res.status(201).json({
@@ -56,22 +56,15 @@ export const GetCompanyData = async (req, res) => {
     try {
 
         // ✅ extra safety (optional but good)
-        if (!req.user || !req.user._id) {
-            return res.status(401).json({
-                success: false,
-                message: "Unauthorized"
-            });
-        }
 
         const companydata = await companymodel.find({
-            userId: req.userId 
+            userId: req.user._id
         });
 
         return res.status(200).json({
             success: true,
             companydata
         });
-
     } catch (error) {
         return res.status(500).json({
             success: false,
