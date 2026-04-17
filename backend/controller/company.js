@@ -104,7 +104,7 @@ export const updateCompanydata = async (req, res) => {
 
             // ✅ Upload new image
             const result = await cloudinary.uploader.upload(req.file.path, {
-                folder: "company_profile",
+                folder: "companyProfile",
             });
 
             imageUrl = result.secure_url;

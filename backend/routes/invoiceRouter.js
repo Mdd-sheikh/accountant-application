@@ -1,7 +1,8 @@
 import express from 'express'
 import auth from '../middleware/auth'
-import { Invoice } from '../models/invoice'
+import { getNextInvoiceNumber } from '../controller/invoice.js'
 
-const router = express.Router()
+const Invoicerouter = express.Router()
 
-router.post("/invoice/create",auth,Invoice)
+Invoicerouter.post("/invoice/create",auth,Invoice)
+Invoicerouter.get("invoice/get",auth,getNextInvoiceNumber)

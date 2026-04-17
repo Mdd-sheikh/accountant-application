@@ -105,3 +105,41 @@ export const createInvoice = async (req, res) => {
     });
   }
 };
+
+
+// get invoice number 
+
+// 🔹 GET NEXT INVOICE NUMBER
+export const getNextInvoiceNumber = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const lastInvoice = await Invoice.findOne({ userId })
+      .sort({ createdAt: -1 });
+
+    let nextNumber = 1;
+
+    if (lastInvoice && lastInvoice.invoiceNumber) {
+      const lastNumber = parseInt(
+        lastInvoice.invoiceNumber.split("/").pop()
+      );
+      nextNumber = lastNumber + 1;
+    }
+
+    const financialYear = "2025-26";
+
+    const invoiceNumber = `INV/${financialYear}/${String(nextNumber).padStart(3, "0")}`;
+
+    return res.status(200).json({
+      success: true,
+      invoiceNumber
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to generate invoice number"
+    });
+  }
+};
