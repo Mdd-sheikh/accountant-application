@@ -20,7 +20,9 @@ export const createInvoice = async (req, res) => {
       tax,
       totalAmount,
       Receipt,
-      Remark
+      Remark,
+      placeOfSupply,
+      date
     } = req.body;
 
     const userId = req.user._id;
