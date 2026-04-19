@@ -9,7 +9,16 @@ export const Context = createContext(null);
 
 const ContextProvider = ({ children }) => {
 
-    const [totalAmount, setTotalAmount] = useState("");
+    // signature data send to backend for create a invoice 
+    const [signatureMainData, setsignatureMainData] = useState(null)
+
+    // company data send to backend for make invoice
+    const [companyMainData, setcompnayMainData] = useState(null)
+
+    // for create a invoice
+    const [customerData, setCustomerData] = useState(null)
+    const [itemData, setItemData] = useState(null)
+
     // for sidebar open and close
     const [IssidebarOpen, setIsSidebarOpen] = useState(true);
     //------------------------------------------------------
@@ -54,7 +63,7 @@ const ContextProvider = ({ children }) => {
     }, [])
 
 
-   
+
 
     const value = {
         IsMobile,
@@ -69,7 +78,15 @@ const ContextProvider = ({ children }) => {
         salesOpen,
         setSalesOpen,
         UserCustomerData,
-        setUserCustomerData
+        setUserCustomerData,
+        customerData,
+        setCustomerData,
+        itemData,
+        setItemData,
+        companyMainData,
+        setcompnayMainData,
+        signatureMainData,
+        setsignatureMainData
     }
 
 

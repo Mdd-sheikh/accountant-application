@@ -5,7 +5,7 @@ import { Context } from "../../../../../context/Context";
 import "./Customer_info.css";
 import { toast } from "react-toastify";
 
-const CustomerInfo = ({setCustomerData}) => {
+const CustomerInfo = ({setCustomerData,invoiceNumber}) => {
 
     const { API_URL } = useContext(Context);
     const { UserCustomerData, setUserCustomerData } = useContext(Context);
@@ -251,8 +251,8 @@ const CustomerInfo = ({setCustomerData}) => {
                 <div className="invoice-header-inputs">
                     <div className="invoice-header-input-invoice-number">
                         <p>Invoice Number <sup>*</sup></p>
-                        <button>INV/2025-26</button>
-                        <input type="text" placeholder='Invoice No.' />
+                        <button>{invoiceNumber}</button>
+                        
                     </div>
                     <div className="invoice-header-input-invoice-date">
                         <p>Invoice Date <sup>*</sup></p>

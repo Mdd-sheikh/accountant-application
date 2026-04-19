@@ -21,6 +21,12 @@ const Personal_account = () => {
   const [GetSignature, setGetSignature] = useState([]);
 
 
+  // data send to backend 
+  const { companyMainData,
+    setcompnayMainData,
+    signatureMainData,
+    setsignatureMainData } = useContext(Context)
+
 
   // user or for profile 
 
@@ -429,17 +435,48 @@ const Personal_account = () => {
                       <th>Actions</th>
                     </tr>
                   </thead>
-
+                  { /* =========================================================
+                  SIGNATURE SELECT
+========================================================= */}
                   <tbody>
                     {GetSignature.length > 0 ? (
                       GetSignature.map((sig, index) => (
-                        <tr key={sig._id}>
+                        <tr
+                          key={sig._id}
+                          onClick={() => setsignatureMainData(sig)}
+                          style={{
+                            cursor: "pointer",
+                            border:
+                              signatureMainData?._id === sig._id
+                                ? "2px solid green"
+                                : "1px solid #ddd",
+                            background:
+                              signatureMainData?._id === sig._id
+                                ? "#f0fff0"
+                                : "white"
+                          }}
+                        >
                           <td>{index + 1}</td>
-                          <td>{sig.signatureName || "N/A"}</td>
+
+                          <td>
+                            {sig.signatureName || "N/A"}
+
+                            {signatureMainData?._id === sig._id && (
+                              <small
+                                style={{
+                                  color: "green",
+                                  marginLeft: "8px",
+                                  fontWeight: "600"
+                                }}
+                              >
+                                Selected
+                              </small>
+                            )}
+                          </td>
+
                           <td>
                             {sig.signatureImage ? (
                               <img
-
                                 src={sig.signatureImage}
                                 alt="signature"
                                 className="signature-image"
@@ -455,20 +492,27 @@ const Personal_account = () => {
                               </span>
                             )}
                           </td>
-                          <td>
 
-                            <button class="icon-btn" onClick={() => deleteSignature(sig._id)}>
-                              <i class="fa-solid fa-trash"></i>
+                          <td>
+                            <button
+                              className="icon-btn"
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                deleteSignature(sig._id)
+                              }}
+                            >
+                              <i className="fa-solid fa-trash"></i>
                             </button>
                           </td>
                         </tr>
                       ))
                     ) : (
                       <tr>
-                        <td colspan="4">No signatures found</td>
+                        <td colSpan="4">No signatures found</td>
                       </tr>
                     )}
                   </tbody>
+
                 </table>
 
                 <div class="bottom-section">
@@ -599,30 +643,53 @@ const Personal_account = () => {
 
                 <div className="company-container">
 
-                  {companyList && companyList.length > 0 ? (
-                    companyList.map((comp, index) => (
-                      <div key={comp._id} className="company-card">
-
+                  {
+                    companyList.map((comp) => (
+                      <div
+                        key={comp._id}
+                        className="company-card"
+                        onClick={() => setcompnayMainData(comp)}
+                        style={{
+                          cursor: "pointer",
+                          border:
+                            companyMainData?._id === comp._id
+                              ? "2px solid green"
+                              : "1px solid #ddd",
+                          background:
+                            companyMainData?._id === comp._id
+                              ? "#f0fff0"
+                              : "white"
+                        }}
+                      >
                         <div className="company-left">
                           <div className="company-avatar">
                             {comp.compnayName?.charAt(0)?.toUpperCase()}
                           </div>
 
                           <div className="plan">
-                            <h3>{comp.compnayName}</h3>
+                            <h3>
+                              {comp.compnayName}
+
+                              {companyMainData?._id === comp._id && (
+                                <small
+                                  style={{
+                                    color: "green",
+                                    marginLeft: "8px"
+                                  }}
+                                >
+                                  Selected
+                                </small>
+                              )}
+                            </h3>
+
                             <p>Plan : Free</p>
                           </div>
                         </div>
 
-                        <div className="company-arrow">
-                          ➤
-                        </div>
-
+                        <div className="company-arrow">➤</div>
                       </div>
                     ))
-                  ) : (
-                    <p>No companies found</p>
-                  )}
+                  }
 
                 </div>
 

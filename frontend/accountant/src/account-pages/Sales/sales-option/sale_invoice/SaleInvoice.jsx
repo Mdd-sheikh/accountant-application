@@ -1,18 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import './SaleInvoice.css'
 import CustomerInfo from './customer_info/Customer_info';
 import Customer_item from './customer_item/Customer_item';
+import { useContext } from 'react';
+import { Context } from '../../../../context/Context';
+import axios from 'axios';
 
 
 const SaleInvoice = () => {
 
+    const { API_URL } = useContext(Context)
+
     const [TermDropDown, setTermDropDown] = useState(false)
     const [additionchargers, setAdditionaCharges] = useState(false)
-    const [itemData, setItemData] = useState(null)
-     console.log(itemData);
-     
+    const { itemData, setItemData, companyMainData, setcompnayMainData, signatureMainData, setsignatureMainData, customerData, setCustomerData } = useContext(Context)
 
-    const [customerData, setCustomerData] = useState(null)
+
+
+
 
     // total amout,taxable amout and gst amout in bill 
     // ✅ Total Taxable Value
@@ -27,14 +32,71 @@ const SaleInvoice = () => {
     // ✅ GST Amount
     const gstAmount = (totalAmount - taxableValue) || 0;
 
+    // additional charges add 
 
+    /* ---------------- ADDITIONAL CHARGES STATE ---------------- */
+    const [additionalCharge, setAdditionalCharge] = useState({
+        value: "",
+        type: "%"
+    })
+
+
+    /* ---------------- CALCULATE ADDITIONAL CHARGES ---------------- */
+    const calculateAdditionalCharge = () => {
+        const value = parseFloat(additionalCharge.value) || 0
+
+        if (additionalCharge.type === "%") {
+            return (totalAmount * value) / 100
+        } else {
+            return value
+        }
+    }
+
+    const extraChargeAmount = calculateAdditionalCharge()
+
+    /* ---------------- FINAL BILL AMOUNT ---------------- */
+    const finalBillAmount = totalAmount + extraChargeAmount
     {/**--------------------------------------------------------------------------------------------------------------------- */ }
+
+
+
+    //-------------------------get invoiceNumber
+
+    const [invoiceNumber, setInvoiceNumber] = useState("");
+    console.log(invoiceNumber);
+    
+
+    useEffect(() => {
+        const fetchInvoiceNumber = async () => {
+            try {
+                const res = await axios.get(`${API_URL}/invoice/get`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                });
+
+                if (res.data.success) {
+                    setInvoiceNumber(res.data.invoiceNumber);
+                }
+
+            } catch (error) {
+                console.error("Error fetching invoice number", error);
+            }
+        };
+
+        fetchInvoiceNumber();
+    }, []);
+
+    {/*------------------------------------------create invoive ------------------------------------*/ }
+
+
+
     return (
         <div className='createinvoice'>
             <div className="createinvoice-container">
 
                 {/* headet like page heading and address of customer */}
-                <CustomerInfo setCustomerData={setCustomerData} />
+                <CustomerInfo setCustomerData={setCustomerData} invoiceNumber = {invoiceNumber}/>
                 <br />
                 <div className="customer_items">
                     <Customer_item setItemData={setItemData} />
@@ -134,15 +196,36 @@ const SaleInvoice = () => {
                         </div>
 
                         <div className="bill-row">
-                            <span>Additional Discount</span>
+                            <span>Additional Charges</span>
+
                             <div className="discount-box">
-                                <input type="text" placeholder="Enter" />
-                                <select>
-                                    <option>%</option>
-                                    <option>₹</option>
+                                <input
+                                    type="number"
+                                    placeholder="Enter"
+                                    value={additionalCharge.value}
+                                    onChange={(e) =>
+                                        setAdditionalCharge({
+                                            ...additionalCharge,
+                                            value: e.target.value
+                                        })
+                                    }
+                                />
+
+                                <select
+                                    value={additionalCharge.type}
+                                    onChange={(e) =>
+                                        setAdditionalCharge({
+                                            ...additionalCharge,
+                                            type: e.target.value
+                                        })
+                                    }
+                                >
+                                    <option value="%">%</option>
+                                    <option value="₹">₹</option>
                                 </select>
                             </div>
-                            <span>₹0.00</span>
+
+                            <span>₹{extraChargeAmount.toFixed(2)}</span>
                         </div>
 
                         <div className="bill-row toggle-row">
@@ -156,7 +239,7 @@ const SaleInvoice = () => {
 
                         <div className="bill-amount-box">
                             <span>Bill Amount</span>
-                            <span>{Number(totalAmount).toFixed(2)}</span>
+                            <span>₹{finalBillAmount.toFixed(2)}</span>
                         </div>
 
                         <div className="bill-row toggle-row">
