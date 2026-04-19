@@ -43,12 +43,11 @@ export const createInvoice = async (req, res) => {
     }));
 
     // ✅ GENERATE INVOICE NUMBER
-    const invoiceNumber = await generateInvoiceNumber(userId);
+
 
     // ✅ CREATE INVOICE
     const newInvoice = await invoice.create({
       userId,
-      invoiceNumber,
 
       company: {
         companyId: company?._id,
@@ -58,7 +57,7 @@ export const createInvoice = async (req, res) => {
       },
 
       customer: {
-        customerId: customer?._id,
+        customerId: customer?._id || customer?.customerId,  // ✅ FIX
         name: customer?.name || "",
         phone: customer?.phone || "",
         address: customer?.address
