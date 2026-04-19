@@ -44,8 +44,8 @@ export const createInvoice = async (req, res) => {
 
     // ✅ GENERATE INVOICE NUMBER
     const invoiceNumber =
-      (await generateInvoiceNumber(userId)) ||    // problem is there
-      `INV/${Date.now()}`
+      (await generateInvoiceNumberHelper(userId)) ||
+      `INV/${Date.now()}`;
 
     // ✅ CREATE INVOICE
     const newInvoice = await invoice.create({
@@ -132,6 +132,25 @@ export const generateInvoiceNumber = async (req, res) => {
       message: error.message
     });
   }
+};
+
+// helper function
+const generateInvoiceNumberHelper = async (userId) => {
+  const lastInvoice = await invoice.findOne({ userId })
+    .sort({ createdAt: -1 });
+
+  let nextNumber = 1;
+
+  if (lastInvoice?.invoiceNumber) {
+    const lastNumber = parseInt(
+      lastInvoice.invoiceNumber.split("/").pop()
+    );
+    nextNumber = lastNumber + 1;
+  }
+
+  const year = new Date().getFullYear();
+
+  return `INV/${year}/${String(nextNumber).padStart(4, "0")}`;
 };
 
 // get invoice pdf 
