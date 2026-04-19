@@ -85,23 +85,38 @@ export const createInvoice = async (req, res) => {
 
 
 // ================= GENERATE INVOICE NUMBER =================
-export const generateInvoiceNumber = async (userId) => {
-  const lastInvoice = await invoice.findOne({ userId })
-    .sort({ createdAt: -1 });
+export const generateInvoiceNumber = async (req, res) => {
+  try {
+    const userId = req.user._id;
 
-  let nextNumber = 1;
+    const lastInvoice = await invoice.findOne({ userId })
+      .sort({ createdAt: -1 });
 
-  if (lastInvoice && lastInvoice.invoiceNumber) {
-    const lastNumber = parseInt(lastInvoice.invoiceNumber.split("/").pop());
-    nextNumber = lastNumber + 1;
+    let nextNumber = 1;
+
+    if (lastInvoice && lastInvoice.invoiceNumber) {
+      const lastNumber = parseInt(
+        lastInvoice.invoiceNumber.split("/").pop()
+      );
+      nextNumber = lastNumber + 1;
+    }
+
+    const year = new Date().getFullYear();
+
+    const invoiceNumber = `INV/${year}/${String(nextNumber).padStart(4, "0")}`;
+
+    res.status(200).json({
+      success: true,
+      invoiceNumber
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
   }
-
-  const year = new Date().getFullYear();
-
-  // ✅ with padding (0001, 0002)
-  return `INV/${year}/${String(nextNumber).padStart(4, "0")}`;
 };
-
 
 // get invoice pdf 
 export const getInvoicePDF = async (req, res) => {
