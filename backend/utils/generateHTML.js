@@ -2,7 +2,7 @@ import fs from 'fs'
 // utils/generateHTML.js
 
 export const generateHTML = (invoice) => {
-  let template = fs.readFileSync("templates/invoice.html", "utf-8");
+  let template = fs.readFileSync("template/invoice.html", "utf-8");
 
   const itemsHTML = invoice.items.map((item, index) => `
     <tr>

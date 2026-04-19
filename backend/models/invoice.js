@@ -56,6 +56,13 @@ const invoiceSchema = new mongoose.Schema({
 
     Receipt: String,
     Remark: String,
+    date:{
+        type:String
+    },
+    placeOfSupply:{
+        type:String
+    },
+
 
 }, { timestamps: true });
 

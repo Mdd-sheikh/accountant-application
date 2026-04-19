@@ -82,7 +82,9 @@ export const createInvoice = async (req, res) => {
       totalAmount,
 
       Receipt,
-      Remark
+      Remark,
+      date,
+      placeOfSupply
     });
 
     res.status(201).json({
@@ -168,5 +170,28 @@ export const getInvoicePDF = async (req, res) => {
   } catch (error) {
     console.error("PDF ERROR:", error);
     res.status(500).json({ message: error.message });
+  }
+};
+
+
+// get all invoice data 
+
+export const Findinvoice = async (req, res) => {
+  try {
+    const Invoices = await invoice.find({ userId: req.user._id }).sort({ createdAt: -1 });
+
+    res.status(200).json({
+      message: "fetch invoice data",
+      success: true,
+      Invoices
+    });
+
+  } catch (error) {
+    console.error("FETCH INVOICE ERROR 👉", error);
+
+    res.status(500).json({
+      message: "error to fetch",
+      success: false,
+    });
   }
 };
