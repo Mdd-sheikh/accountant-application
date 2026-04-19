@@ -8,6 +8,7 @@ import itemrouter from './routes/item.js'
 import Gstrouter from './routes/gstfetchRoute.js'
 import SignatureRouter from './routes/signatureRouter.js'
 import companyRouter from './routes/company.js'
+import Invoicerouter from './routes/invoiceRouter.js'
 
 dotenv.config()
 
@@ -29,6 +30,7 @@ app.use("/api/items", itemrouter);
 app.use("/api/gst", Gstrouter);
 app.use("/api/customer", SignatureRouter);
 app.use("/api/company",companyRouter)
+app.use("/api/invoice",Invoicerouter)
 
 
 // mongo db cnnection

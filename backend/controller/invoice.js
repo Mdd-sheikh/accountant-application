@@ -1,145 +1,112 @@
 // controllers/invoiceController.js
-import { Invoice } from "../models/invoice.js";
-import ItemSchema from "../models/item.js";
-import InvoiceCounter from "../models/InvoiceCounter.js"; // Assuming you have a counter model
 
-// Generate unique invoice number per financial year
-const generateInvoiceNumber = async () => {
-  const fy = "2025-26"; // Replace with dynamic FY logic if needed
 
-  const counter = await InvoiceCounter.findOneAndUpdate(
-    { financialYear: fy },
-    { $inc: { seq: 1 } },
-    { new: true, upsert: true }
-  );
+import companymodel from "../models/company.js";
+import { Item } from "../models/item.js";
+import { Customer } from "../models/customer.js";
+import Signature from "../models/signature.js";
+import invoice from "../models/invoice.js"; // keeping your import
 
-  return `INV/${fy}/${counter.seq}`;
-};
-
-// Create Invoice
+// ================= CREATE INVOICE =================
 export const createInvoice = async (req, res) => {
   try {
-    const {
-      customerId,
-      invoiceDate,
-      items,
-      gstType,
-      additionalDiscount = 0,
-      roundOff = 0,
-      remarks
-    } = req.body;
+    const { customerId, companyId, signatureId, items, Remark, Receipt } = req.body;
+    const userId = req.user._id;
 
-    // Validation: must have at least one item
+    console.log("BODY:", req.body); // debug
+
+    // ✅ Validation
     if (!items || items.length === 0) {
-      return res.status(400).json({
-        message: "Invoice must contain at least one item",
-        success: false
-      });
+      return res.status(400).json({ message: "Items required" });
     }
 
-    let subTotal = 0;
-    let gstTotal = 0;
+    // ✅ Fetch data
+    const customer = await Customer.findById(customerId);
+    const company = await companymodel.findById(companyId);
+    const signature = await Signature.findById(signatureId);
 
-    // Fetch items from DB and calculate totals
-    const calculatedItems = await Promise.all(items.map(async (item) => {
-      const dbItem = await ItemSchema.findById(item.itemId);
-      if (!dbItem) {
-        throw new Error(`Item not found: ${item.itemId}`);
-      }
+    if (!customer || !company) {
+      return res.status(404).json({ message: "Invalid customer or company" });
+    }
 
-      const taxableAmount = item.quantity * dbItem.price - (item.discount || 0);
-      const gstAmount = (taxableAmount * dbItem.gstRate) / 100;
-      const total = taxableAmount + gstAmount;
-
-      // Accumulate subtotal and gst total
-      subTotal += taxableAmount;
-      gstTotal += gstAmount;
-
-      // Return snapshot of the item for invoice
-      return {
-        itemId: dbItem._id,
-        itemName: dbItem.name,
-        quantity: item.quantity,
-        unit: dbItem.unit,
-        rate: dbItem.price,
-        gstRate: dbItem.gstRate,
-        discount: item.discount || 0,
-        taxableAmount,
-        gstAmount,
-        total
-      };
+    // ✅ IMPORTANT: Your frontend sends full item data (no itemId)
+    const finalItems = items.map(item => ({
+      name: item.name,
+      price: Number(item.price),
+      quantity: Number(item.quantity),
+      total: Number(item.total)
     }));
 
-    // Final bill amount
-    const billAmount = subTotal + gstTotal - additionalDiscount + roundOff;
+    // ✅ Calculations
+    const subTotal = finalItems.reduce((acc, i) => acc + i.total, 0);
+    const tax = subTotal * 0.18;
+    const totalAmount = subTotal + tax;
 
-    // Generate invoice number
-    const invoiceNumber = await generateInvoiceNumber();
+    // ✅ Generate invoice number
+    const invoiceNumber = await generateInvoiceNumber(userId);
 
-    // Create invoice in DB
-    const invoice = await Invoice.create({
-      userId: req.user._id,
-      customerId,
+    // ✅ Save invoice
+    const newInvoice = await invoice.create({
+      userId,
       invoiceNumber,
-      invoiceDate,
-      items: calculatedItems,
+
+      company: {
+        companyId,
+        name: company.name,
+        gst: company.gst,
+        address: company.address
+      },
+
+      customer: {
+        customerId,
+        name: customer.name,
+        phone: customer.phone,
+        address: customer.address
+      },
+
+      signature: {
+        signatureId,
+        imageUrl: signature?.imageUrl
+      },
+
+      items: finalItems,
       subTotal,
-      gstTotal,
-      additionalDiscount,
-      roundOff,
-      billAmount,
-      gstType,
-      remarks
+      tax,
+      totalAmount,
+      Receipt,
+      Remark
     });
 
     res.status(201).json({
-      message: "Invoice created successfully",
       success: true,
-      invoice
+      invoice: newInvoice
     });
 
   } catch (error) {
+    console.error("CREATE INVOICE ERROR:", error);
     res.status(500).json({
-      message: error.message,
-      success: false
+      success: false,
+      message: error.message
     });
   }
 };
 
 
-// get invoice number 
 
-// 🔹 GET NEXT INVOICE NUMBER
-export const getNextInvoiceNumber = async (req, res) => {
-  try {
-    const userId = req.user._id;
+// ================= GENERATE INVOICE NUMBER =================
+export const generateInvoiceNumber = async (userId) => {
+  const lastInvoice = await invoice.findOne({ userId })
+    .sort({ createdAt: -1 });
 
-    const lastInvoice = await Invoice.findOne({ userId })
-      .sort({ createdAt: -1 });
+  let nextNumber = 1;
 
-    let nextNumber = 1;
-
-    if (lastInvoice && lastInvoice.invoiceNumber) {
-      const lastNumber = parseInt(
-        lastInvoice.invoiceNumber.split("/").pop()
-      );
-      nextNumber = lastNumber + 1;
-    }
-
-    const financialYear = "2025-26";
-
-    const invoiceNumber = `INV/${financialYear}/${String(nextNumber).padStart(3, "0")}`;
-
-    return res.status(200).json({
-      success: true,
-      invoiceNumber
-    });
-
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      success: false,
-      message: "Failed to generate invoice number"
-    });
+  if (lastInvoice && lastInvoice.invoiceNumber) {
+    const lastNumber = parseInt(lastInvoice.invoiceNumber.split("/").pop());
+    nextNumber = lastNumber + 1;
   }
+
+  const year = new Date().getFullYear();
+
+  // ✅ with padding (0001, 0002)
+  return `INV/${year}/${String(nextNumber).padStart(4, "0")}`;
 };
