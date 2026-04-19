@@ -8,15 +8,21 @@ import { toast } from "react-toastify";
 const CustomerInfo = ({setCustomerData,invoiceNumber}) => {
 
     const { API_URL } = useContext(Context);
-    const { UserCustomerData, setUserCustomerData } = useContext(Context);
+    const { UserCustomerData, setUserCustomerData,invoiceDate, setInvoiceDate, placeOfSupply,setplaceOfSupply } = useContext(Context);
+
+console.log( placeOfSupply);
+
+    // handle date function
+    
 
     const [selectedCustomer, setSelectedCustomer] = useState(null);
     const [showCustomerData, setShowCustomerData] = useState(false);
     const [showLedgerPopup, setShowLedgerPopup] = useState(false);
 
-    const [selectedState, setSelectedState] = useState("24 - Gujarat");
+   
+    
     const [showDropdown, setShowDropdown] = useState(false);
-     console.log(selectedCustomer);
+     
      
     const [activeAccordion, setActiveAccordion] = useState(null);
 
@@ -256,7 +262,7 @@ const CustomerInfo = ({setCustomerData,invoiceNumber}) => {
                     </div>
                     <div className="invoice-header-input-invoice-date">
                         <p>Invoice Date <sup>*</sup></p>
-                        <input type="date" name="" id="" />
+                        <input type="date" name="" id="" value={invoiceDate.date} onChange={(e)=>setInvoiceDate(e.target.value)} />
                     </div>
                     <div className="invoice-header-input-select-customer">
                         <div className="invoice-header-input-select-add">
@@ -472,14 +478,14 @@ const CustomerInfo = ({setCustomerData,invoiceNumber}) => {
                                 className="cs-select-box"
                                 onClick={() => setShowDropdown(!showDropdown)}
                             >
-                                <span>{selectedState || "Select State"}</span>
+                                <span>{placeOfSupply || "Select State"}</span>
 
                                 <div className="cs-icons">
-                                    {selectedState && (
+                                    {placeOfSupply && (
                                         <FaTimes
                                             onClick={(e) => {
                                                 e.stopPropagation();
-                                                setSelectedState("");
+                                                setplaceOfSupply("")
                                             }}
                                         />
                                     )}
@@ -494,7 +500,7 @@ const CustomerInfo = ({setCustomerData,invoiceNumber}) => {
                                             key={index}
                                             className="cs-dropdown-item"
                                             onClick={() => {
-                                                setSelectedState(state);
+                                                setplaceOfSupply(state);
                                                 setShowDropdown(false);
                                             }}
                                         >

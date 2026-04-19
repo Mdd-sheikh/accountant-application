@@ -17,7 +17,14 @@ const ContextProvider = ({ children }) => {
 
     // for create a invoice
     const [customerData, setCustomerData] = useState(null)
+
     const [itemData, setItemData] = useState(null)
+
+    const [invoiceDate, setInvoiceDate] = useState({
+        date: new Date().toISOString().split("T")[0]
+    })
+
+    const [placeOfSupply,setplaceOfSupply] = useState("24 - Gujarat");
 
     // for sidebar open and close
     const [IssidebarOpen, setIsSidebarOpen] = useState(true);
@@ -86,7 +93,9 @@ const ContextProvider = ({ children }) => {
         companyMainData,
         setcompnayMainData,
         signatureMainData,
-        setsignatureMainData
+        setsignatureMainData,
+        invoiceDate, setInvoiceDate,
+        placeOfSupply,setplaceOfSupply
     }
 
 

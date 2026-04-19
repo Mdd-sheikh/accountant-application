@@ -16,7 +16,7 @@ const SaleInvoice = () => {
 
     const [TermDropDown, setTermDropDown] = useState(false)
     const [additionchargers, setAdditionaCharges] = useState(false)
-    const { itemData, setItemData, companyMainData, setcompnayMainData, signatureMainData, setsignatureMainData, customerData, setCustomerData } = useContext(Context)
+    const { itemData, setItemData, companyMainData, setcompnayMainData, signatureMainData, setsignatureMainData, customerData, setCustomerData,invoiceDate,placeOfSupply } = useContext(Context)
 
 
 
@@ -128,7 +128,9 @@ const SaleInvoice = () => {
                 totalAmount: Number(finalBillAmount || 0),
 
                 Receipt: "Cash",
-                Remark: ""
+                Remark: "",
+                date:invoiceDate,
+                placeOfSupply:placeOfSupply
             };
 
             console.log("📤 Sending Invoice:", payload);
