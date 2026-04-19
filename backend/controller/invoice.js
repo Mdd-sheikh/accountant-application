@@ -6,30 +6,26 @@ import { Item } from "../models/item.js";
 import { Customer } from "../models/customer.js";
 import Signature from "../models/signature.js";
 import invoice from "../models/invoice.js"; // keeping your import
+import { generatePDF } from "../utils/generatePDF.js";
 
 // ================= CREATE INVOICE =================
 export const createInvoice = async (req, res) => {
   try {
-    const { customerId, companyId, signatureId, items, Remark, Receipt } = req.body;
+    const {
+      customer,
+      company,
+      signature,
+      items,
+      subTotal,
+      tax,
+      totalAmount,
+      Receipt,
+      Remark
+    } = req.body;
+
     const userId = req.user._id;
 
-    console.log("BODY:", req.body); // debug
-
-    // ✅ Validation
-    if (!items || items.length === 0) {
-      return res.status(400).json({ message: "Items required" });
-    }
-
-    // ✅ Fetch data
-    const customer = await Customer.findById(customerId);
-    const company = await companymodel.findById(companyId);
-    const signature = await Signature.findById(signatureId);
-
-    if (!customer || !company) {
-      return res.status(404).json({ message: "Invalid customer or company" });
-    }
-
-    // ✅ IMPORTANT: Your frontend sends full item data (no itemId)
+    // ✅ Items (direct from frontend)
     const finalItems = items.map(item => ({
       name: item.name,
       price: Number(item.price),
@@ -37,35 +33,30 @@ export const createInvoice = async (req, res) => {
       total: Number(item.total)
     }));
 
-    // ✅ Calculations
-    const subTotal = finalItems.reduce((acc, i) => acc + i.total, 0);
-    const tax = subTotal * 0.18;
-    const totalAmount = subTotal + tax;
-
-    // ✅ Generate invoice number
+    // ✅ Generate Invoice Number
     const invoiceNumber = await generateInvoiceNumber(userId);
 
-    // ✅ Save invoice
+    // ✅ Create Invoice
     const newInvoice = await invoice.create({
       userId,
       invoiceNumber,
 
       company: {
-        companyId,
+        companyId: company._id,
         name: company.name,
-        gst: company.gst,
-        address: company.address
+        gst: company.gstNumber,
+        address: `${company.address.line1}, ${company.address.city}`
       },
 
       customer: {
-        customerId,
+        customerId: customer._id,
         name: customer.name,
         phone: customer.phone,
-        address: customer.address
+        address: `${customer.address.line1}, ${customer.address.city}`
       },
 
       signature: {
-        signatureId,
+        signatureId: signature?._id,
         imageUrl: signature?.imageUrl
       },
 
@@ -83,7 +74,7 @@ export const createInvoice = async (req, res) => {
     });
 
   } catch (error) {
-    console.error("CREATE INVOICE ERROR:", error);
+    console.error("ERROR:", error);
     res.status(500).json({
       success: false,
       message: error.message
@@ -109,4 +100,22 @@ export const generateInvoiceNumber = async (userId) => {
 
   // ✅ with padding (0001, 0002)
   return `INV/${year}/${String(nextNumber).padStart(4, "0")}`;
+};
+
+
+// get invoice pdf 
+export const getInvoicePDF = async (req, res) => {
+  try {
+    const data = await invoice.findById(req.params.id);
+
+    if (!data) {
+      return res.status(404).json({ message: "Invoice not found" });
+    }
+
+    await generatePDF(data, res);
+
+  } catch (error) {
+    console.error("PDF ERROR:", error);
+    res.status(500).json({ message: error.message });
+  }
 };

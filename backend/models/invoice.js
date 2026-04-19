@@ -1,9 +1,4 @@
-import mongoose, { Schema } from "mongoose";
-
-
-// Invoice Item Schema
-
-// Main Invoice Schema
+import mongoose from "mongoose";
 
 const invoiceItemSchema = new mongoose.Schema({
     itemId: {
@@ -13,6 +8,10 @@ const invoiceItemSchema = new mongoose.Schema({
     name: String,
     price: Number,
     quantity: Number,
+    discount: { type: Number, default: 0 },
+    gstRate: { type: Number, default: 0 },
+    taxable: Number,
+    taxAmount: Number,
     total: Number
 });
 
@@ -28,51 +27,36 @@ const invoiceSchema = new mongoose.Schema({
         required: true
     },
 
-    // Company Snapshot
     company: {
-        companyId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Company"
-        },
+        companyId: mongoose.Schema.Types.ObjectId,
         name: String,
         gst: String,
         address: String
     },
 
-    // Customer Snapshot
     customer: {
-        customerId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Customer"
-        },
+        customerId: mongoose.Schema.Types.ObjectId,
         name: String,
         phone: String,
         address: String
     },
 
-    // Signature Snapshot
     signature: {
-        signatureId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Signature"
-        },
+        signatureId: mongoose.Schema.Types.ObjectId,
         imageUrl: String
     },
 
     items: [invoiceItemSchema],
 
     subTotal: Number,
-    tax: Number,
+    cgst: Number,
+    sgst: Number,
+    igst: Number,
     totalAmount: Number,
 
-    date: {
-        type: Date,
-        default: Date.now
-    },
     Receipt: String,
-    Remark:String,
+    Remark: String,
 
 }, { timestamps: true });
 
-export default mongoose.model("Invoice", invoiceSchema);
-
+export default mongoose.model("invoice", invoiceSchema);
