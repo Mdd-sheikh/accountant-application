@@ -50,6 +50,7 @@ export const createInvoice = async (req, res) => {
     // ✅ CREATE INVOICE
     const newInvoice = await invoice.create({
       userId,
+      invoiceNumber,
 
       company: {
         companyId: company?._id,
