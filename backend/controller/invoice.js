@@ -50,7 +50,6 @@ export const createInvoice = async (req, res) => {
       userId,
       invoiceNumber,
 
-      // ✅ COMPANY (MATCH YOUR MODEL)
       company: {
         companyId: company?._id,
         name: company?.compnayName || "",
@@ -58,7 +57,6 @@ export const createInvoice = async (req, res) => {
         address: `${company?.companyAddress || ""}, ${company?.companyCity || ""}`
       },
 
-      // ✅ CUSTOMER (MATCH YOUR MODEL)
       customer: {
         customerId: customer?._id,
         name: customer?.name || "",
@@ -68,7 +66,6 @@ export const createInvoice = async (req, res) => {
           : ""
       },
 
-      // ✅ SIGNATURE (MATCH YOUR MODEL)
       signature: {
         signatureId: signature?._id,
         imageUrl: signature?.signatureImage || ""
@@ -76,12 +73,14 @@ export const createInvoice = async (req, res) => {
 
       items: finalItems,
 
-      subTotal: Number(subTotal || 0),
-      tax: Number(tax || 0),
-      totalAmount: Number(totalAmount || 0),
+      subTotal,
+      cgst: tax / 2,
+      sgst: tax / 2,
+      igst: 0,
+      totalAmount,
 
-      Receipt: Receipt || "",
-      Remark: Remark || ""
+      Receipt,
+      Remark
     });
 
     res.status(201).json({
