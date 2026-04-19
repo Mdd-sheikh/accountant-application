@@ -1,13 +1,16 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './SaleInvoice.css'
 import CustomerInfo from './customer_info/Customer_info';
 import Customer_item from './customer_item/Customer_item';
 import { useContext } from 'react';
 import { Context } from '../../../../context/Context';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 const SaleInvoice = () => {
+    const Navigate = useNavigate()
 
     const { API_URL } = useContext(Context)
 
@@ -64,7 +67,7 @@ const SaleInvoice = () => {
 
     const [invoiceNumber, setInvoiceNumber] = useState("");
     console.log(invoiceNumber);
-    
+
 
     useEffect(() => {
         const fetchInvoiceNumber = async () => {
@@ -89,14 +92,100 @@ const SaleInvoice = () => {
 
     {/*------------------------------------------create invoive ------------------------------------*/ }
 
+    const handleCreateInvoice = async () => {
+        try {
+            // 🔒 Prevent double click (optional but recommended)
+            if (handleCreateInvoice.loading) return;
+            handleCreateInvoice.loading = true;
 
+            // ✅ VALIDATION
+            if (!customerData || !companyMainData) {
+                return toast.error("Please select customer & company ❌");
+            }
+
+            if (!itemData?.items || itemData.items.length === 0) {
+                return toast.error("Please add at least one item ❌");
+            }
+
+            // ✅ CLEAN ITEMS (avoid undefined / string issues)
+            const cleanItems = itemData.items.map(item => ({
+                name: item.name || "",
+                price: Number(item.price || 0),
+                quantity: Number(item.quantity || 0),
+                total: Number(item.total || 0)
+            }));
+
+            // ✅ PAYLOAD
+            const payload = {
+                customer: customerData,
+                company: companyMainData,
+                signature: signatureMainData,
+
+                items: cleanItems,
+
+                subTotal: Number(taxableValue || 0),
+                tax: Number(gstAmount || 0),
+                totalAmount: Number(finalBillAmount || 0),
+
+                Receipt: "Cash",
+                Remark: ""
+            };
+
+            console.log("📤 Sending Invoice:", payload);
+
+            // ✅ API CALL
+            const res = await axios.post(
+                `${API_URL}/invoice/create`,
+                payload,
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                }
+            );
+
+            // ✅ SUCCESS
+            if (res?.data?.success) {
+                const invoiceNo = res.data.invoice?.invoiceNumber;
+
+                toast.success(`Invoice Created: ${invoiceNo} ✅`);
+
+                // 🔥 RESET STATE
+                setItemData({ items: [], totalAmount: 0 });
+                setCustomerData(null);
+                setcompnayMainData(null);
+                setsignatureMainData(null);
+
+                setAdditionalCharge({
+                    value: "",
+                    type: "%"
+                });
+
+                // 🚀 REDIRECT
+                setTimeout(() => {
+                    Navigate("/503/invoice");
+                }, 800);
+            }
+
+        } catch (error) {
+            console.error("❌ CREATE INVOICE ERROR:", error);
+
+            // ✅ SAFE ERROR MESSAGE (no crash)
+            const message =
+                error?.response?.data?.message ||
+                error?.message ||
+                "Server error ❌";
+
+            toast.error(message);
+        }
+    };
 
     return (
         <div className='createinvoice'>
             <div className="createinvoice-container">
 
                 {/* headet like page heading and address of customer */}
-                <CustomerInfo setCustomerData={setCustomerData} invoiceNumber = {invoiceNumber}/>
+                <CustomerInfo setCustomerData={setCustomerData} invoiceNumber={invoiceNumber} />
                 <br />
                 <div className="customer_items">
                     <Customer_item setItemData={setItemData} />
@@ -262,7 +351,7 @@ const SaleInvoice = () => {
                         <div className="button-group">
                             <button className="cancel-btn">Cancel</button>
                             <button className="draft-btn">Save as Draft</button>
-                            <button className="save-btn">Save</button>
+                            <button onClick={handleCreateInvoice} className="save-btn">{handleCreateInvoice.loading ? "saving" : "save"}</button>
                         </div>
 
                     </div>
