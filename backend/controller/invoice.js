@@ -42,12 +42,16 @@ export const createInvoice = async (req, res) => {
       total: Number(item.total || 0)
     }));
 
-    // ✅ GENERATE INVOICE NUMBER
+    // ✅ GENERATE INVOICE NUMBER (🔥 THIS WAS MISSING)
+    const invoiceNumber =
+      (await generateInvoiceNumber(userId)) ||
+      `INV/${Date.now()}`;
 
 
     // ✅ CREATE INVOICE
     const newInvoice = await invoice.create({
       userId,
+      invoiceNumber, // 🔥 MUST ADD
 
       company: {
         companyId: company?._id,
@@ -57,7 +61,7 @@ export const createInvoice = async (req, res) => {
       },
 
       customer: {
-        customerId: customer?._id || customer?.customerId,  // ✅ FIX
+        customerId: customer?._id || customer?.customerId,
         name: customer?.name || "",
         phone: customer?.phone || "",
         address: customer?.address
@@ -72,19 +76,19 @@ export const createInvoice = async (req, res) => {
 
       items: finalItems,
 
-      subTotal,
-      cgst: tax / 2,
-      sgst: tax / 2,
+      subTotal: Number(subTotal || 0),
+      cgst: Number((tax / 2).toFixed(2)),
+      sgst: Number((tax / 2).toFixed(2)),
       igst: 0,
-      totalAmount,
+      totalAmount: Number(totalAmount || 0),
 
-      Receipt,
-      Remark
+      Receipt: Receipt || "",
+      Remark: Remark || ""
     });
 
     res.status(201).json({
       success: true,
-      invoice: newInvoice   // ✅ FIXED
+      invoice: newInvoice
     });
 
   } catch (error) {
@@ -95,7 +99,6 @@ export const createInvoice = async (req, res) => {
     });
   }
 };
-
 
 
 // ================= GENERATE INVOICE NUMBER =================
