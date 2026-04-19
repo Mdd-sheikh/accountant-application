@@ -43,9 +43,9 @@ export const createInvoice = async (req, res) => {
     }));
 
     // ✅ GENERATE INVOICE NUMBER
-    {/*const invoiceNumber =
-      (await generateInvoiceNumber(userId)) ||
-      `INV/${Date.now()}`;*/}
+    const invoiceNumber =
+      (await generateInvoiceNumber(userId)) ||    // problem is there
+      `INV/${Date.now()}`
 
     // ✅ CREATE INVOICE
     const newInvoice = await invoice.create({
