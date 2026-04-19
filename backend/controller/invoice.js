@@ -86,7 +86,7 @@ export const createInvoice = async (req, res) => {
 
     res.status(201).json({
       success: true,
-       newInvoice
+      invoice: newInvoice   // ✅ FIXED
     });
 
   } catch (error) {
