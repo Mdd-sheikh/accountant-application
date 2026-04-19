@@ -56,11 +56,12 @@ const invoiceSchema = new mongoose.Schema({
 
     Receipt: String,
     Remark: String,
-    date:{
-        type:String
+    date: {
+        type: Date,
+        default: Date.now
     },
-    placeOfSupply:{
-        type:String
+    placeOfSupply: {
+        type: String
     },
 
 
