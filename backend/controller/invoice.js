@@ -161,6 +161,8 @@ const generateInvoiceNumberHelper = async (userId) => {
 // get invoice pdf 
 export const getInvoicePDF = async (req, res) => {
   try {
+    console.log("Invoice ID 👉", req.params.id);
+
     const data = await invoice.findById(req.params.id);
 
     if (!data) {
@@ -170,8 +172,12 @@ export const getInvoicePDF = async (req, res) => {
     await generatePDF(data, res);
 
   } catch (error) {
-    console.error("PDF ERROR:", error);
-    res.status(500).json({ message: error.message });
+    console.error("PDF ERROR 👉", error);
+
+    res.status(500).json({
+      message: error.message,
+      error: error.stack
+    });
   }
 };
 
