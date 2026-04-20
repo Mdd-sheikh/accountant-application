@@ -12,7 +12,10 @@ const invoiceItemSchema = new mongoose.Schema({
     gstRate: { type: Number, default: 0 },
     taxable: Number,
     taxAmount: Number,
-    total: Number
+    total: Number,
+
+    // ✅ ADD THIS
+    hsnCode: String
 });
 
 const invoiceSchema = new mongoose.Schema({
@@ -27,18 +30,27 @@ const invoiceSchema = new mongoose.Schema({
         required: true
     },
 
+    // ✅ UPDATED COMPANY
     company: {
         companyId: mongoose.Schema.Types.ObjectId,
         name: String,
         gst: String,
-        address: String
+        address: String,
+
+        companyMobileNo: String,
+        companyEmail: String,
+        companyLogo: String
     },
 
+    // ✅ UPDATED CUSTOMER
     customer: {
         customerId: mongoose.Schema.Types.ObjectId,
         name: String,
         phone: String,
-        address: String
+        address: String,
+
+        customerGst: String,
+        customerEmail: String
     },
 
     signature: {
@@ -56,14 +68,13 @@ const invoiceSchema = new mongoose.Schema({
 
     Receipt: String,
     Remark: String,
+
     date: {
         type: Date,
         default: Date.now
     },
-    placeOfSupply: {
-        type: String
-    },
 
+    placeOfSupply: String
 
 }, { timestamps: true });
 
