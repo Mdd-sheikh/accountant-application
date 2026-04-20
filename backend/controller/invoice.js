@@ -85,7 +85,7 @@ export const createInvoice = async (req, res) => {
 
       Receipt,
       Remark,
-      date,
+      date: date ? new Date(date) : Date.now(),
       placeOfSupply
     });
 
