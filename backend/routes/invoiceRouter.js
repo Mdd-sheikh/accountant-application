@@ -10,7 +10,7 @@ const Invoicerouter = express.Router()
 Invoicerouter.post("/create",auth,createInvoice);
 Invoicerouter.get("/get",auth,generateInvoiceNumber)
 Invoicerouter.get("/get/invoicepdf/:id",auth,getInvoicePDF)
-Invoicerouter.get("/fetch",auth,Findinvoice);
+Invoicerouter.get("/getinvoice",auth,Findinvoice); 
 
 
 export default Invoicerouter;
