@@ -7,7 +7,37 @@ import axios from 'axios'
 const Sale = () => {
 
   const { API_URL } = useContext(Context)
-  const {invoices, setInvoices,loadAllData} = useContext(Context);
+  const { invoices, setInvoices, loadAllData } = useContext(Context);
+
+
+  const downloadInvoicePDF = async (invoiceId) => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const res = await axios.get(
+      `${API_URL}/invoice/get/invoicepdf/${invoiceId}`,
+      {
+        responseType: "blob",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    const url = window.URL.createObjectURL(new Blob([res.data]));
+    window.open(url);
+
+  } catch (error) {
+
+    // 🔥 CONVERT BLOB ERROR TO JSON
+    if (error.response?.data) {
+      const text = await error.response.data.text();
+      console.log("REAL ERROR 👉", JSON.parse(text));
+    } else {
+      console.log("ERROR 👉", error.message);
+    }
+  }
+};
 
 
 
@@ -74,7 +104,7 @@ const Sale = () => {
                       <td>₹ {inv.totalAmount}</td>
                       <td className='actions-buttons'>
                         <button><i class="fa-regular fa-eye"></i></button>
-                        <button><i class="fa-solid fa-download"></i></button>
+                        <button ><i onClick={() => downloadInvoicePDF(inv._id)} class="fa-solid fa-download"></i></button>
                         <button><i class="fa-solid fa-trash"></i></button>
                       </td>
                     </tr>
