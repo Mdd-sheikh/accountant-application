@@ -27,7 +27,6 @@ export const createInvoice = async (req, res) => {
 
     const userId = req.user._id;
 
-    // ✅ VALIDATION
     if (!items || items.length === 0) {
       return res.status(400).json({ message: "Items required" });
     }
@@ -36,7 +35,6 @@ export const createInvoice = async (req, res) => {
       return res.status(400).json({ message: "Customer & Company required" });
     }
 
-    // ✅ SAFE ITEMS
     const finalItems = items.map(item => ({
       name: item.name || "",
       price: Number(item.price || 0),
@@ -45,12 +43,10 @@ export const createInvoice = async (req, res) => {
       hsnCode: item.hsnCode || ""
     }));
 
-    // ✅ GENERATE INVOICE NUMBER
     const invoiceNumber =
       (await generateInvoiceNumberHelper(userId)) ||
       `INV/${Date.now()}`;
 
-    // ✅ CREATE INVOICE
     const newInvoice = await invoice.create({
       userId,
       invoiceNumber,
@@ -66,17 +62,14 @@ export const createInvoice = async (req, res) => {
       },
 
       customer: {
-        customerId: customer?._id || customer?.customerId,  // ✅ FIX
+        customerId: customer?._id,
         name: customer?.name || "",
-        phone: customer?.companyMobileNo || "",
+        phone: customer?.phone || "",
         address: customer?.address
           ? `${customer.address.line1 || ""}, ${customer.address.city || ""}`
           : "",
         customerGst: customer?.gstNumber || "",
-        customerPhone: customer?.phone || "",
-        customerEmail: customer?.email || "",
-
-
+        customerEmail: customer?.email || ""
       },
 
       signature: {
@@ -100,7 +93,7 @@ export const createInvoice = async (req, res) => {
 
     res.status(201).json({
       success: true,
-      invoice: newInvoice   // ✅ FIXED
+      invoice: newInvoice
     });
 
   } catch (error) {
