@@ -37,7 +37,7 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
 
             setTimeout(() => {
                 setShowLoginPopUp(false);
-                navigate('/503/company');
+                navigate('/503/account');
             }, 1000);
             loadAllData();
 
