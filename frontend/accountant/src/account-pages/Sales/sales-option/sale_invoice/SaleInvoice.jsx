@@ -111,7 +111,8 @@ const SaleInvoice = () => {
                 name: item.name || "",
                 price: Number(item.price || 0),
                 quantity: Number(item.quantity || 0),
-                total: Number(item.total || 0)
+                total: Number(item.total || 0),
+                hsnCode: item.hsnCode || ""
             }));
 
             // ✅ PAYLOAD
