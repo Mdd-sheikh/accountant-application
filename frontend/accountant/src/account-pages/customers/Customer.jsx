@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 
 const Customer = () => {
 
-  const [customers, setCustomers] = useState([]);
+  const {UserCustomerData} = useContext(Context);
   const [search, setSearch] = useState("");
   const [openMenu, setOpenMenu] = useState(null);
   const [showLedgerPopup, setShowLedgerPopup] = useState(false);
@@ -70,26 +70,7 @@ const Customer = () => {
 
   // -------------------------------------------------------
   // get customers data from backend----------------------------------
-  const fetchCustomers = async () => {
-    try {
-      setanimation(true); //  start animation
-
-      const token = localStorage.getItem("token");
-
-      const res = await axios.get(`${API_URL}/customer/get`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-
-      setCustomers(res.data.customers);
-
-    } catch (error) {
-      toast.error("Error fetching customers");
-    } finally {
-      setanimation(false); //  stop animation
-    }
-  };
+ 
 
   // OPEN DELETE CONFIRM
   const deleteCustomer = (id) => {
@@ -123,11 +104,9 @@ const Customer = () => {
     setShowConfirm(false);
   };
 
-  useEffect(() => {
-    fetchCustomers();
-  }, []);
+  
 
-  const filteredCustomers = customers.filter((c) =>
+  const filteredCustomers = UserCustomerData.filter((c) =>
     c.name.toLowerCase().includes(search.toLowerCase())
   );
 

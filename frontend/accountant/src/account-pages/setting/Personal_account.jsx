@@ -11,14 +11,18 @@ import { assests } from "../../assets/assests";
 const Personal_account = () => {
   const { UserCustomerData } = useContext(Context);
 
-  const [userinformation, setUserinformation] = useState({});
   const [showEdit, setShowEdit] = useState(false);
   const [image, setImage] = useState(null);
-
+  
   // for signature file
   const [signature, setSignature] = useState("");
   const [signatureFile, setSignatureFile] = useState(null);
-  const [GetSignature, setGetSignature] = useState([]);
+
+  // all fetch data
+  const {userinformation, setUserinformation} = useContext(Context);
+  const {GetSignature, setGetSignature} = useContext(Context);
+  const {companyList, setCompanyList} = useContext(Context);
+  
 
 
   // data send to backend 
@@ -172,28 +176,7 @@ const Personal_account = () => {
 
   //------------------------------------------------------------------------------------------------------------------------------
   // get signatures from backend (for display in table)
-  const GetSignatures = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) return;
-
-    try {
-      const response = await axios.get(
-        `${API_URL}/customer/signature/get`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
-
-      setGetSignature(response.data.data);
-
-
-    } catch (error) {
-      console.error("Error fetching signatures:", error);
-      toast.error(error?.response?.data?.message || "Failed to fetch signatures");
-    }
-  };
+  
 
 
   // delete signature--------------------------------------------------------------------
@@ -219,7 +202,7 @@ const Personal_account = () => {
 
 
   //--------------------------------------------- get company detail
-  const [companyList, setCompanyList] = useState([])
+  
   const [showCreateCompany, setShowCreateCompany] = useState(false);
 
 
@@ -276,9 +259,8 @@ const Personal_account = () => {
 
   // ✅ load data once
   useEffect(() => {
-    GetSignatures();
+    
     GetUserInfo();
-    fetchCompanyData()
   }, []);
 
 

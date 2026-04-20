@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 
 const Item = () => {
 
-    const [items, setItems] = useState([]);
+    const {items, setItems} = useContext(Context);
     const [search, setSearch] = useState("");
     const [animation, setAnimation] = useState(false);
 

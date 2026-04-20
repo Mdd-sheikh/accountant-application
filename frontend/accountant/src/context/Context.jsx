@@ -2,6 +2,7 @@ import axios from "axios";
 import { createContext, useState, useEffect } from "react";
 
 
+
 export const Context = createContext(null);
 
 
@@ -24,7 +25,7 @@ const ContextProvider = ({ children }) => {
         date: new Date().toISOString().split("T")[0]
     })
 
-    const [placeOfSupply,setplaceOfSupply] = useState("24 - Gujarat");
+    const [placeOfSupply, setplaceOfSupply] = useState("24 - Gujarat");
 
     // for sidebar open and close
     const [IssidebarOpen, setIsSidebarOpen] = useState(true);
@@ -42,10 +43,9 @@ const ContextProvider = ({ children }) => {
     const [showLoginPopUp, setShowLoginPopUp] = useState(false);
     //-----------------------------------------------------------------
 
-
     const [collapse, setCollapse] = useState(false);
     const [salesOpen, setSalesOpen] = useState(false);
-    const [UserCustomerData, setUserCustomerData] = useState([]);
+
 
 
     // for navbaar sticky----------------------------------------------------
@@ -68,6 +68,87 @@ const ContextProvider = ({ children }) => {
 
 
     }, [])
+
+
+    // all get function
+
+   
+
+    const [invoices, setInvoices] = useState([]);
+    const [UserCustomerData, setUserCustomerData] = useState([]);
+    const [GetSignature, setGetSignature] = useState([]);
+    const [companyList, setCompanyList] = useState([]);
+    const [items, setItems] = useState([]);
+    const [userinformation, setUserinformation] = useState({});
+    const [animation, setanimation] = useState(false);
+    console.log(invoices);
+    console.log(UserCustomerData);
+    console.log(GetSignature);
+    console.log(companyList);
+    console.log(items);
+    console.log(userinformation);
+    
+
+    // ✅ LOAD ALL DATA
+    const loadAllData = async () => {
+        try {
+            const token = localStorage.getItem("token");
+
+            if (!token) {
+                console.log("No token found");
+                return;
+            }
+
+            setanimation(true); // ✅ start loading
+
+            const authConfig = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            };
+
+            const [
+                customerRes,
+                itemRes,
+                invoiceRes,
+                companyRes,
+                signatureRes,
+                userres
+            ] = await Promise.all([
+                axios.get(`${API_URL}/customer/get`, authConfig),
+                axios.get(`${API_URL}/items/get/item`, authConfig),
+                axios.get(`${API_URL}/invoice/getinvoice`, authConfig),
+                axios.get(`${API_URL}/company/get`, authConfig),
+                axios.get(`${API_URL}/customer/signature/get`, authConfig),
+                axios.get(`${API_URL}/user/profile`, authConfig)
+            ]);
+
+            // ✅ SAFE DATA SETTING
+            setInvoices(invoiceRes.data?.Invoices || []);
+            setUserCustomerData(customerRes.data?.customers || []);
+            setItems(itemRes.data?.items || []);
+            setCompanyList(companyRes.data?.companydata || []);
+            setGetSignature(signatureRes.data?.data || []);
+            setUserinformation(userres.data?.data || {});
+
+        } catch (error) {
+            console.log("LOAD ALL DATA ERROR 👉", error.response?.data || error.message);
+        } finally {
+            setanimation(false); // ✅ stop loading
+        }
+    };
+
+    // ✅ AUTO LOAD WHEN TOKEN EXISTS
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+
+        if (token) {
+            loadAllData();
+        }
+    }, []);
+
+
+
 
 
 
@@ -95,7 +176,15 @@ const ContextProvider = ({ children }) => {
         signatureMainData,
         setsignatureMainData,
         invoiceDate, setInvoiceDate,
-        placeOfSupply,setplaceOfSupply
+        placeOfSupply, setplaceOfSupply,
+        invoices, setInvoices,
+        UserCustomerData, setUserCustomerData,
+        GetSignature, setGetSignature,
+        companyList, setCompanyList,
+        items, setItems,
+        animation, setanimation,
+        userinformation, setUserinformation
+
     }
 
 

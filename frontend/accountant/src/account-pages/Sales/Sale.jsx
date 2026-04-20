@@ -1,8 +1,36 @@
-import React from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import './Sales.css'
 import { NavLink } from 'react-router-dom'
+import { Context } from '../../context/Context'
+import axios from 'axios'
 
 const Sale = () => {
+
+  const { API_URL } = useContext(Context)
+  const {invoices, setInvoices} = useContext(Context);
+
+  const getInvoices = async () => {
+    const token = localStorage.getItem("token")
+    try {
+      const res = await axios.get(`${API_URL}/invoice/getinvoice`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+
+      if (res.data.success) {
+        setInvoices(res.data.Invoices);
+      }
+
+    } catch (error) {
+      console.log("Error fetching invoices", error)
+    }
+  }
+
+  useEffect(() => {
+    getInvoices()
+  }, [])
+
   return (
     <div className='sales'>
       <div className="purchase-wrapper">
@@ -26,7 +54,7 @@ const Sale = () => {
               <i className="fa-regular fa-calendar calendar-icon"></i>
             </div>
 
-           <NavLink to="/503/invoice/create"> <button className="create-btn">
+            <NavLink to="/503/invoice/create"> <button className="create-btn">
               + Create Invoice
             </button></NavLink>
           </div>
@@ -55,11 +83,29 @@ const Sale = () => {
             </thead>
 
             <tbody>
-              <tr>
-                <td colSpan="6" className="no-record">
-                  No records found
-                </td>
-              </tr>
+              {
+                invoices.length > 0 ? (
+                  invoices.map((inv, index) => (
+                    <tr key={inv._id}>
+                      <td>{index + 1}</td>
+                      <td>{new Date(inv.createdAt).toLocaleDateString()}</td>
+                      <td>{inv.invoiceNumber}</td>
+                      <td>{inv.customerName || "N/A"}</td>
+                      <td>₹ {inv.totalAmount}</td>
+                      <td>
+                        <button>View</button>
+                        <button>Edit</button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="6" className="no-record">
+                      No records found
+                    </td>
+                  </tr>
+                )
+              }
             </tbody>
           </table>
         </div>

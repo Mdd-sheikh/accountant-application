@@ -10,7 +10,6 @@ const CustomerInfo = ({setCustomerData,invoiceNumber}) => {
     const { API_URL } = useContext(Context);
     const { UserCustomerData, setUserCustomerData,invoiceDate, setInvoiceDate, placeOfSupply,setplaceOfSupply } = useContext(Context);
 
-console.log( placeOfSupply);
 
     // handle date function
     
