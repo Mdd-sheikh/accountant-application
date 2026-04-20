@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginPopUp = ({ setShowLoginPopUp }) => {
     const navigate = useNavigate();
-    const { Userdata, setUserdata, API_URL } = useContext(Context);
+    const { Userdata, setUserdata, API_URL,loadAllData } = useContext(Context);
 
     const [loading, setLoading] = useState(false);
     const [isLogin, setIsLogin] = useState(true);
@@ -39,6 +39,8 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
                 setShowLoginPopUp(false);
                 navigate('/503/company');
             }, 1000);
+            loadAllData();
+
         } catch (error) {
             toast.error(error.response?.data?.message || 'Something went wrong!');
             console.error(error);

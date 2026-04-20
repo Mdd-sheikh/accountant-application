@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 
 const Customer = () => {
 
-  const {UserCustomerData} = useContext(Context);
+  const { UserCustomerData, loadAllData } = useContext(Context);
   const [search, setSearch] = useState("");
   const [openMenu, setOpenMenu] = useState(null);
   const [showLedgerPopup, setShowLedgerPopup] = useState(false);
@@ -39,38 +39,53 @@ const Customer = () => {
     },
     notes: ""
   });
+  console.log(clientsData);
+
 
   const toggleAccordion = (section) => {
     setActiveAccordion(prev => (prev === section ? null : section));
   };
 
   const clientsData_handler = (e) => {
-
     const { name, value } = e.target;
 
+    // Address fields
     if (["line1", "city", "state", "pincode"].includes(name)) {
-      setClientsData({
-        ...clientsData,
+      setClientsData((prev) => ({
+        ...prev,
         address: {
-          ...clientsData.address,
+          ...prev.address,
           [name]: value
         }
-      });
-    } else {
-      setClientsData({
-        ...clientsData,
+      }));
+    }
+
+    // Bank fields
+    else if (["bankName", "accountNumber", "ifscCode"].includes(name)) {
+      setClientsData((prev) => ({
+        ...prev,
+        bankDetails: {
+          ...prev.bankDetails,
+          [name]: value
+        }
+      }));
+    }
+
+    // Normal fields
+    else {
+      setClientsData((prev) => ({
+        ...prev,
         [name]: value
-      });
+      }));
     }
   };
-
   const toggleMenu = (id) => {
     setOpenMenu(openMenu === id ? null : id);
   };
 
   // -------------------------------------------------------
   // get customers data from backend----------------------------------
- 
+
 
   // OPEN DELETE CONFIRM
   const deleteCustomer = (id) => {
@@ -104,7 +119,7 @@ const Customer = () => {
     setShowConfirm(false);
   };
 
-  
+
 
   const filteredCustomers = UserCustomerData.filter((c) =>
     c.name.toLowerCase().includes(search.toLowerCase())
@@ -169,7 +184,7 @@ const Customer = () => {
       );
 
       toast.success("Customer Created");
-      fetchCustomers()
+      UserCustomerData()
       setClientsData({
         name: "",
         email: "",

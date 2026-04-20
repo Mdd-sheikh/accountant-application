@@ -81,12 +81,6 @@ const ContextProvider = ({ children }) => {
     const [items, setItems] = useState([]);
     const [userinformation, setUserinformation] = useState({});
     const [animation, setanimation] = useState(false);
-    console.log(invoices);
-    console.log(UserCustomerData);
-    console.log(GetSignature);
-    console.log(companyList);
-    console.log(items);
-    console.log(userinformation);
     
 
     // ✅ LOAD ALL DATA
@@ -183,7 +177,8 @@ const ContextProvider = ({ children }) => {
         companyList, setCompanyList,
         items, setItems,
         animation, setanimation,
-        userinformation, setUserinformation
+        userinformation, setUserinformation,
+        loadAllData
 
     }
 
