@@ -1,33 +1,71 @@
-import fs from 'fs'
-// utils/generateHTML.js
+import fs from "fs";
 
 export const generateHTML = (invoice) => {
   let template = fs.readFileSync("template/invoice.html", "utf-8");
 
+  // 🔥 SAFE ACCESS (because your totals are inside items[0])
+  const summary = invoice.items?.[0] || {};
+
+  // ✅ ITEMS TABLE (based on your schema)
   const itemsHTML = invoice.items.map((item, index) => `
     <tr>
       <td>${index + 1}</td>
-      <td>${item.name}</td>
-      <td>${item.quantity}</td>
-      <td>${item.price}</td>
-      <td>${item.gstRate || 0}%</td>
-      <td>${item.total}</td>
+      <td>${item.name || "-"}</td>
+      <td>${item.hsn || "-"}</td>
+      <td>${item.rate || 0}</td>
+      <td>${item.quantity || 1}</td>
+      <td>${item.subTotal || 0}</td>
+      <td>${(item.cgst || 0) + (item.sgst || 0)}</td>
+      <td>${item.totalAmount || 0}</td>
     </tr>
   `).join("");
 
-  return template
-    .replace("{{companyName}}", invoice.company.name)
-    .replace("{{companyGST}}", invoice.company.gst)
-    .replace("{{companyAddress}}", invoice.company.address)
-    .replace("{{invoiceNumber}}", invoice.invoiceNumber)
-    .replace("{{date}}", new Date(invoice.createdAt).toLocaleDateString())
-    .replace("{{customerName}}", invoice.customer.name)
-    .replace("{{customerAddress}}", invoice.customer.address)
-    .replace("{{customerPhone}}", invoice.customer.phone)
-    .replace("{{items}}", itemsHTML)
-    .replace("{{subTotal}}", invoice.subTotal)
-    .replace("{{cgst}}", invoice.cgst)
-    .replace("{{sgst}}", invoice.sgst)
-    .replace("{{total}}", invoice.totalAmount)
-    .replace("{{signature}}", invoice.signature?.imageUrl || "");
+  // ✅ FORMAT DATE
+  const formatDate = (date) =>
+    date ? new Date(date).toLocaleDateString("en-IN") : "-";
+
+  // ✅ GST TOTAL
+  const gstTotal = (summary.cgst || 0) + (summary.sgst || 0) + (summary.igst || 0);
+
+  // ✅ SIMPLE AMOUNT IN WORDS (basic)
+  const amountInWords = `${summary.totalAmount || 0} Rupees Only`;
+
+  // 🔥 REPLACE ALL (global replace)
+  const replaceAll = (str, key, value) =>
+    str.replace(new RegExp(key, "g"), value || "-");
+
+  template = replaceAll(template, "{{companyName}}", invoice.company?.name);
+  template = replaceAll(template, "{{companyGST}}", invoice.company?.gst);
+  template = replaceAll(template, "{{companyAddress}}", invoice.company?.address);
+  template = replaceAll(template, "{{companyPhone}}", invoice.company?.phone);
+  template = replaceAll(template, "{{companyEmail}}", invoice.company?.email);
+  template = replaceAll(template, "{{companyLogo}}", invoice.company?.logo);
+
+  template = replaceAll(template, "{{invoiceNumber}}", invoice.invoiceNumber);
+  template = replaceAll(template, "{{invoiceDate}}", formatDate(invoice.date));
+  template = replaceAll(template, "{{dueDate}}", formatDate(invoice.date));
+
+  template = replaceAll(template, "{{customerName}}", invoice.customer?.name);
+  template = replaceAll(template, "{{customerCompany}}", invoice.customer?.company);
+  template = replaceAll(template, "{{customerGST}}", invoice.customer?.gst);
+  template = replaceAll(template, "{{customerPhone}}", invoice.customer?.phone);
+
+  template = replaceAll(template, "{{billingAddress}}", invoice.customer?.address);
+  template = replaceAll(template, "{{shippingAddress}}", invoice.customer?.address);
+
+  template = replaceAll(template, "{{placeOfSupply}}", invoice.placeOfSupply);
+
+  template = replaceAll(template, "{{items}}", itemsHTML);
+
+  template = replaceAll(template, "{{subTotal}}", summary.subTotal);
+  template = replaceAll(template, "{{gstTotal}}", gstTotal);
+  template = replaceAll(template, "{{billAmount}}", summary.totalAmount);
+  template = replaceAll(template, "{{amountInWords}}", amountInWords);
+
+  template = replaceAll(template, "{{bankName}}", invoice.company?.bankName);
+  template = replaceAll(template, "{{accountNumber}}", invoice.company?.accountNumber);
+  template = replaceAll(template, "{{ifsc}}", invoice.company?.ifsc);
+  template = replaceAll(template, "{{branch}}", invoice.company?.branch);
+
+  return template;
 };
