@@ -41,7 +41,8 @@ export const createInvoice = async (req, res) => {
       name: item.name || "",
       price: Number(item.price || 0),
       quantity: Number(item.quantity || 0),
-      total: Number(item.total || 0)
+      total: Number(item.total || 0),
+      hsnCode: item.hsnCode || ""
     }));
 
     // ✅ GENERATE INVOICE NUMBER
@@ -58,16 +59,24 @@ export const createInvoice = async (req, res) => {
         companyId: company?._id,
         name: company?.compnayName || "",
         gst: company?.companyGST || "",
-        address: `${company?.companyAddress || ""}, ${company?.companyCity || ""}`
+        address: `${company?.companyAddress || ""}, ${company?.companyCity || ""}`,
+        companyMobileNo: company?.companyMobileNo || "",
+        companyEmail: company?.companyEmail || "",
+        companyLogo: company?.companyProfile || ""
       },
 
       customer: {
         customerId: customer?._id || customer?.customerId,  // ✅ FIX
         name: customer?.name || "",
-        phone: customer?.phone || "",
+        phone: customer?.companyMobileNo || "",
         address: customer?.address
           ? `${customer.address.line1 || ""}, ${customer.address.city || ""}`
-          : ""
+          : "",
+        customerGst: customer?.gstNumber || "",
+        customerPhone: customer?.phone || "",
+        customerEmail: customer?.email || "",
+
+
       },
 
       signature: {
