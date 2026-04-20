@@ -3,6 +3,7 @@ import './Sales.css'
 import { NavLink } from 'react-router-dom'
 import { Context } from '../../context/Context'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const Sale = () => {
 
@@ -11,34 +12,42 @@ const Sale = () => {
 
 
   const downloadInvoicePDF = async (invoiceId) => {
-  try {
-    const token = localStorage.getItem("token");
+    try {
+      const token = localStorage.getItem("token");
 
-    const res = await axios.get(
-      `${API_URL}/invoice/get/invoicepdf/${invoiceId}`,
-      {
-        responseType: "blob",
-        headers: {
-          Authorization: `Bearer ${token}`
+      const res = await axios.get(
+        `${API_URL}/invoice/get/invoicepdf/${invoiceId}`,
+        {
+          responseType: "blob",
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         }
+      );
+
+      const blob = new Blob([res.data], { type: "application/pdf" });
+
+      const url = window.URL.createObjectURL(blob);
+
+      // ✅ FORCE DOWNLOAD
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `invoice-${invoiceId}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+
+      link.remove();
+      window.URL.revokeObjectURL(url);
+
+    } catch (error) {
+      try {
+        const text = await error.response.data.text();
+        console.log("REAL ERROR 👉", JSON.parse(text));
+      } catch {
+        console.log("ERROR 👉", error.message);
       }
-    );
-
-    const url = window.URL.createObjectURL(new Blob([res.data]));
-    window.open(url);
-
-  } catch (error) {
-
-    // 🔥 CONVERT BLOB ERROR TO JSON
-    if (error.response?.data) {
-      const text = await error.response.data.text();
-      console.log("REAL ERROR 👉", JSON.parse(text));
-    } else {
-      console.log("ERROR 👉", error.message);
     }
-  }
-};
-
+  };
 
 
   return (
