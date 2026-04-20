@@ -26,10 +26,10 @@ export const generatePDF = async (invoice, res) => {
 
     res.set({
       "Content-Type": "application/pdf",
-      "Content-Disposition": `inline; filename=invoice-${invoice.invoiceNumber || "file"}.pdf`,
+      "Content-Disposition": `attachment; filename=invoice-${invoice.invoiceNumber || "file"}.pdf`,
     });
 
-    res.send(pdfBuffer);
+    res.end(pdfBuffer);
 
   } catch (error) {
     console.error("PDF ERROR 👉", error);

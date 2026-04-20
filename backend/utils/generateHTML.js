@@ -39,7 +39,8 @@ export const generateHTML = (invoice) => {
   template = replaceAll(template, "{{companyAddress}}", invoice.company?.address);
   template = replaceAll(template, "{{companyPhone}}", invoice.company?.phone);
   template = replaceAll(template, "{{companyEmail}}", invoice.company?.email);
-  template = replaceAll(template, "{{companyLogo}}", invoice.company?.logo);
+  template = replaceAll(template, "{{companyLogo}}", invoice.company?.
+imageUrl);
 
   template = replaceAll(template, "{{invoiceNumber}}", invoice.invoiceNumber);
   template = replaceAll(template, "{{invoiceDate}}", formatDate(invoice.date));
@@ -58,7 +59,7 @@ export const generateHTML = (invoice) => {
   template = replaceAll(template, "{{items}}", itemsHTML);
 
   template = replaceAll(template, "{{subTotal}}", invoice.subTotal);
-  template = replaceAll(template, "{{gstTotal}}", invoice.gstTotal);
+  template = replaceAll(template, "{{gstTotal}}", invoice.cgst);
   template = replaceAll(template, "{{billAmount}}", invoice.totalAmount);
   template = replaceAll(template, "{{amountInWords}}", amountInWords);
 
