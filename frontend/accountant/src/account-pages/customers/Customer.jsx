@@ -168,9 +168,7 @@ const Customer = () => {
 
   // send customer data from frontend to backend for ledger creation
   const customerData = async () => {
-
     try {
-
       const token = localStorage.getItem("token");
 
       await axios.post(
@@ -183,8 +181,15 @@ const Customer = () => {
         }
       );
 
+      console.log("API Success");
+
       toast.success("Customer Created");
-      UserCustomerData()
+
+      console.log("Before loadAllData");
+      await loadAllData();
+
+      console.log("After loadAllData");
+
       setClientsData({
         name: "",
         email: "",
@@ -202,15 +207,14 @@ const Customer = () => {
           ifscCode: ""
         },
         notes: ""
-      })
+      });
+
       setShowLedgerPopup(false);
 
     } catch (error) {
-
+      console.error(error);
       toast.error("Error creating customer");
-
     }
-
   };
 
   return (

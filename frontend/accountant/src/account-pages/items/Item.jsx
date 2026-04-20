@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 
 const Item = () => {
 
-    const {items, setItems} = useContext(Context);
+    const {items, setItems,loadAllData} = useContext(Context);
     const [search, setSearch] = useState("");
     const [animation, setAnimation] = useState(false);
 
@@ -65,35 +65,14 @@ const Item = () => {
                 discount: ""
             });
 
-            fetchItems();
+            loadAllData();
 
         } catch (err) {
             toast.error("Failed to add item");
         }
     };
     // Fetch items
-    const fetchItems = async () => {
-        try {
-            setAnimation(true);
-            const res = await axios.get(`${API_URL}/items/get/item`, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-
-            setItems(res.data.items || []);
-
-        } catch (err) {
-
-            console.error(err);
-            toast.error("Failed to fetch items");
-
-        } finally {
-            setAnimation(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchItems();
-    }, []);
+    
 
     // OPEN DELETE CONFIRM
     const deleteItem = (id) => {

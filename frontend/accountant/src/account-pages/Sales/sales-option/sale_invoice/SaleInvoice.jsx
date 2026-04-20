@@ -16,7 +16,7 @@ const SaleInvoice = () => {
 
     const [TermDropDown, setTermDropDown] = useState(false)
     const [additionchargers, setAdditionaCharges] = useState(false)
-    const { itemData, setItemData, companyMainData, setcompnayMainData, signatureMainData, setsignatureMainData, customerData, setCustomerData, invoiceDate, placeOfSupply } = useContext(Context)
+    const { itemData, setItemData, companyMainData, setcompnayMainData, signatureMainData, setsignatureMainData, customerData, setCustomerData, invoiceDate, placeOfSupply ,loadAllData} = useContext(Context)
 
 
 
@@ -66,7 +66,6 @@ const SaleInvoice = () => {
     //-------------------------get invoiceNumber
 
     const [invoiceNumber, setInvoiceNumber] = useState("");
-    console.log(invoiceNumber);
 
 
     useEffect(() => {
@@ -150,7 +149,9 @@ const SaleInvoice = () => {
             if (res?.data?.success) {
                 const invoiceNo = res.data.invoice?.invoiceNumber;
 
-                toast.success(`Invoice Created: ${invoiceNo} ✅`);
+                toast.success(`Invoice Created`);
+                loadAllData(); // ✅ Refresh data after creation
+
 
                 // 🔥 RESET STATE
                 setItemData({ items: [], totalAmount: 0 });

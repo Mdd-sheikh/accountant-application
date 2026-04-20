@@ -7,29 +7,9 @@ import axios from 'axios'
 const Sale = () => {
 
   const { API_URL } = useContext(Context)
-  const {invoices, setInvoices} = useContext(Context);
+  const {invoices, setInvoices,loadAllData} = useContext(Context);
 
-  const getInvoices = async () => {
-    const token = localStorage.getItem("token")
-    try {
-      const res = await axios.get(`${API_URL}/invoice/getinvoice`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
 
-      if (res.data.success) {
-        setInvoices(res.data.Invoices);
-      }
-
-    } catch (error) {
-      console.log("Error fetching invoices", error)
-    }
-  }
-
-  useEffect(() => {
-    getInvoices()
-  }, [])
 
   return (
     <div className='sales'>
@@ -92,9 +72,10 @@ const Sale = () => {
                       <td>{inv.invoiceNumber}</td>
                       <td>{inv.customerName || "N/A"}</td>
                       <td>₹ {inv.totalAmount}</td>
-                      <td>
-                        <button>View</button>
-                        <button>Edit</button>
+                      <td className='actions-buttons'>
+                        <button><i class="fa-regular fa-eye"></i></button>
+                        <button><i class="fa-solid fa-download"></i></button>
+                        <button><i class="fa-solid fa-trash"></i></button>
                       </td>
                     </tr>
                   ))
