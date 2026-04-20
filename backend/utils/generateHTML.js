@@ -57,9 +57,9 @@ export const generateHTML = (invoice) => {
 
   template = replaceAll(template, "{{items}}", itemsHTML);
 
-  template = replaceAll(template, "{{subTotal}}", summary.subTotal);
-  template = replaceAll(template, "{{gstTotal}}", gstTotal);
-  template = replaceAll(template, "{{billAmount}}", summary.totalAmount);
+  template = replaceAll(template, "{{subTotal}}", invoice.subTotal);
+  template = replaceAll(template, "{{gstTotal}}", invoice.gstTotal);
+  template = replaceAll(template, "{{billAmount}}", invoice.totalAmount);
   template = replaceAll(template, "{{amountInWords}}", amountInWords);
 
   template = replaceAll(template, "{{bankName}}", invoice.company?.bankName);
