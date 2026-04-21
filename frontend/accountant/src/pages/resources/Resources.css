@@ -1,0 +1,220 @@
+.integrations {
+  padding: 100px 0;
+  background: var(--surface);
+  margin-top: 30px;
+}
+.integrations-header { margin-bottom: 64px; }
+.integrations-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 80px;
+  align-items: center;
+}
+.integrations-text .section-sub { max-width: 420px; }
+.integrations-visual {
+  position: relative;
+}
+.integrations-hub {
+  position: relative;
+  width: 100%;
+  height: 420px;
+}
+.hub-center {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px; height: 80px;
+  background: var(--ink);
+  border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--white);
+  z-index: 10;
+  box-shadow: var(--shadow-md);
+  margin-top: 30px;
+}
+.hub-ring {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1.5px dashed rgba(10,10,15,0.12);
+  animation: rotate 20s linear infinite;
+}
+.hub-ring-1 { width: 200px; height: 200px; }
+.hub-ring-2 { width: 340px; height: 340px; animation-direction: reverse; animation-duration: 30s; }
+@keyframes rotate { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+.integration-node {
+  position: absolute;
+  width: 54px; height: 54px;
+  border-radius: 14px;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  transition: all var(--transition);
+  cursor: default;
+}
+.integration-node:hover {
+  transform: scale(1.15);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+}
+.integration-node-label {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, calc(-50% + 36px));
+  font-size: 0.65rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--muted);
+}
+.integrations-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 32px;
+}
+.integration-pill {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  border: 1px solid var(--border);
+  font-size: 0.8rem; font-weight: 500;
+  transition: all var(--transition);
+}
+.integration-pill:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+ 
+
+@media (max-width: 1200px) {
+  .integrations-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+  }
+
+  .hub-center {
+    width: 70px;
+    height: 70px;
+    font-size: 0.7rem;
+  }
+
+  .hub-ring-1 {
+    width: 180px;
+    height: 180px;
+  }
+
+  .hub-ring-2 {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 992px) {
+  .integrations {
+    padding: 80px 0;
+  }
+
+  .integrations-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .integrations-text {
+    text-align: center;
+  }
+
+  .integrations-text .section-sub {
+    margin: 0 auto;
+  }
+
+  .integrations-hub {
+    height: 360px;
+  }
+
+  .hub-center {
+    width: 65px;
+    height: 65px;
+    font-size: 0.65rem;
+  }
+
+  .hub-ring-1 {
+    width: 170px;
+    height: 170px;
+  }
+
+  .hub-ring-2 {
+    width: 280px;
+    height: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .integrations {
+    padding: 70px 0;
+  }
+
+  .integrations-header {
+    margin-bottom: 40px;
+  }
+
+  .integrations-hub {
+    height: 320px;
+  }
+
+  .integration-node {
+    width: 46px;
+    height: 46px;
+    font-size: 1.2rem;
+  }
+
+  .integration-node-label {
+    font-size: 0.6rem;
+    transform: translate(-50%, calc(-50% + 30px));
+  }
+
+  .integration-pill {
+    font-size: 0.75rem;
+    padding: 7px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .integrations {
+    padding: 60px 0;
+  }
+
+  .integrations-hub {
+    height: 280px;
+  }
+
+  .hub-center {
+    width: 55px;
+    height: 55px;
+    font-size: 0.6rem;
+    border-radius: 14px;
+  }
+
+  .hub-ring-1 {
+    width: 150px;
+    height: 150px;
+  }
+
+  .hub-ring-2 {
+    width: 240px;
+    height: 240px;
+  }
+
+  .integration-node {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .integrations-list {
+    justify-content: center;
+  }
+}

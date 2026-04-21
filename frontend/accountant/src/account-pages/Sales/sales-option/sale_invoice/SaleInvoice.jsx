@@ -16,7 +16,14 @@ const SaleInvoice = () => {
 
     const [TermDropDown, setTermDropDown] = useState(false)
     const [additionchargers, setAdditionaCharges] = useState(false)
-    const { itemData, setItemData, companyMainData, setcompnayMainData, signatureMainData, setsignatureMainData, customerData, setCustomerData, invoiceDate, placeOfSupply ,loadAllData} = useContext(Context)
+    const { itemData, setItemData, companyMainData, setcompnayMainData, signatureMainData, setsignatureMainData, customerData, setCustomerData, invoiceDate, placeOfSupply, loadAllData } = useContext(Context)
+
+
+    console.log(companyMainData);
+    console.log(signatureMainData);
+    console.log(itemData);
+    console.log(customerData);
+
 
 
 
@@ -93,20 +100,43 @@ const SaleInvoice = () => {
 
     const handleCreateInvoice = async () => {
         try {
-            // 🔒 Prevent double click (optional but recommended)
             if (handleCreateInvoice.loading) return;
             handleCreateInvoice.loading = true;
 
             // ✅ VALIDATION
             if (!customerData || !companyMainData) {
+                handleCreateInvoice.loading = false;
                 return toast.error("Please select customer & company ❌");
             }
 
             if (!itemData?.items || itemData.items.length === 0) {
+                handleCreateInvoice.loading = false;
                 return toast.error("Please add at least one item ❌");
             }
 
-            // ✅ CLEAN ITEMS (avoid undefined / string issues)
+            // ✅ NORMALIZE CUSTOMER (🔥 IMPORTANT FIX)
+            const normalizedCustomer = {
+                _id: customerData?._id || customerData?.customerId,
+                name: customerData?.name || "",
+                phone: customerData?.phone || customerData?.companyMobileNo || "",
+                gstNumber: customerData?.gstNumber || customerData?.gst || "",
+                email: customerData?.email || "",
+                address: customerData?.address || {}
+            };
+
+            // ✅ NORMALIZE COMPANY (🔥 IMPORTANT FIX)
+            const normalizedCompany = {
+                _id: companyMainData?._id,
+                compnayName: companyMainData?.compnayName || "",
+                companyGST: companyMainData?.companyGST || "",
+                companyAddress: companyMainData?.companyAddress || "",
+                companyCity: companyMainData?.companyCity || "",
+                companyMobileNo: companyMainData?.companyMobileNo || "",
+                companyEmail: companyMainData?.companyEmail || "",
+                companyProfile: companyMainData?.companyProfile || ""
+            };
+
+            // ✅ CLEAN ITEMS
             const cleanItems = itemData.items.map(item => ({
                 name: item.name || "",
                 price: Number(item.price || 0),
@@ -117,8 +147,8 @@ const SaleInvoice = () => {
 
             // ✅ PAYLOAD
             const payload = {
-                customer: customerData,
-                company: companyMainData,
+                customer: normalizedCustomer,
+                company: normalizedCompany,
                 signature: signatureMainData,
 
                 items: cleanItems,
@@ -133,7 +163,7 @@ const SaleInvoice = () => {
                 placeOfSupply: placeOfSupply
             };
 
-            console.log("📤 Sending Invoice:", payload);
+            console.log("📤 FINAL PAYLOAD 👉", payload);
 
             // ✅ API CALL
             const res = await axios.post(
@@ -146,15 +176,12 @@ const SaleInvoice = () => {
                 }
             );
 
-            // ✅ SUCCESS
             if (res?.data?.success) {
-                const invoiceNo = res.data.invoice?.invoiceNumber;
+                toast.success("Invoice Created ✅");
 
-                toast.success(`Invoice Created`);
-                loadAllData(); // ✅ Refresh data after creation
+                loadAllData();
 
-
-                // 🔥 RESET STATE
+                // 🔄 RESET
                 setItemData({ items: [], totalAmount: 0 });
                 setCustomerData(null);
                 setcompnayMainData(null);
@@ -165,7 +192,6 @@ const SaleInvoice = () => {
                     type: "%"
                 });
 
-                // 🚀 REDIRECT
                 setTimeout(() => {
                     Navigate("/503/invoice");
                 }, 800);
@@ -174,13 +200,14 @@ const SaleInvoice = () => {
         } catch (error) {
             console.error("❌ CREATE INVOICE ERROR:", error);
 
-            // ✅ SAFE ERROR MESSAGE (no crash)
             const message =
                 error?.response?.data?.message ||
                 error?.message ||
                 "Server error ❌";
 
             toast.error(message);
+        } finally {
+            handleCreateInvoice.loading = false;
         }
     };
 

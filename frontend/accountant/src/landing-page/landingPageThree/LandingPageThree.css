@@ -1,116 +1,115 @@
-.landingpagethree {
-  width: 100%;
-  margin-top: 70px;
-  padding-bottom: 100px;
+:root {
+  --ink: #282856;
+  --ink-soft: #1c1c2a;
+  --surface: #f5f4f0;
+  --surface-alt: #edecea;
+  --white: #ffffff;
+  --accent: #2a6ef5;
+  --accent-glow: rgba(42, 110, 245, 0.25);
+  --accent-2: #f5a623;
+  --accent-3: #12c98e;
+  --muted: #8888a0;
+  --border: rgba(10, 10, 15, 0.08);
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --shadow-sm: 0 2px 8px rgba(10, 10, 15, 0.07);
+  --shadow-md: 0 8px 32px rgba(10, 10, 15, 0.11);
+  --shadow-lg: 0 24px 64px rgba(10, 10, 15, 0.14);
+  --radius: 16px;
+  --radius-sm: 8px;
+  --radius-pill: 999px;
+  --font-display: 'Clash Display', sans-serif;
+  --font-body: 'Bricolage Grotesque', sans-serif;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* MAIN CONTAINER */
-.landing-page-three-container {
-  height: 300px;
-  background: #f4f4f4;
-  border-radius: 16px;
-  display: grid;
-  place-content: center;
-  text-align: center;
-
-  position: relative;
+.ticker-wrap {
   overflow: hidden;
+  padding: 18px 0;
+  background: var(--accent);
+  color: var(--white);
 }
 
-/* TEXT */
-.text-wrapper {
-  position: relative;
-  z-index: 3;
-  transition: transform 0.15s ease-out;
+.ticker-track {
+  display: flex;
+  gap: 48px;
+  animation: ticker 20s linear infinite;
+  white-space: nowrap;
 }
 
-.text-wrapper h1 {
-  font-size: max(3.6vw, 22px);
-  font-weight: 700;
-}
-
-.text-wrapper p {
-  margin-top: 8px;
-  opacity: 0.85;
-}
-
-/* MULTI-LAYER SPOTLIGHT */
-.landing-page-three-container::before,
-.landing-page-three-container::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-/* INNER STRONG GLOW */
-.landing-page-three-container::before {
-  background: radial-gradient(
-    circle 90px at var(--x) var(--y),
-    rgba(
-      calc(100 + 155 * var(--speed)),
-      220,
-      255,
-      0.6
-    ),
-    transparent 60%
-  );
-  filter: blur(4px);
-}
-
-/* OUTER SOFT GLOW + ANIMATED GRADIENT */
-.landing-page-three-container::after {
-  background:
-    radial-gradient(
-      circle 180px at var(--x) var(--y),
-      rgba(0, 200, 255, 0.35),
-      transparent 70%
-    ),
-    linear-gradient(
-      120deg,
-      rgba(152, 154, 155, 0.25),
-      rgba(212, 239, 234, 0.25),
-      rgba(124, 125, 125, 0.25)
-    );
-
-  background-size: 100% 100%, 300% 300%;
-  animation: gradientMove 6s ease infinite;
-  filter: blur(10px);
-}
-
-/* SHOW EFFECT */
-.landing-page-three-container:hover::before,
-.landing-page-three-container:hover::after {
-  opacity: 1;
-}
-
-/* VIDEO INLINE WITH TEXT */
-.lock-video {
-  display: inline-flex;
+.ticker-item {
+  display: flex;
   align-items: center;
-  margin-left: 10px;
+  gap: 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  flex-shrink: 0;
 }
 
-.lock-video video {
-  width: 42px;
-  height: 42px;
-  object-fit: contain;
-  pointer-events: none; /* prevents hover issues */
-  background-color: rgb(90, 87, 87);
+.ticker-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
 }
 
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
 
-/* GRADIENT MOTION */
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
+  to {
+    transform: translateX(-50%);
   }
-  50% {
-    background-position: 100% 50%;
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .hero-dashboard-preview {
+    display: none;
   }
-  100% {
-    background-position: 0% 50%;
+
+  .hero-title {
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 16px 24px;
+  }
+
+  .nav-links,
+  .btn-ghost {
+    display: none;
+  }
+
+  .section-inner {
+    padding: 0 24px;
+  }
+
+  .features-grid,
+  .pricing-grid,
+  .steps-wrapper,
+  .stats-grid,
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .integrations-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .page-section {
+    scroll-snap-align: none;
+  }
+
+  html {
+    scroll-snap-type: none;
   }
 }

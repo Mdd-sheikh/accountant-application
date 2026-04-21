@@ -1,98 +1,181 @@
+:root {
+  --ink: #282856;
+  --ink-soft: #1c1c2a;
+  --surface: #f5f4f0;
+  --surface-alt: #edecea;
+  --white: #ffffff;
+  --accent: #2a6ef5;
+  --accent-glow: rgba(42, 110, 245, 0.25);
+  --accent-2: #f5a623;
+  --accent-3: #12c98e;
+  --muted: #8888a0;
+  --border: rgba(10, 10, 15, 0.08);
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --shadow-sm: 0 2px 8px rgba(10,10,15,0.07);
+  --shadow-md: 0 8px 32px rgba(10,10,15,0.11);
+  --shadow-lg: 0 24px 64px rgba(10,10,15,0.14);
+  --radius: 16px;
+  --radius-sm: 8px;
+  --radius-pill: 999px;
+  --font-display: 'Clash Display', sans-serif;
+  --font-body: 'Bricolage Grotesque', sans-serif;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
 .footer {
-    width: 100%;
+  background:var(--accent);
+  color: rgba(255, 255, 255, 0.5);
+  padding: 64px 0 40px;
 }
 
-
-.footer-container {
-    width: 80%;
-    display: flex;
-    justify-content: space-between;
-    margin: auto;
-
-
+/* CONTAINER */
+.section-inner {
+  width: 90%;
+  max-width: 1300px;
+  margin: auto;
 }
 
-.footer-container h2 {
-    font-family: Outfit;
-    cursor: pointer;
+/* TOP */
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 48px;
+
+  margin-bottom: 48px;
+  padding-bottom: 48px;
+
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
-.footer-one {
-    padding: 40px;
-    cursor: pointer;
+/* BRAND */
+.footer-brand {
+  max-width: 320px;
 }
 
-.footer-one i {
-    padding: 5px;
+.footer-logo {
+  width: 80px;
+  margin-bottom: 16px;
 }
 
-
-.footer-one img {
-    width: 100px;
-    height: auto;
+.footer-tagline {
+  font-size: 14px;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.55);
 }
 
-.paragraph {
-    color: grey;
+/* TITLE */
+.footer-col-title {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: white;
+  margin-bottom: 20px;
 }
 
-.footer-two {
-    display: grid;
-    gap: 1px;
-    cursor: pointer;
+/* LINKS */
+.footer-links {
+  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.footer-three {
-    display: grid;
-    gap: 1px;
-    cursor: pointer;
+.footer-links li a {
+  text-decoration: none;
+  color: rgba(255,255,255,0.45);
+  font-size: 14px;
+  transition: 0.3s;
 }
 
-.footer-four i {
-    padding: 10px;
-    cursor: pointer;
+.footer-links li a:hover {
+  color: white;
 }
 
-.container-two {
-    width: 75%;
-    display: flex;
-    justify-content: space-between;
-    margin: auto;
+/* BOTTOM */
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  font-size: 13px;
 }
 
-.right-cont {
-    display: flex;
-    gap: 20px;
+/* SOCIAL */
+.footer-bottom-links {
+  display: flex;
+  gap: 24px;
 }
 
-.right-cont button {
-    width: 50px;
-    height: 60px;
-    background-color: grey;
-    color: white;
-    border: none;
-    font-size: 19px;
-    cursor: pointer;
+.footer-bottom-links a {
+  text-decoration: none;
+  color: rgba(255,255,255,0.35);
+  transition: 0.3s;
 }
 
-
-
-@media (max-width:970px) {
-    .footer-container {
-        flex-wrap: wrap;
-    }
-
-    .container-two {
-        flex-wrap: wrap;
-    }
-
-    .right-cont {
-        gap: 5px;
-    }
+.footer-bottom-links a:hover {
+  color: white;
 }
 
-@media (max-width:450px) {
-    .footer img{
-        width: 75px;
-    }
+/* ================= TABLET ================= */
+@media (max-width: 992px) {
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .footer-brand {
+    max-width: 100%;
+  }
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  .footer {
+    padding: 55px 0 35px;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .footer-bottom-links {
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  .footer-logo {
+    width: 150px;
+  }
+}
+
+/* ================= SMALL MOBILE ================= */
+@media (max-width: 480px) {
+  .section-inner {
+    width: 92%;
+  }
+
+  .footer-logo {
+    width: 70px;
+  }
+
+  .footer-tagline {
+    font-size: 13px;
+  }
+
+  .footer-links li a {
+    font-size: 13px;
+  }
+
+  .footer-bottom {
+    font-size: 12px;
+  }
 }

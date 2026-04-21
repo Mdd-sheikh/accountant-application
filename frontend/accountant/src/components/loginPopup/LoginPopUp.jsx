@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginPopUp = ({ setShowLoginPopUp }) => {
     const navigate = useNavigate();
-    const { Userdata, setUserdata, API_URL,loadAllData } = useContext(Context);
+    const { Userdata, setUserdata, API_URL, loadAllData } = useContext(Context);
 
     const [loading, setLoading] = useState(false);
     const [isLogin, setIsLogin] = useState(true);
@@ -50,53 +50,146 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
     };
 
     return (
-        <div className="login-popup">
-            <div className="popup-container">
-                <div className="welcome-panel">
-                    <div className="close-popup">
-                        {loading ? "" : <button onClick={() => setShowLoginPopUp(false)}>×</button>}
+        <div className="bw-overlay">
+            <div className="bw-container">
+
+                {/* ── Left Panel ── */}
+                <div className="bw-left">
+                    <div className="bw-left-inner">
+                        <div className="bw-brand">
+                            <span className="bw-brand-icon">B</span>
+                            <span className="bw-brand-name">Bookwise</span>
+                        </div>
+                        <div className="bw-left-copy">
+                            <h2 className="bw-left-heading">
+                                {isLogin ? 'Good to see\nyou again.' : 'Join us\ntoday.'}
+                            </h2>
+                            <p className="bw-left-sub">
+                                {isLogin
+                                    ? 'Login to manage your accounts, invoices and reports in one place.'
+                                    : 'Create your account — it takes less than a minute.'}
+                            </p>
+                        </div>
+                        {!isLogin && (
+                            <button className="bw-left-switch" onClick={() => setIsLogin(true)}>
+                                Already have an account? <span>Login →</span>
+                            </button>
+                        )}
                     </div>
-                    <div className="welcome-messege">
-                        <h2>Welcome</h2>
-                        <p>{isLogin ? 'Login to continue with Bookwise' : 'Create your account, it takes less than a minute'}</p>
-                        {!isLogin && <button onClick={() => setIsLogin(true)} className="register-btn">Login Now</button>}
+                    <div className="bw-left-deco" aria-hidden="true">
+                        <span className="bw-deco-ring bw-deco-ring--1" />
+                        <span className="bw-deco-ring bw-deco-ring--2" />
+                        <span className="bw-deco-ring bw-deco-ring--3" />
                     </div>
                 </div>
-                <div className="form-panel">
-                    <h2>{isLogin ? ' Login to Bookwise' : 'Create Account'}</h2>
-                    <form onSubmit={handleSubmit}>
+
+                {/* ── Right Panel ── */}
+                <div className="bw-right">
+                    {/* Close */}
+                    {!loading && (
+                        <button className="bw-close" onClick={() => setShowLoginPopUp(false)} aria-label="Close">
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+                            </svg>
+                        </button>
+                    )}
+
+                    <div className="bw-form-header">
+                        <h3 className="bw-form-title">{isLogin ? 'Sign in' : 'Create account'}</h3>
+                        <p className="bw-form-sub">
+                            {isLogin ? 'Enter your credentials to continue' : 'Fill in your details to get started'}
+                        </p>
+                    </div>
+
+                    <form onSubmit={handleSubmit} className="bw-form">
+
                         {!isLogin && (
-                            <>
-                                <div className="input-icon">
-                                    <i className="fa-solid fa-circle-user"></i>
-                                    <input type="text" name="name" placeholder="Name" onChange={handleChange} required />
+                            <div className="bw-fields-extra">
+                                <div className="bw-field">
+                                    <label className="bw-label">Full Name</label>
+                                    <div className="bw-input-wrap">
+                                        <i className="fa-solid fa-circle-user bw-icon" />
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            placeholder="John Doe"
+                                            onChange={handleChange}
+                                            className="bw-input"
+                                            required
+                                        />
+                                    </div>
                                 </div>
-                                <div className="input-icon">
-                                    <i className="fa-regular fa-building"></i>
-                                    <input type="text" name="companyName" placeholder="Company Name" onChange={handleChange} />
+                                <div className="bw-field">
+                                    <label className="bw-label">Company Name</label>
+                                    <div className="bw-input-wrap">
+                                        <i className="fa-regular fa-building bw-icon" />
+                                        <input
+                                            type="text"
+                                            name="companyName"
+                                            placeholder="Acme Pvt. Ltd."
+                                            onChange={handleChange}
+                                            className="bw-input"
+                                        />
+                                    </div>
                                 </div>
-                                <div className="input-icon">
-                                    <i className="fa-solid fa-feather"></i>
-                                    <input type="text" name="gstNumber" placeholder="GST Number" onChange={handleChange} />
+                                <div className="bw-field">
+                                    <label className="bw-label">GST Number</label>
+                                    <div className="bw-input-wrap">
+                                        <i className="fa-solid fa-feather bw-icon" />
+                                        <input
+                                            type="text"
+                                            name="gstNumber"
+                                            placeholder="22AAAAA0000A1Z5"
+                                            onChange={handleChange}
+                                            className="bw-input"
+                                        />
+                                    </div>
                                 </div>
-                            </>
+                            </div>
                         )}
-                        <div className="input-icon">
-                            <i className="fa-solid fa-envelope"></i>
-                            <input type="email" name="email" placeholder="Email Address" onChange={handleChange} required />
-                        </div>
-                        <div className="input-icon">
-                            <i className="fa-solid fa-lock"></i>
-                            <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+
+                        <div className="bw-field">
+                            <label className="bw-label">Email Address</label>
+                            <div className="bw-input-wrap">
+                                <i className="fa-solid fa-envelope bw-icon" />
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="you@company.com"
+                                    onChange={handleChange}
+                                    className="bw-input"
+                                    required
+                                />
+                            </div>
                         </div>
 
-                        <button type="submit" disabled={loading} className="submit-btn">
-                            {loading ? <span className="loader"></span> : isLogin ? 'Login' : 'Signup'}
+                        <div className="bw-field">
+                            <label className="bw-label">Password</label>
+                            <div className="bw-input-wrap">
+                                <i className="fa-solid fa-lock bw-icon" />
+                                <input
+                                    type="password"
+                                    name="password"
+                                    placeholder="Enter your password"
+                                    onChange={handleChange}
+                                    className="bw-input"
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <button type="submit" disabled={loading} className={`bw-submit${loading ? ' bw-submit--loading' : ''}`}>
+                            {loading
+                                ? <span className="bw-spinner" />
+                                : isLogin ? 'Sign in to Bookwise' : 'Create my account'}
                         </button>
                     </form>
-                    <p className="toggle">
+
+                    <p className="bw-toggle">
                         {isLogin ? "Don't have an account?" : 'Already have an account?'}{' '}
-                        <span onClick={() => setIsLogin(!isLogin)}>{isLogin ? 'Sign Up' : 'Login'}</span>
+                        <span className="bw-toggle-link" onClick={() => setIsLogin(!isLogin)}>
+                            {isLogin ? 'Sign up free' : 'Log in'}
+                        </span>
                     </p>
                 </div>
 
