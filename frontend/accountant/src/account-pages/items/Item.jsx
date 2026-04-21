@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 
 const Item = () => {
 
-    const {items, setItems,loadAllData} = useContext(Context);
+    const { items, setItems, loadAllData } = useContext(Context);
     const [search, setSearch] = useState("");
     const [animation, setAnimation] = useState(false);
 
@@ -72,7 +72,7 @@ const Item = () => {
         }
     };
     // Fetch items
-    
+
 
     // OPEN DELETE CONFIRM
     const deleteItem = (id) => {
@@ -91,7 +91,7 @@ const Item = () => {
 
             toast.success("Item deleted successfully");
 
-            fetchItems();
+            loadAllData();
 
         } catch (error) {
 

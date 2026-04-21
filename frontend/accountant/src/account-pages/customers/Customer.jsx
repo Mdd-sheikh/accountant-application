@@ -108,7 +108,7 @@ const Customer = () => {
 
       toast.success("Customer deleted successfully");
 
-      fetchCustomers();
+     loadAllData()
 
     } catch (error) {
 

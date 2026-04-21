@@ -29,7 +29,7 @@ const Personal_account = () => {
   const { companyMainData,
     setcompnayMainData,
     signatureMainData,
-    setsignatureMainData } = useContext(Context)
+    setsignatureMainData,loadAllData } = useContext(Context)
 
 
   // user or for profile 
@@ -153,7 +153,7 @@ const Personal_account = () => {
       setSignatureFile(null);
       setSignature("");
 
-      await GetSignatures();
+      loadAllData && loadAllData(); // ✅ refresh data
       toast.success("Signature added successfully");
       setShowSignatureForm(false);
 
@@ -192,7 +192,7 @@ const Personal_account = () => {
           Authorization: `Bearer ${token}`
         }
       });
-      GetSignatures();
+      loadAllData && loadAllData(); // ✅ refresh data
       toast.success("Signature deleted successfully");
     } catch (error) {
       console.error("Error deleting signature:", error);

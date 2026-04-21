@@ -50,7 +50,7 @@ const Dashboard = () => {
                             isActive ? "menu-item active" : "menu-item"}
                     >
                         <i className="fa-solid fa-table-columns"></i>
-                        <span>Dashboard</span>
+                        <span >Dashboard</span>
                     </NavLink>
 
 
