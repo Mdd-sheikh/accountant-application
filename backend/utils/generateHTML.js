@@ -40,7 +40,7 @@ export const generateHTML = (invoice) => {
         <td>${index + 1}</td>
         <td>
           <strong>${item.name || "-"}</strong>
-          ${item.hsnCode ? `<br><small style="color:#888">HSN: ${item.hsnCode}</small>` : ""}
+          ${item.hsnCode ? `<br><small style="color:#888">HSN: ${invoice.item?.hsnCode}</small>` : ""}
         </td>
         <td>${item.hsnCode || "-"}</td>
         <td>₹${(item.price || 0).toFixed(2)}</td>
