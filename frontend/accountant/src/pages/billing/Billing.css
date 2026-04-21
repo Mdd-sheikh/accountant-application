@@ -25,6 +25,7 @@
 .pricing {
   padding: 100px 0;
   background: linear-gradient(180deg, var(--surface-alt) 0%, var(--surface) 100%);
+  margin-top: 50px;
 }
 .pricing-header { text-align: center; margin-bottom: 64px; }
 .pricing-header .section-sub { margin: 16px auto 0; text-align: center; }

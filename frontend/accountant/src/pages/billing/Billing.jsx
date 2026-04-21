@@ -14,12 +14,12 @@ const Billing = () => {
       cta: "Get Started Free", btnClass: "btn-pricing-outline", featured: false
     },
     {
-      name: "Pro", price: annual ? 19 : 29, period: annual ? "per month, billed annually" : "per month",
+      name: "Pro", price: annual ? 399 : 29, period: annual ? "per month, billed annually" : "per month",
       features: ["Unlimited clients", "Unlimited invoices", "Custom branding", "Recurring billing", "Priority support", "Analytics dashboard"],
       cta: "Start Pro Trial", btnClass: "btn-pricing-white", featured: true
     },
     {
-      name: "Business", price: annual ? 49 : 69, period: annual ? "per month, billed annually" : "per month",
+      name: "Business", price: annual ? 899: 69, period: annual ? "per month, billed annually" : "per month",
       features: ["Everything in Pro", "Team members (5)", "API access", "Custom domain", "Dedicated account manager", "Advanced reporting"],
       cta: "Contact Sales", btnClass: "btn-pricing-outline", featured: false
     },
@@ -46,7 +46,7 @@ const Billing = () => {
                 {plan.featured && <div className="featured-badge">⭐ Most Popular</div>}
                 <div className="pricing-plan">{plan.name}</div>
                 <div className="pricing-price">
-                  {plan.price === 0 ? "Free" : <><sup>$</sup>{plan.price}</>}
+                  {plan.price === 0 ? "Free" : <><sup>₹</sup>{plan.price}</>}
                 </div>
                 <div className="pricing-period">{plan.period}</div>
                 <div className="pricing-divider" />
