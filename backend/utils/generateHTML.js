@@ -60,9 +60,9 @@ export const generateHTML = (invoice) => {
   template = replaceAll(template, "{{companyName}}",    invoice.company?.name);
   template = replaceAll(template, "{{companyGST}}",     invoice.company?.gst);
   template = replaceAll(template, "{{companyAddress}}", invoice.company?.address);
-  template = replaceAll(template, "{{companyPhone}}",   invoice.company?.companyMobileNo);
-  template = replaceAll(template, "{{companyEmail}}",   invoice.company?.companyEmail);
-  template = replaceAll(template, "{{companyLogo}}",    invoice.company?.companyLogo || "");
+  template = replaceAll(template, "{{companyPhone}}",   invoice.companyMobileNo);
+  template = replaceAll(template, "{{companyEmail}}",   invoice.companyEmail);
+  template = replaceAll(template, "{{companyLogo}}",    invoice.companyLogo || "");
 
   // ── INVOICE META ──────────────────────────────────────────────
   template = replaceAll(template, "{{invoiceNumber}}", invoice.invoiceNumber);
