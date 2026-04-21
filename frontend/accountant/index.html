@@ -3,144 +3,74 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/bookwise-logo.svg" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bookwise – Free GST Invoice Generator India</title>
-  <meta name="description"
-    content="Create GST tax invoices free. Download PDF, manage customers, track payments. Built for Indian small businesses.">
-  <meta property="og:title" content="Bookwise – Free GST Invoice Generator">
-  <meta property="og:description" content="Create professional GST invoices in seconds. Free forever.">
-  <meta property="og:image" content="https://yourdomain.com/preview.png">
-  <link rel="canonical" href="https://accountune.netlify.app/">
-  <meta name="description"
-    content="Create GST tax invoices free. Download PDF, manage customers, track payments. Built for Indian small businesses.">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-  {
-  "@type": "Question",
-  "name": "Is Bookwise free to use?",
-  "acceptedAnswer": {
-  "@type": "Answer",
-  "text": "Yes, Bookwise is completely free. You can create unlimited GST invoices, download them as PDF and share with
-  customers at no cost."
-  }
-  },
-  {
-  "@type": "Question",
-  "name": "Can I create GST invoices with Bookwise?",
-  "acceptedAnswer": {
-  "@type": "Answer",
-  "text": "Yes. Bookwise supports GST tax invoices with CGST, SGST and IGST calculations. You can add your GSTIN,
-  customer GSTIN and HSN codes."
-  }
-  },
-  {
-  "@type": "Question",
-  "name": "Can I download invoice as PDF?",
-  "acceptedAnswer": {
-  "@type": "Answer",
-  "text": "Yes. Every invoice generated on Bookwise can be downloaded as a professional PDF with your company logo and
-  signature."
-  }
-  },
-  {
-  "@type": "Question",
-  "name": "Does Bookwise work on mobile?",
-  "acceptedAnswer": {
-  "@type": "Answer",
-  "text": "Yes, Bookwise works on all devices including mobile phones, tablets and desktop browsers."
-  }
-  }
-  ]
-  }
-  </script>
-    <meta name="description"
+
+  <!-- ── Favicon ───────────────────────────────── -->
+  <link rel="icon" type="image/svg+xml" href="/bookwise-logo.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- ── Basic SEO ──────────────────────────────── -->
+  <title>Bookwise – Free GST Invoice Generator for Indian Businesses</title>
+  <meta name="description"
     content="Create professional GST tax invoices in seconds. Download PDF, manage customers, track payments — 100% free. Built for Indian small businesses & freelancers." />
- 
   <meta name="keywords"
     content="free GST invoice generator, GST billing software India, online invoice maker, tax invoice India, free invoice generator, bookwise, GST invoice download PDF, billing software for small business" />
- 
   <meta name="author" content="Bookwise" />
   <meta name="robots" content="index, follow" />
   <meta name="googlebot" content="index, follow" />
- 
-  <!-- Canonical URL — always point to your main domain, no trailing slash issues -->
-  <link rel="canonical" href="https://www.bookwise.in/" />
- 
-  <!-- ═══════════════════════════════════════════════
-       2. OPEN GRAPH — Facebook, WhatsApp, LinkedIn
-          (When someone shares your link, this controls
-           the title, image & description that appears)
-  ═══════════════════════════════════════════════ -->
-  <meta property="og:type"        content="website" />
-  <meta property="og:url"         content="https://www.bookwise.in/" />
-  <meta property="og:site_name"   content="Bookwise" />
-  <meta property="og:title"       content="Bookwise – Free GST Invoice Generator for India" />
-  <meta property="og:description" content="Create, download & share GST tax invoices in seconds. Free for Indian businesses & freelancers. No sign-up required to try." />
-  <meta property="og:image"       content="https://www.bookwise.in/og-image.png" />
-  <!-- og:image should be 1200×630px — a screenshot of your invoice works perfectly -->
-  <meta property="og:image:width"  content="1200" />
+  <link rel="canonical" href="https://accountune.netlify.app/" />
+
+  <!-- ── Open Graph — Facebook, WhatsApp, LinkedIn ─ -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://accountune.netlify.app/" />
+  <meta property="og:site_name" content="Bookwise" />
+  <meta property="og:title" content="Bookwise – Free GST Invoice Generator for India" />
+  <meta property="og:description"
+    content="Create, download & share GST tax invoices in seconds. Free for Indian businesses & freelancers. No sign-up required to try." />
+  <meta property="og:image" content="https://accountune.netlify.app/og-image.png" />
+  <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt"    content="Bookwise GST Invoice Generator Screenshot" />
-  <meta property="og:locale"       content="en_IN" />
- 
-  <!-- ═══════════════════════════════════════════════
-       3. TWITTER / X CARD
-          (Controls preview when shared on Twitter/X)
-  ═══════════════════════════════════════════════ -->
-  <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:site"        content="@bookwise_in" />
-  <!-- replace with your actual Twitter handle -->
-  <meta name="twitter:creator"     content="@bookwise_in" />
-  <meta name="twitter:title"       content="Bookwise – Free GST Invoice Generator" />
-  <meta name="twitter:description" content="Create GST invoices, download PDF, manage customers — free. Built for Indian businesses." />
-  <meta name="twitter:image"       content="https://www.bookwise.in/og-image.png" />
-  <meta name="twitter:image:alt"   content="Bookwise Invoice Generator" />
- 
-  <!-- ═══════════════════════════════════════════════
-       4. MOBILE & PWA
-  ═══════════════════════════════════════════════ -->
+  <meta property="og:image:alt" content="Bookwise GST Invoice Generator Screenshot" />
+  <meta property="og:locale" content="en_IN" />
+
+  <!-- ── Twitter / X Card ──────────────────────── -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@bookwise_in" />
+  <meta name="twitter:creator" content="@bookwise_in" />
+  <meta name="twitter:title" content="Bookwise – Free GST Invoice Generator" />
+  <meta name="twitter:description"
+    content="Create GST invoices, download PDF, manage customers — free. Built for Indian businesses." />
+  <meta name="twitter:image" content="https://accountune.netlify.app/og-image.png" />
+  <meta name="twitter:image:alt" content="Bookwise Invoice Generator" />
+
+  <!-- ── Mobile & PWA ───────────────────────────── -->
   <meta name="theme-color" content="#0d1b2a" />
-  <!-- Replace #0d1b2a with your brand color — shows in Chrome mobile address bar -->
- 
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Bookwise" />
- 
-  <!-- Favicon (create these sizes and put in /public folder) -->
-  <link rel="icon"             type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-  <link rel="icon"             type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-  <link rel="apple-touch-icon" sizes="180x180"  href="/apple-touch-icon.png" />
-  <link rel="manifest"                           href="/site.webmanifest" />
- 
-  <!-- ═══════════════════════════════════════════════
-       5. GEO — Helps Google show your site to Indian users
-  ═══════════════════════════════════════════════ -->
-  <meta name="geo.region"      content="IN" />
-  <meta name="geo.country"     content="India" />
-  <meta name="language"        content="English" />
-  <meta name="revisit-after"   content="7 days" />
- 
-  <!-- ═══════════════════════════════════════════════
-       6. STRUCTURED DATA (JSON-LD)
-          This is what Google uses for rich results
-          AND what ChatGPT/AI tools read to understand
-          what your product does.
-  ═══════════════════════════════════════════════ -->
+
+  <!-- ── Geo — target Indian users ─────────────── -->
+  <meta name="geo.region" content="IN" />
+  <meta name="geo.country" content="India" />
+  <meta name="language" content="English" />
+  <meta name="revisit-after" content="7 days" />
+
+  <!-- ── Structured Data: SoftwareApplication ──── -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "Bookwise",
-    "url": "https://www.bookwise.in",
-    "logo": "https://www.bookwise.in/logo.png",
+    "url": "https://accountune.netlify.app",
+    "logo": "https://accountune.netlify.app/bookwise-logo.svg",
     "description": "Free GST invoice generator for Indian small businesses and freelancers. Create, download and share professional tax invoices as PDF.",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web, Android, iOS",
@@ -166,8 +96,8 @@
     "publisher": {
       "@type": "Organization",
       "name": "Bookwise",
-      "url": "https://www.bookwise.in",
-      "logo": "https://www.bookwise.in/logo.png",
+      "url": "https://accountune.netlify.app",
+      "logo": "https://accountune.netlify.app/bookwise-logo.svg",
       "contactPoint": {
         "@type": "ContactPoint",
         "contactType": "customer support",
@@ -176,6 +106,54 @@
     }
   }
   </script>
+
+  <!-- ── Structured Data: FAQPage ───────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is Bookwise free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Bookwise is completely free. You can create unlimited GST invoices, download them as PDF and share with customers at no cost."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I create GST invoices with Bookwise?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Bookwise supports GST tax invoices with CGST, SGST and IGST calculations. You can add your GSTIN, customer GSTIN and HSN codes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I download invoice as PDF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Every invoice generated on Bookwise can be downloaded as a professional PDF with your company logo and signature."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Bookwise work on mobile?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Bookwise works on all devices including mobile phones, tablets and desktop browsers."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- ── Font Awesome ───────────────────────────── -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uu0qeckFn+CvEFpGBr0KCBKCZnKDWdaK8sSdpGQQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 
 <body>
