@@ -119,32 +119,7 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
                                         />
                                     </div>
                                 </div>
-                                <div className="bw-field">
-                                    <label className="bw-label">Company Name</label>
-                                    <div className="bw-input-wrap">
-                                        <i className="fa-regular fa-building bw-icon" />
-                                        <input
-                                            type="text"
-                                            name="companyName"
-                                            placeholder="Acme Pvt. Ltd."
-                                            onChange={handleChange}
-                                            className="bw-input"
-                                        />
-                                    </div>
-                                </div>
-                                <div className="bw-field">
-                                    <label className="bw-label">GST Number</label>
-                                    <div className="bw-input-wrap">
-                                        <i className="fa-solid fa-feather bw-icon" />
-                                        <input
-                                            type="text"
-                                            name="gstNumber"
-                                            placeholder="22AAAAA0000A1Z5"
-                                            onChange={handleChange}
-                                            className="bw-input"
-                                        />
-                                    </div>
-                                </div>
+                               
                             </div>
                         )}
 
