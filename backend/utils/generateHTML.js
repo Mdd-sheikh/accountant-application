@@ -39,14 +39,14 @@ export const generateHTML = (invoice) => {
       <tr>
         <td>${index + 1}</td>
         <td>
-          <strong>${item.name || "-"}</strong>
-          ${item.hsnCode ? `<br><small style="color:#888">HSN: ${invoice.item?.hsnCode}</small>` : ""}
+          <strong>${invoice.items?.name || "-"}</strong>
+          ${item.hsnCode ? `<br><small style="color:#888">HSN: ${invoice.items?.hsnCode}</small>` : ""}
         </td>
         <td>${item.hsnCode || "-"}</td>
-        <td>₹${(item.price || 0).toFixed(2)}</td>
-        <td>${item.quantity || 1}</td>
-        <td>₹${taxable.toFixed(2)}</td>
-        <td>${item.gstRate || 0}%${gstAmount > 0 ? ` (₹${gstAmount.toFixed(2)})` : ""}</td>
+        <td>₹${(invoice.items?.price || 0).toFixed(2)}</td>
+        <td>${invoice.items?.quantity || 1}</td>
+        <td>₹${(invoice.items?.subTotal || 0).toFixed(2)}</td>
+        <td>${invoice.items?.gstRate || 0}%${gstAmount > 0 ? ` (₹${gstAmount.toFixed(2)})` : ""}</td>
         <td>₹${Number(itemTotal).toFixed(2)}</td>
       </tr>
     `;
