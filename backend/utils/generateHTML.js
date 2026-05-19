@@ -9,8 +9,8 @@ export const generateHTML = (invoice) => {
   //   invoice.items[n-1]     → summary object (subTotal, cgst, sgst, igst, totalAmount, Receipt, Remark, date)
   // ─────────────────────────────────────────────────────────────
 
-  const allItems   = invoice.items || [];
-  const summary    = allItems[allItems.length - 1] || {};   // last element = summary
+  const allItems = invoice.items || [];
+  const summary = allItems[allItems.length - 1] || {};   // last element = summary
   const productRows = allItems.slice(0, allItems.length - 1); // all except last = real items
 
   // ── FORMAT DATE ──────────────────────────────────────────────
@@ -31,9 +31,9 @@ export const generateHTML = (invoice) => {
 
   // ── ITEMS TABLE HTML ──────────────────────────────────────────
   const itemsHTML = productRows.map((item, index) => {
-    const taxable     = (item.price || 0) * (item.quantity || 1);
-    const gstAmount   = ((item.gstRate || 0) / 100) * taxable;
-    const itemTotal   = item.total || (taxable + gstAmount);
+    const taxable = (item.price || 0) * (item.quantity || 1);
+    const gstAmount = ((item.gstRate || 0) / 100) * taxable;
+    const itemTotal = item.total || (taxable + gstAmount);
 
     return `
       <tr>
@@ -57,43 +57,43 @@ export const generateHTML = (invoice) => {
     str.replace(new RegExp(key.replace(/[{}]/g, "\\$&"), "g"), value ?? "-");
 
   // ── COMPANY ───────────────────────────────────────────────────
-  template = replaceAll(template, "{{companyName}}",    invoice.company?.name);
-  template = replaceAll(template, "{{companyGST}}",     invoice.company?.gst);
+  template = replaceAll(template, "{{companyName}}", invoice.company?.name);
+  template = replaceAll(template, "{{companyGST}}", invoice.company?.gst);
   template = replaceAll(template, "{{companyAddress}}", invoice.company?.address);
-  template = replaceAll(template, "{{companyPhone}}",   invoice.company?.companyMobileNo);
-  template = replaceAll(template, "{{companyEmail}}",   invoice.company?.companyEmail);
-  template = replaceAll(template, "{{companyLogo}}",    invoice.company?.companyLogo  || "");
+  template = replaceAll(template, "{{companyPhone}}", invoice.company?.companyMobileNo);
+  template = replaceAll(template, "{{companyEmail}}", invoice.company?.companyEmail);
+  template = replaceAll(template, "{{companyLogo}}", invoice.company?.companyLogo || "");
 
   // ── INVOICE META ──────────────────────────────────────────────
   template = replaceAll(template, "{{invoiceNumber}}", invoice.invoiceNumber);
-  template = replaceAll(template, "{{invoiceDate}}",   formatDate(summary.date || invoice.createdAt));
-  template = replaceAll(template, "{{dueDate}}",       formatDate(summary.date || invoice.createdAt));
+  template = replaceAll(template, "{{invoiceDate}}", formatDate(summary.date || invoice.createdAt));
+  template = replaceAll(template, "{{dueDate}}", formatDate(summary.date || invoice.createdAt));
 
   // ── CUSTOMER ──────────────────────────────────────────────────
-  template = replaceAll(template, "{{customerName}}",    invoice.customer?.name);
+  template = replaceAll(template, "{{customerName}}", invoice.customer?.name);
   template = replaceAll(template, "{{customerCompany}}", invoice.customer?.company || "-");
-  template = replaceAll(template, "{{customerGST}}",     invoice.customer?.customerGst);
-  template = replaceAll(template, "{{customerPhone}}",   invoice.customer?.phone);
-  template = replaceAll(template, "{{customerEmail}}",   invoice.customer?.customerEmail);
-  template = replaceAll(template, "{{billingAddress}}",  invoice.customer?.address);
+  template = replaceAll(template, "{{customerGST}}", invoice.customer?.customerGst);
+  template = replaceAll(template, "{{customerPhone}}", invoice.customer?.phone);
+  template = replaceAll(template, "{{customerEmail}}", invoice.customer?.customerEmail);
+  template = replaceAll(template, "{{billingAddress}}", invoice.customer?.address);
   template = replaceAll(template, "{{shippingAddress}}", invoice.customer?.address);
 
   // ── SUPPLY & ITEMS ────────────────────────────────────────────
-  template = replaceAll(template, "{{placeOfSupply}}",  invoice.placeOfSupply);
-  template = replaceAll(template, "{{items}}",          itemsHTML);
-  template = replaceAll(template, "{{totalItemsQty}}",  totalItemsQty);
+  template = replaceAll(template, "{{placeOfSupply}}", invoice.placeOfSupply);
+  template = replaceAll(template, "{{items}}", itemsHTML);
+  template = replaceAll(template, "{{totalItemsQty}}", totalItemsQty);
 
   // ── TOTALS ────────────────────────────────────────────────────
-  template = replaceAll(template, "{{subTotal}}",       Number(summary.subTotal   || 0).toFixed(2));
-  template = replaceAll(template, "{{gstTotal}}",       Number(gstTotal).toFixed(2));
-  template = replaceAll(template, "{{billAmount}}",     Number(summary.totalAmount || 0).toFixed(2));
-  template = replaceAll(template, "{{amountInWords}}",  amountInWords);
+  template = replaceAll(template, "{{subTotal}}", Number(summary.subTotal || 0).toFixed(2));
+  template = replaceAll(template, "{{gstTotal}}", Number(gstTotal).toFixed(2));
+  template = replaceAll(template, "{{billAmount}}", Number(summary.totalAmount || 0).toFixed(2));
+  template = replaceAll(template, "{{amountInWords}}", amountInWords);
 
   // ── BANK ──────────────────────────────────────────────────────
-  template = replaceAll(template, "{{bankName}}",      invoice.company?.bankName);
+  template = replaceAll(template, "{{bankName}}", invoice.company?.bankName);
   template = replaceAll(template, "{{accountNumber}}", invoice.company?.accountNumber);
-  template = replaceAll(template, "{{ifsc}}",          invoice.company?.ifsc);
-  template = replaceAll(template, "{{branch}}",        invoice.company?.branch);
+  template = replaceAll(template, "{{ifsc}}", invoice.company?.ifsc);
+  template = replaceAll(template, "{{branch}}", invoice.company?.branch);
 
   // ── SIGNATURE ─────────────────────────────────────────────────
   template = replaceAll(template, "{{signatureUrl}}", invoice.signature?.imageUrl || "");
@@ -113,16 +113,16 @@ function numberToWords(amount) {
 
   const toWords = (n) => {
     if (n === 0) return "";
-    if (n < 20)  return ones[n] + " ";
+    if (n < 20) return ones[n] + " ";
     if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 ? " " + ones[n % 10] : "") + " ";
     if (n < 1000) return ones[Math.floor(n / 100)] + " Hundred " + toWords(n % 100);
-    if (n < 100000)  return toWords(Math.floor(n / 1000))  + "Thousand " + toWords(n % 1000);
+    if (n < 100000) return toWords(Math.floor(n / 1000)) + "Thousand " + toWords(n % 1000);
     if (n < 10000000) return toWords(Math.floor(n / 100000)) + "Lakh " + toWords(n % 100000);
     return toWords(Math.floor(n / 10000000)) + "Crore " + toWords(n % 10000000);
   };
 
   const rupees = Math.floor(amount);
-  const paise  = Math.round((amount - rupees) * 100);
+  const paise = Math.round((amount - rupees) * 100);
 
   let result = "INR " + (toWords(rupees).trim() || "Zero") + " Rupees";
   if (paise > 0) result += " and " + toWords(paise).trim() + " Paise";
