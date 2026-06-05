@@ -225,7 +225,11 @@
 
 .dashboard-body {
   padding: 20px;
+  transform: translateX();
 }
+
+
+
 
 /* STATS */
 .dash-stat-row {

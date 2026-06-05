@@ -382,6 +382,13 @@
     border-color: #e8c97e;
 }
 
+.bw-form-comment {
+    margin-top: 12px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 13px;
+    color: #dc2626; /* Red-600 for errors */
+    text-align: center;
+}
 /* ── Responsive ────────────────────────────────── */
 @media (max-width: 640px) {
     .bw-container {

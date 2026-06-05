@@ -11,6 +11,7 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
 
     const [loading, setLoading] = useState(false);
     const [isLogin, setIsLogin] = useState(true);
+    const [formComment, setFormComment] = useState('');
 
     const [formData, setFormData] = useState({
         name: '',
@@ -33,6 +34,7 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
             const { data } = await axios.post(endpoint, formData);
 
             toast.success(data?.message || 'Success');
+            setFormComment(data?.message || (isLogin ? 'Logged in successfully!' : 'Registered successfully!'));
             if (data?.token) localStorage.setItem('token', data.token);
 
             setTimeout(() => {
@@ -43,6 +45,7 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
 
         } catch (error) {
             toast.error(error.response?.data?.message || 'Something went wrong!');
+            setFormComment(error.response?.data?.message || 'Something went wrong!');
             console.error(error);
         } finally {
             setLoading(false);
@@ -89,7 +92,7 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
                     {!loading && (
                         <button className="bw-close" onClick={() => setShowLoginPopUp(false)} aria-label="Close">
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+                                <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
                             </svg>
                         </button>
                     )}
@@ -99,6 +102,9 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
                         <p className="bw-form-sub">
                             {isLogin ? 'Enter your credentials to continue' : 'Fill in your details to get started'}
                         </p>
+                        {formComment && (
+                            <p className="bw-form-comment">{formComment}</p>
+                        )}
                     </div>
 
                     <form onSubmit={handleSubmit} className="bw-form">
@@ -119,7 +125,7 @@ const LoginPopUp = ({ setShowLoginPopUp }) => {
                                         />
                                     </div>
                                 </div>
-                               
+
                             </div>
                         )}
 
